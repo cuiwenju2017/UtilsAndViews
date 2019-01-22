@@ -12,3 +12,6 @@ cd ..
 
 5.停止tomcat(进入tomcat下的bin目录下执行)
 ./shutdown
+
+6.重启nginx(到sbin下)
+./nginx -s reload
