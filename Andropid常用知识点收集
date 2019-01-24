@@ -1,3 +1,7 @@
-butterknife库的引入不用findViewById（详情查看：https://blog.csdn.net/juer2017/article/details/76914594）
+1.butterknife库的引入不用findViewById（详情查看：https://blog.csdn.net/juer2017/article/details/76914594）
 implementation 'com.jakewharton:butterknife:8.8.1'
 annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+2.去掉Activity上面的状态栏
+getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+setContentView(R.layout.activity_splash);
