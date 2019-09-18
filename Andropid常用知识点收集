@@ -2,11 +2,9 @@ butterknife库的引入不用findViewById（详情查看：https://blog.csdn.net
 implementation 'com.jakewharton:butterknife:8.8.1'
 annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
-
 去掉Activity上面的状态栏
 getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 setContentView(R.layout.activity_splash);
-
 
 TextView文字两边对其库
 快速使用
