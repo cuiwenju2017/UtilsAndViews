@@ -1,0 +1,11 @@
+1.GsonFormant
+根据返回json数据自动生成bean类
+
+2.Android ButterKnife Zelezny
+自动生成id,不用每次都findViewById
+
+3.AndroidLocalize
+资源国际化自动生成
+
+4.Translation
+中英文翻译插件
