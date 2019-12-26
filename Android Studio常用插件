@@ -12,3 +12,6 @@
 
 5.CodeGlance
 minimap,代码小地图
+
+6.Android Parcelable code generator
+Android Parcelable代码生成器，Bean类序列换，Intent传值可直接传对象
