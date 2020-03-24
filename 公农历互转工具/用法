@@ -1,0 +1,2 @@
+LunarUtils.getTranslateSolarString(year, month, monthDay);//农历转公历，农历月，若为闰月则传入负数
+LunarUtils.getTranslateLunarString(year, month, monthDay);//公历转农历
