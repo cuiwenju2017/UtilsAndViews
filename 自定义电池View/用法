@@ -1,0 +1,1 @@
+ horizontalBattery.setPower(data.getElectricNum());
