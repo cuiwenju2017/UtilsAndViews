@@ -1,0 +1,4 @@
+布局中引用，获取自定义控件id
+taiji.createAnimation();//动画开始  继续
+taiji.stopAnimation();//动画暂停
+taiji.cleanAnimation();////结束动画
