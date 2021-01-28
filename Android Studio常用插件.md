@@ -1,5 +1,9 @@
-Android Studio插件下载：
+## Android Studio常用插件
+
+Android Studio插件下载地址：
 https://plugins.jetbrains.com/androidstudio
+
+#### Android Studio中直接下载：Settings->Plugins->Marketplace搜索相关插件下载并重启Android Studio即可使用：
 
 GsonFormant
 根据返回json数据自动生成bean类

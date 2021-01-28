@@ -1,2 +1,0 @@
-1.结束除了本Activity的所有页面
- ActivityManager.getInstance().finishAllExcept(LoginActivity.class);
