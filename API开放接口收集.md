@@ -1,5 +1,6 @@
 ## API开放接口收集
 
+```
 玩安卓提供的：
 
 http://www.wanandroid.com/openapis
@@ -21,3 +22,4 @@ https://www.alapi.net/doc
 获取你自己的IP定位：
 
 http://locate.axetroy.xyz
+```
