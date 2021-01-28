@@ -1,5 +1,6 @@
 ## Linux常用命令收集
 
+```
 1.进入某一目录
 
 cd 目录名
@@ -23,3 +24,4 @@ cd ..
 6.重启nginx(到sbin下)
 
 ./nginx -s reload
+```
