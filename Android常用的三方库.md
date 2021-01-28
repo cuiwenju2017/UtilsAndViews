@@ -1,5 +1,6 @@
 ## Android常用的三方库
 
+```
 //视频加载库JiaoZiVideoPlayer：
 https://github.com/lipangit/JiaoZiVideoPlayer
 //rxjava引入的包
@@ -33,3 +34,4 @@ implementation 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.3.0'
 //butterknife库的引入不用findViewById
 implementation 'com.jakewharton:butterknife:8.8.1'
 annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+```

@@ -1,3 +1,6 @@
+## Android所用权限收集
+
+```
 常用：
 android.permission.INTERNET　　允许程序访问网络连接，可能产生GPRS流量
 android.permission.CAMERA　　允许程序访问摄像头进行拍照
@@ -145,3 +148,4 @@ android.permission.ACCESS_SURFACE_FLINGER　　Android平台上底层的图形�
 android.permission.ACCESS_MOCK_LOCATION　　允许程序获取模拟定位信息，一般用于帮助开发者调试应用
 android.permission.ACCESS_LOCATION_EXTRA_COMMANDS　　允许程序访问额外的定位提供者指令
 android.permission.ACCESS_CHECKIN_PROPERTIES　　允许程序读取或写入登记check-in数据库属性表的权限
+```
