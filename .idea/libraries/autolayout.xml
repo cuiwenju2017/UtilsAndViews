@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="autolayout">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/values适配生成工具/autolayout.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
