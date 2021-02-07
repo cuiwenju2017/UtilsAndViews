@@ -6,18 +6,22 @@ http://www.wanandroid.com/openapis
 
 https://www.wanandroid.com/blog/show/2
 
+
 干货集中营提供的：
 
 http://gank.io/api
+
 
 GitHub上的：
 
 https://github.com/fangzesheng/free-api
 
-ALAPI:
+
+ALAPI （必看）:
 
 https://www.alapi.net/doc
 
-获取你自己的IP定位：
 
-http://locate.axetroy.xyz
+开源社区：
+
+https://api.apiopen.top/api.html
