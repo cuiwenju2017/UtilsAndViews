@@ -1,5 +1,0 @@
-## 为当前Activity添加水印
-
-```
-WaterMarkUtil.showWatermarkView(this, "Hello Word!");
-```
