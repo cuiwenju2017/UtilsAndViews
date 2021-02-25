@@ -1,5 +1,6 @@
 package com.example.utilsandviews;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
@@ -19,6 +20,7 @@ import com.example.utilsandviews.utils.ChinaDate2;
 import com.example.utilsandviews.utils.LunarUtils;
 import com.example.utilsandviews.utils.MarketUtils;
 import com.example.utilsandviews.utils.MobilePhone;
+import com.example.utilsandviews.utils.NetworkUtils;
 import com.example.utilsandviews.utils.TimeUtils;
 import com.example.utilsandviews.utils.ToastUtil;
 import com.example.utilsandviews.utils.WaterMarkUtil;
@@ -30,7 +32,8 @@ import java.util.Calendar;
 
 public class MainActivity extends BaseActivity {
 
-    private TextView tv_time, tv_n_to_g, tv_g_to_n, tv_g_to_n2, tv_dianliang, tv_dianliang2, tv_baidu;
+    private TextView tv_time, tv_n_to_g, tv_g_to_n, tv_g_to_n2, tv_dianliang, tv_dianliang2, tv_baidu,
+            tv_wangluo;
     private Button btn_yanzheng, btn_start, btn_stop;
     private EditText et_phone;
     private Switch sc;
@@ -47,7 +50,12 @@ public class MainActivity extends BaseActivity {
             //通过消息的内容msg.what  分别更新ui
             switch (msg.what) {
                 case MSG_ONE:
+                    //年月日时分秒显示
                     tv_time.setText(TimeUtils.dateToString(TimeUtils.getTimeStame(), "yyyy年MM月dd日 HH:mm:ss"));
+                    //网络连接情况
+                    tv_wangluo.setText((NetworkUtils.isConnected() ? "有网络连接" : "无网络连接") + "\n" +
+                            (NetworkUtils.getWifiEnabled() ? "Wifi已连接" : "Wifi未连接") + "\n" +
+                            (NetworkUtils.isMobileData() ? "正在使用移动数据" : "未使用移动数据"));
                     break;
                 default:
                     break;
@@ -79,8 +87,10 @@ public class MainActivity extends BaseActivity {
         tv_dianliang2 = findViewById(R.id.tv_dianliang2);
         bv2 = findViewById(R.id.bv2);
         tv_baidu = findViewById(R.id.tv_baidu);
+        tv_wangluo = findViewById(R.id.tv_wangluo);
     }
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void initData() {
