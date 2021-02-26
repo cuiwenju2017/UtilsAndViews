@@ -39,13 +39,13 @@ public class NetworkUtils {
     }
 
     public enum NetworkType {
-        NETWORK_ETHERNET,
-        NETWORK_WIFI,
-        NETWORK_4G,
-        NETWORK_3G,
-        NETWORK_2G,
-        NETWORK_UNKNOWN,
-        NETWORK_NO
+        NETWORK_ETHERNET,//以太网
+        NETWORK_WIFI,//wifi
+        NETWORK_4G,//4g
+        NETWORK_3G,//3g
+        NETWORK_2G,//2g
+        NETWORK_UNKNOWN,//不知道
+        NETWORK_NO//无连接
     }
 
     /**
@@ -122,7 +122,7 @@ public class NetworkUtils {
     }
 
     /**
-     * Return whether using 4G.
+     * 返回是否使用4G.
      * <p>Must hold
      * {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />}</p>
      *
@@ -137,7 +137,7 @@ public class NetworkUtils {
     }
 
     /**
-     * Return whether wifi is enabled.
+     * 返回wifi是否开启.
      * <p>Must hold
      * {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />}</p>
      *
@@ -152,7 +152,7 @@ public class NetworkUtils {
     }
 
     /**
-     * Set wifi enabled.
+     * 设置无线网络启用.
      * <p>Must hold
      * {@code <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />}</p>
      *
@@ -168,7 +168,7 @@ public class NetworkUtils {
     }
 
     /**
-     * Return whether wifi is connected.
+     * 返回wifi是否已连接.
      * <p>Must hold
      * {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />}</p>
      *
@@ -184,7 +184,7 @@ public class NetworkUtils {
     }
 
     /**
-     * Return whether wifi is available.
+     * 返回wifi是否可用.
      * <p>Must hold
      * {@code <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />},
      * {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
@@ -197,7 +197,7 @@ public class NetworkUtils {
     }
 
     /**
-     * Return the name of network operate.
+     * 返回网络操作的名称.
      *
      * @return the name of network operate
      */
@@ -209,7 +209,7 @@ public class NetworkUtils {
     }
 
     /**
-     * Return type of network.
+     * 网络返回类型.
      * <p>Must hold
      * {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />}</p>
      *
@@ -290,7 +290,7 @@ public class NetworkUtils {
     }
 
     /**
-     * Return the ip address.
+     * 返回ip地址.
      * <p>Must hold {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
      *
      * @param useIPv4 True to use ipv4, false otherwise.
@@ -333,7 +333,7 @@ public class NetworkUtils {
     }
 
     /**
-     * Return the ip address of broadcast.
+     * 返回广播的ip地址.
      *
      * @return the ip address of broadcast
      */
@@ -360,7 +360,7 @@ public class NetworkUtils {
     }
 
     /**
-     * Return the domain address.
+     * 返回域名地址.
      * <p>Must hold {@code <uses-permission android:name="android.permission.INTERNET" />}</p>
      *
      * @param domain The name of domain.
@@ -379,7 +379,7 @@ public class NetworkUtils {
     }
 
     /**
-     * Return the ip address by wifi.
+     * 通过wifi返回ip地址.
      *
      * @return the ip address by wifi
      */
@@ -392,7 +392,7 @@ public class NetworkUtils {
     }
 
     /**
-     * Return the gate way by wifi.
+     * 通过wifi返回门路.
      *
      * @return the gate way by wifi
      */
@@ -405,7 +405,7 @@ public class NetworkUtils {
     }
 
     /**
-     * Return the net mask by wifi.
+     * 通过wifi返回网络掩码.
      *
      * @return the net mask by wifi
      */
@@ -418,7 +418,7 @@ public class NetworkUtils {
     }
 
     /**
-     * Return the server address by wifi.
+     * 通过wifi返回服务器地址.
      *
      * @return the server address by wifi
      */

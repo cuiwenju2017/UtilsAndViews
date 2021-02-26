@@ -6,8 +6,10 @@ import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -28,6 +30,7 @@ import com.example.utilsandviews.views.BatteryHorizontalView;
 import com.example.utilsandviews.views.BatteryVerticalView;
 import com.example.utilsandviews.views.TaiJiView;
 
+import java.net.InetAddress;
 import java.util.Calendar;
 
 public class MainActivity extends BaseActivity {
@@ -36,7 +39,7 @@ public class MainActivity extends BaseActivity {
             tv_wangluo;
     private Button btn_yanzheng, btn_start, btn_stop;
     private EditText et_phone;
-    private Switch sc;
+    private Switch sc, sc_wuxian_wangluo;
     private TaiJiView tj;
     private BatteryReceiver receiver;
     private BatteryHorizontalView bv;
@@ -54,8 +57,15 @@ public class MainActivity extends BaseActivity {
                     tv_time.setText(TimeUtils.dateToString(TimeUtils.getTimeStame(), "yyyy年MM月dd日 HH:mm:ss"));
                     //网络连接情况
                     tv_wangluo.setText((NetworkUtils.isConnected() ? "有网络连接" : "无网络连接") + "\n" +
-                            (NetworkUtils.getWifiEnabled() ? "Wifi已连接" : "Wifi未连接") + "\n" +
-                            (NetworkUtils.isMobileData() ? "正在使用移动数据" : "未使用移动数据"));
+                            (NetworkUtils.getWifiEnabled() ? "Wifi已开启" : "Wifi未开启") + "\n" +
+                            (NetworkUtils.isWifiConnected() ? "Wifi已连接" : "Wifi未连接") + "\n" +
+                            (NetworkUtils.isWifiAvailable() ? "Wifi可用" : "Wifi不可用") + "\n" +
+                            (NetworkUtils.isMobileData() ? "正在使用移动数据" : "未使用移动数据") + "\n" +
+                            (NetworkUtils.is4G() ? "正在使用4G数据" : "未使用4G数据") + "\n" +
+                            ("网络返回类型：" + NetworkUtils.getNetworkType()) + "\n" +
+                            ("ipv4：" + NetworkUtils.getIPAddress(true)) + "\n" +
+                            ("通过wifi返回ip地址：" + NetworkUtils.getIpAddressByWifi())
+                    );
                     break;
                 default:
                     break;
@@ -88,6 +98,7 @@ public class MainActivity extends BaseActivity {
         bv2 = findViewById(R.id.bv2);
         tv_baidu = findViewById(R.id.tv_baidu);
         tv_wangluo = findViewById(R.id.tv_wangluo);
+        sc_wuxian_wangluo = findViewById(R.id.sc_wuxian_wangluo);
     }
 
     @SuppressLint("SetTextI18n")
@@ -172,6 +183,22 @@ public class MainActivity extends BaseActivity {
                 MarketUtils.getTools().openMarket(MainActivity.this, "com.UCMobile");
                 //没有安装通过指定应用包名打开指定应用市场搜索
                 //MarketUtils.getTools().openMarket(this, "com.UCMobile",MarketUtils.PACKAGE_NAME.TENCENT_PACKAGE_NAME);
+            }
+        });
+
+        //判断无限网络是否开启
+        if (NetworkUtils.getWifiEnabled()) {
+            sc_wuxian_wangluo.setChecked(true);
+        } else {
+            sc_wuxian_wangluo.setChecked(false);
+        }
+
+        //是否启用无限网络
+        sc_wuxian_wangluo.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                NetworkUtils.setWifiEnabled(true);
+            } else {
+                NetworkUtils.setWifiEnabled(false);
             }
         });
     }
