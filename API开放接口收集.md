@@ -17,11 +17,6 @@ GitHub上的：
 https://github.com/fangzesheng/free-api
 
 
-ALAPI （必看）:
-
-https://www.alapi.net/doc
-
-
 开源社区：
 
 https://api.apiopen.top/api.html
