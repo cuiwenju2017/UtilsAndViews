@@ -11,11 +11,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.utilsandviews.broadcast.BatteryReceiver;
 import com.example.utilsandviews.utils.ChinaDate;
 import com.example.utilsandviews.utils.ChinaDate2;
@@ -33,10 +37,12 @@ import com.example.utilsandviews.views.TaiJiView;
 import java.net.InetAddress;
 import java.util.Calendar;
 
+import jp.wasabeef.glide.transformations.BlurTransformation;
+
 public class MainActivity extends BaseActivity {
 
     private TextView tv_time, tv_n_to_g, tv_g_to_n, tv_g_to_n2, tv_dianliang, tv_dianliang2, tv_baidu,
-            tv_wangluo;
+            tv_wangluo, tv_mohuchengdu, tv_caiyanglv;
     private Button btn_yanzheng, btn_start, btn_stop;
     private EditText et_phone;
     private Switch sc, sc_wuxian_wangluo;
@@ -44,6 +50,8 @@ public class MainActivity extends BaseActivity {
     private BatteryReceiver receiver;
     private BatteryHorizontalView bv;
     private BatteryVerticalView bv2;
+    private ImageView iv_gaosimohu;
+    private SeekBar sb_mohuchengdu, sb_caiyanglv;
 
     public static final int MSG_ONE = 1;
     private Handler handler = new Handler() {
@@ -74,6 +82,8 @@ public class MainActivity extends BaseActivity {
     };
 
     private String urlStr = "https://www.baidu.com/";
+    private int mohuchengdu = 25;
+    private int caiyanglv = 5;
 
     @Override
     protected int getLayoutId() {
@@ -99,6 +109,11 @@ public class MainActivity extends BaseActivity {
         tv_baidu = findViewById(R.id.tv_baidu);
         tv_wangluo = findViewById(R.id.tv_wangluo);
         sc_wuxian_wangluo = findViewById(R.id.sc_wuxian_wangluo);
+        iv_gaosimohu = findViewById(R.id.iv_gaosimohu);
+        tv_mohuchengdu = findViewById(R.id.tv_mohuchengdu);
+        tv_caiyanglv = findViewById(R.id.tv_caiyanglv);
+        sb_mohuchengdu = findViewById(R.id.sb_mohuchengdu);
+        sb_caiyanglv = findViewById(R.id.sb_caiyanglv);
     }
 
     @SuppressLint("SetTextI18n")
@@ -199,6 +214,56 @@ public class MainActivity extends BaseActivity {
                 NetworkUtils.setWifiEnabled(true);
             } else {
                 NetworkUtils.setWifiEnabled(false);
+            }
+        });
+
+        tv_mohuchengdu.setText("模糊程度（" + mohuchengdu + ")：");
+        tv_caiyanglv.setText("采样率（" + caiyanglv + ")：");
+        //高斯模糊效果
+        //BlurTransformation 第一个参数是1-25范围，随着数字越大，模糊度越高，第二个参数代表采样率，数字越大，越模糊
+        Glide.with(this).load(R.drawable.icon_bg).apply(RequestOptions.bitmapTransform(new BlurTransformation(mohuchengdu, caiyanglv))).into(iv_gaosimohu);
+        sb_mohuchengdu.setProgress(mohuchengdu);
+        sb_caiyanglv.setProgress(caiyanglv);
+        //改变模糊程度
+        sb_mohuchengdu.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                mohuchengdu = progress;
+                tv_mohuchengdu.setText("模糊程度（" + mohuchengdu + ")：");
+                //高斯模糊效果
+                //BlurTransformation 第一个参数是1-25范围，随着数字越大，模糊度越高，第二个参数代表采样率，数字越大，越模糊
+                Glide.with(MainActivity.this).load(R.drawable.icon_bg).apply(RequestOptions.bitmapTransform(new BlurTransformation(mohuchengdu, caiyanglv))).into(iv_gaosimohu);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        //改变采样率
+        sb_caiyanglv.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                caiyanglv = progress;
+                tv_caiyanglv.setText("采样率（" + caiyanglv + ")：");
+                //高斯模糊效果
+                //BlurTransformation 第一个参数是1-25范围，随着数字越大，模糊度越高，第二个参数代表采样率，数字越大，越模糊
+                Glide.with(MainActivity.this).load(R.drawable.icon_bg).apply(RequestOptions.bitmapTransform(new BlurTransformation(mohuchengdu, caiyanglv))).into(iv_gaosimohu);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
             }
         });
     }
