@@ -58,7 +58,7 @@ public class MainActivity extends BaseActivity {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            //通过消息的内容msg.what  分别更新ui
+            //通过消息的内容msg.what  分别更新ui1
             switch (msg.what) {
                 case MSG_ONE:
                     //年月日时分秒显示
