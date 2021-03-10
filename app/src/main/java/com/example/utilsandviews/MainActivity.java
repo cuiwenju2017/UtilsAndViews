@@ -6,10 +6,7 @@ import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -34,7 +31,6 @@ import com.example.utilsandviews.views.BatteryHorizontalView;
 import com.example.utilsandviews.views.BatteryVerticalView;
 import com.example.utilsandviews.views.TaiJiView;
 
-import java.net.InetAddress;
 import java.util.Calendar;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
