@@ -6,6 +6,7 @@ import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,6 +25,7 @@ import com.example.utilsandviews.utils.LunarUtils;
 import com.example.utilsandviews.utils.MarketUtils;
 import com.example.utilsandviews.utils.MobilePhone;
 import com.example.utilsandviews.utils.NetworkUtils;
+import com.example.utilsandviews.utils.OneClickThree;
 import com.example.utilsandviews.utils.TimeUtils;
 import com.example.utilsandviews.utils.ToastUtil;
 import com.example.utilsandviews.utils.WaterMarkUtil;
@@ -39,7 +41,7 @@ public class MainActivity extends BaseActivity {
 
     private TextView tv_time, tv_n_to_g, tv_g_to_n, tv_g_to_n2, tv_dianliang, tv_dianliang2, tv_baidu,
             tv_wangluo, tv_mohuchengdu, tv_caiyanglv;
-    private Button btn_yanzheng, btn_start, btn_stop;
+    private Button btn_yanzheng, btn_start, btn_stop, btn_oneclick;
     private EditText et_phone;
     private Switch sc, sc_wuxian_wangluo;
     private TaiJiView tj;
@@ -48,35 +50,6 @@ public class MainActivity extends BaseActivity {
     private BatteryVerticalView bv2;
     private ImageView iv_gaosimohu;
     private SeekBar sb_mohuchengdu, sb_caiyanglv;
-
-    public static final int MSG_ONE = 1;
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            //通过消息的内容msg.what  分别更新ui
-            switch (msg.what) {
-                case MSG_ONE:
-                    //年月日时分秒显示
-                    tv_time.setText(TimeUtils.dateToString(TimeUtils.getTimeStame(), "yyyy年MM月dd日 HH:mm:ss"));
-                    //网络连接情况
-                    tv_wangluo.setText((NetworkUtils.isConnected() ? "有网络连接" : "无网络连接") + "\n" +
-                            (NetworkUtils.getWifiEnabled() ? "Wifi已开启" : "Wifi未开启") + "\n" +
-                            (NetworkUtils.isWifiConnected() ? "Wifi已连接" : "Wifi未连接") + "\n" +
-                            (NetworkUtils.isWifiAvailable() ? "Wifi可用" : "Wifi不可用") + "\n" +
-                            (NetworkUtils.isMobileData() ? "正在使用移动数据" : "未使用移动数据") + "\n" +
-                            (NetworkUtils.is4G() ? "正在使用4G数据" : "未使用4G数据") + "\n" +
-                            ("网络返回类型：" + NetworkUtils.getNetworkType()) + "\n" +
-                            ("ipv4：" + NetworkUtils.getIPAddress(true)) + "\n" +
-                            ("通过wifi返回ip地址：" + NetworkUtils.getIpAddressByWifi())
-                    );
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
-
     private String urlStr = "https://www.baidu.com/";
     private int mohuchengdu = 25;
     private int caiyanglv = 5;
@@ -110,14 +83,17 @@ public class MainActivity extends BaseActivity {
         tv_caiyanglv = findViewById(R.id.tv_caiyanglv);
         sb_mohuchengdu = findViewById(R.id.sb_mohuchengdu);
         sb_caiyanglv = findViewById(R.id.sb_caiyanglv);
+        btn_oneclick = findViewById(R.id.btn_oneclick);
     }
 
     @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void initData() {
-        //开启线程显示日期
-        new TimeThread().start();
+        //年月日时分秒显示
+        tv_time.setText(TimeUtils.dateToString(TimeUtils.getTimeStame(), "yyyy年MM月dd日 HH:mm:ss"));
+        //网络连接情况
+        setWangluo();
 
         //农历转公历，农历月，若为闰月则传入负数
         try {
@@ -133,6 +109,28 @@ public class MainActivity extends BaseActivity {
         //公历转农历(带天干地支和属相)
         ChinaDate lunar = new ChinaDate(Calendar.getInstance());
         tv_g_to_n2.setText("" + lunar);
+
+        //判断无限网络是否开启
+        if (NetworkUtils.getWifiEnabled()) {
+            sc_wuxian_wangluo.setChecked(true);
+        } else {
+            sc_wuxian_wangluo.setChecked(false);
+        }
+
+        //是否启用无限网络
+        sc_wuxian_wangluo.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                NetworkUtils.setWifiEnabled(true);
+
+                Handler handler = new Handler();
+                handler.postDelayed(() -> setWangluo(),3000);
+            } else {
+                NetworkUtils.setWifiEnabled(false);
+
+                Handler handler = new Handler();
+                handler.postDelayed(() -> setWangluo(),3000);
+            }
+        });
 
         //验证手机号
         btn_yanzheng.setOnClickListener(v -> {
@@ -178,7 +176,7 @@ public class MainActivity extends BaseActivity {
             //以QQ浏览器为例
             if (MarketUtils.getTools().isAppInstalled(MainActivity.this, "com.UCMobile")) {//已安装
                 //携带链接打开QQ浏览器
-                MarketUtils.getTools().openInstalledAppInURL(MainActivity.this, "com.UCMobile", "com.uc.browser.ActivityUpdate", urlStr);
+                MarketUtils.getTools().openInstalledAppInURL(MainActivity.this, "com.UCMobile", "com.UCMobile.main.UCMobile", urlStr);
                 /**
                  * 直接打开浏览器
                  * 打开其他应用传入相对的包名和类名就行，但是要注意的是要打开的页面要在配置文件中加入以下配置：不然会报Permission Denial: starting Intent 错误
@@ -186,7 +184,7 @@ public class MainActivity extends BaseActivity {
                  *    <action android:name="android.intent.action.MAIN" />
                  * </intent-filter>
                  */
-                //MarketUtils.getTools().openInstalledApp(this, "com.UCMobile", "com.uc.browser.ActivityUpdate");
+                //MarketUtils.getTools().openInstalledApp(this, "com.UCMobile", "com.UCMobile.main.UCMobile");
             } else {
                 //没有安装直接跳转到本机应用市场，默认本软件包名
                 //MarketUtils.getTools().openMarket(this);
@@ -194,22 +192,6 @@ public class MainActivity extends BaseActivity {
                 MarketUtils.getTools().openMarket(MainActivity.this, "com.UCMobile");
                 //没有安装通过指定应用包名打开指定应用市场搜索
                 //MarketUtils.getTools().openMarket(this, "com.UCMobile",MarketUtils.PACKAGE_NAME.TENCENT_PACKAGE_NAME);
-            }
-        });
-
-        //判断无限网络是否开启
-        if (NetworkUtils.getWifiEnabled()) {
-            sc_wuxian_wangluo.setChecked(true);
-        } else {
-            sc_wuxian_wangluo.setChecked(false);
-        }
-
-        //是否启用无限网络
-        sc_wuxian_wangluo.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                NetworkUtils.setWifiEnabled(true);
-            } else {
-                NetworkUtils.setWifiEnabled(false);
             }
         });
 
@@ -262,29 +244,28 @@ public class MainActivity extends BaseActivity {
 
             }
         });
+
+        //防连续点击
+        btn_oneclick.setOnClickListener(v -> {
+            if (!OneClickThree.isFastClick()) {
+                ToastUtil.s("点击了我");
+            } else {
+                ToastUtil.s("请不要连续操作");
+            }
+        });
     }
 
-    //开一个线程继承Thread
-    public class TimeThread extends Thread {
-        //重写run方法
-        @Override
-        public void run() {
-            super.run();
-            // do-while  一 什么什么 就
-            do {
-                try {
-                    //每隔一秒 发送一次消息
-                    Thread.sleep(1000);
-                    Message msg = new Message();
-                    //消息内容 为MSG_ONE
-                    msg.what = MSG_ONE;
-                    //发送
-                    handler.sendMessage(msg);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            } while (true);
-        }
+    private void setWangluo() {
+        tv_wangluo.setText((NetworkUtils.isConnected() ? "有网络连接" : "无网络连接") + "\n" +
+                (NetworkUtils.getWifiEnabled() ? "Wifi已开启" : "Wifi未开启") + "\n" +
+                (NetworkUtils.isWifiConnected() ? "Wifi已连接" : "Wifi未连接") + "\n" +
+                (NetworkUtils.isWifiAvailable() ? "Wifi可用" : "Wifi不可用") + "\n" +
+                (NetworkUtils.isMobileData() ? "正在使用移动数据" : "未使用移动数据") + "\n" +
+                (NetworkUtils.is4G() ? "正在使用4G数据" : "未使用4G数据") + "\n" +
+                ("网络返回类型：" + NetworkUtils.getNetworkType()) + "\n" +
+                ("ipv4：" + NetworkUtils.getIPAddress(true)) + "\n" +
+                ("通过wifi返回ip地址：" + NetworkUtils.getIpAddressByWifi())
+        );
     }
 
     @Override
