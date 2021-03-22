@@ -255,6 +255,7 @@ public class MainActivity extends BaseActivity {
         });
     }
 
+    @SuppressLint("SetTextI18n")
     private void setWangluo() {
         tv_wangluo.setText((NetworkUtils.isConnected() ? "有网络连接" : "无网络连接") + "\n" +
                 (NetworkUtils.getWifiEnabled() ? "Wifi已开启" : "Wifi未开启") + "\n" +
