@@ -31,6 +31,8 @@ import com.example.utilsandviews.utils.ToastUtil;
 import com.example.utilsandviews.utils.WaterMarkUtil;
 import com.example.utilsandviews.views.BatteryHorizontalView;
 import com.example.utilsandviews.views.BatteryVerticalView;
+import com.example.utilsandviews.views.FallObject;
+import com.example.utilsandviews.views.FallingView;
 import com.example.utilsandviews.views.TaiJiView;
 
 import java.util.Calendar;
@@ -53,6 +55,7 @@ public class MainActivity extends BaseActivity {
     private String urlStr = "https://www.baidu.com/";
     private int mohuchengdu = 25;
     private int caiyanglv = 5;
+    private FallingView fallingView;
 
     @Override
     protected int getLayoutId() {
@@ -84,12 +87,22 @@ public class MainActivity extends BaseActivity {
         sb_mohuchengdu = findViewById(R.id.sb_mohuchengdu);
         sb_caiyanglv = findViewById(R.id.sb_caiyanglv);
         btn_oneclick = findViewById(R.id.btn_oneclick);
+        fallingView = findViewById(R.id.fallingView);
     }
 
     @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void initData() {
+        //初始化一个雪花样式的fallObject
+        FallObject.Builder builder = new FallObject.Builder(getResources().getDrawable(R.drawable.icon_huaban));
+        FallObject fallObject = builder
+                .setSpeed(3, true)
+                .setSize(55, 55, true)
+                .setWind(5, true, true)
+                .build();
+        fallingView.addFallObject(fallObject, 30);//添加下落物体对象
+
         //年月日时分秒显示
         tv_time.setText(TimeUtils.dateToString(TimeUtils.getTimeStame(), "yyyy年MM月dd日 HH:mm:ss"));
         //网络连接情况
@@ -123,12 +136,12 @@ public class MainActivity extends BaseActivity {
                 NetworkUtils.setWifiEnabled(true);
 
                 Handler handler = new Handler();
-                handler.postDelayed(() -> setWangluo(),3000);
+                handler.postDelayed(() -> setWangluo(), 3000);
             } else {
                 NetworkUtils.setWifiEnabled(false);
 
                 Handler handler = new Handler();
-                handler.postDelayed(() -> setWangluo(),3000);
+                handler.postDelayed(() -> setWangluo(), 3000);
             }
         });
 
