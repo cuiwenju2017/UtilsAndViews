@@ -21,11 +21,60 @@ public class MobilePhone {
             return mobileNums.matches(telRegex);
     }
 
+    //8位数字加字母(包含大写)验证码验证
     public static boolean isCode(String codeNum) {
         String codeV = "^[A-Za-z0-9]{8,8}+$";
         if (TextUtils.isEmpty(codeNum))
             return false;
         else
             return codeNum.matches(codeV);
+    }
+
+    //3-16位用户名数字加字母(包含大写)验证
+    public static boolean isUserName(String userName) {
+        String userNameV = "^[a-z0-9_A-Z]{3,16}$";
+        if (TextUtils.isEmpty(userName))
+            return false;
+        else return userName.matches(userNameV);
+    }
+
+    //6-18位数字加字母(不包含大写)密码验证
+    public static boolean isPassWord(String passWord) {
+        String passWordV = "^[a-z0-9_-]{6,18}$";
+        if (TextUtils.isEmpty(passWord))
+            return false;
+        else return passWord.matches(passWordV);
+    }
+
+    //电子邮箱验证
+    public static boolean isEmail(String email) {
+        String emailV = "^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$";
+        if (TextUtils.isEmpty(email))
+            return false;
+        else return email.matches(emailV);
+    }
+
+    //url链接验证
+    public static boolean isUrl(String url) {
+        String urlV = "^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$";
+        if (TextUtils.isEmpty(url))
+            return false;
+        else return url.matches(urlV);
+    }
+
+    //IP地址验证
+    public static boolean isIP(String ip) {
+        String ipV = "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$";
+        if (TextUtils.isEmpty(ip))
+            return false;
+        else return ip.matches(ipV);
+    }
+
+    //中文字符验证
+    public static boolean isCN(String cn) {
+        String cnV = "[\\u4e00-\\u9fa5]";
+        if (TextUtils.isEmpty(cn))
+            return false;
+        else return cn.matches(cnV);
     }
 }
