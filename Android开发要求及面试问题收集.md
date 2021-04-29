@@ -32,9 +32,9 @@
 
 -ArrayList的使用，ArrayList使用过程中有没有遇到过坑。
 
--> Arrays.asList不能add:此ArrayList非彼ArrayList，这是一个内部类，但是类名也叫 ArrayList.
-   Arrays.asList方法创建出来的 ArrayList 和真正我们平时用的 ArrayList只是继承自同一抽象类的两个不同子类，
-   而 Arrays.asList创建的 ArrayList 只能做一些简单的视图使用，不能做过多操作，所以 ArrayList的几种初始化方式里没有 Arrays.asList这一说。
+> Arrays.asList不能add:此ArrayList非彼ArrayList，这是一个内部类，但是类名也叫 ArrayList.
+  Arrays.asList方法创建出来的 ArrayList 和真正我们平时用的 ArrayList只是继承自同一抽象类的两个不同子类，
+  而 Arrays.asList创建的 ArrayList 只能做一些简单的视图使用，不能做过多操作，所以 ArrayList的几种初始化方式里没有 Arrays.asList这一说。
 ```
 
 ```
