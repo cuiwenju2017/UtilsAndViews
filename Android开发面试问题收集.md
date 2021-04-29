@@ -1,56 +1,33 @@
--了解Android框架，了解各种优化技术，以及常见的系统问题
-
--对 Android 系统应用管理、进程管理、内存管理机制有深入理解
-
--精通Android UI布局开发，动画开发，以及多线程开发
-
--深入理解Android SDK NDK，熟悉Android平台体系结构，良好的架构设计能力；
-
--熟悉Android端缓存、消息队列、等相关技术，并了解其运行原理；
-
--熟练掌握Android高性能编程及性能调优
-
--Android平台地图或导航功能可视化软件开发
- 
--扎实的Android技术,对四大组件,基本控件,自定义控件很熟悉的使用
-
--对多线程编程有充分了解
-
--基础的开源项目有基本的了解和使用
-
--精通Android开发平台的框架原理，深入了解Android软件架构，熟练使用Android SDK，NDK, JNI等进行开发
-
--精通Java，深入理解面向对象的设计模式，对数据结构、基本算法熟练掌握
-
--深入了解AndroidUI事件传递、布局、绘制等原理，熟悉不同分辨率屏幕适配
-
--熟悉Android开发模式（MVP、MVVM）、熟悉Android的各种开源组件及其原理
-
--熟悉Android下网络通信机制，对Socket通信、TCP/IP和HTTP有一定理解和经验
-
--对Android平台内存管理机制、进程管理机制、任务管理机制有深入理解、了解各种优化技术
-
 -ArrayList的使用，ArrayList使用过程中有没有遇到过坑。
 ``` 
 Arrays.asList不能add:
 此ArrayList非彼ArrayList，这是一个内部类，但是类名也叫 ArrayList.
 Arrays.asList方法创建出来的 ArrayList 和真正我们平时用的 ArrayList只是继承自同一抽象类的两个不同子类，
-而 Arrays.asList创建的 ArrayList 只能做一些简单的视图使用，不能做过多操作，所以 ArrayList的几种初始化方式里没有 Arrays.asList这一说。
+而 Arrays.asList创建的 ArrayList 只能做一些简单的视图使用，不能做过多操作，所以 ArrayList的几种初始化方式
+里没有 Arrays.asList这一说。
 
 subList 方法:
-1.上面提到了那个问题和 subList的坑有异曲同工之妙，都是由于返回的对象并不是真正的 ArrayList类型，而是和 ArrayList集成同一父类的不同子类而已。
-所以会产生第一个坑，就是把当把 subList返回的对象转换成 ArrayList 的时候。
+1.上面提到了那个问题和 subList的坑有异曲同工之妙，都是由于返回的对象并不是真正的 ArrayList类型，而是和 ArrayList
+集成同一父类的不同子类而已。所以会产生第一个坑，就是把当把 subList返回的对象转换成 ArrayList 的时候。
 
 2.当你在 subList 中操作的时候，其实就是在操作原始的 ArrayList。
 
-3.如果你使用 subList 方法获取了一个子列表，这之后又在原始列表上进行了新增或删除的操作，这是，你之前获取到的 subList 就已经废掉了，不能用了，
-不能用的意思就是你在 subList 上进行遍历、增加、删除操作都会抛出异常，没错，连遍历都不行了。
-其实与二坑的原因相同，subList 其实操作的是原始列表，当你在 subList 上进行操作时，会执行 checkForComodification方法，
-此方法会检查原始列表的个数是否和最初的相同，如果不相同，直接抛出 ConcurrentModificationException异常
+3.如果你使用 subList 方法获取了一个子列表，这之后又在原始列表上进行了新增或删除的操作，这是，你之前获取到的 
+subList 就已经废掉了，不能用了，不能用的意思就是你在 subList 上进行遍历、增加、删除操作都会抛出异常，没错，
+连遍历都不行了。其实与二坑的原因相同，subList 其实操作的是原始列表，当你在 subList 上进行操作时，会执行 
+checkForComodification方法，此方法会检查原始列表的个数是否和最初的相同，如果不相同，直接抛出 ConcurrentModificationException
+异常。
 ```
 [参考：读了这一篇，让你少踩 ArrayList 的那些坑](https://www.cnblogs.com/fengzheng/p/12986513.html)
 
--HashMap，aba问题，GC算法，泛型的边际。
+-GC算法
+``` 
+常用的GC算法（引用计数法、标记-清除法、复制算法、标记-清除算法）
+```
+[参考：几种常见GC算法介绍](https://blog.csdn.net/iva_brother/article/details/87870576)
+
+-泛型的边际
+[参考：java泛型之泛型边界](https://blog.csdn.net/renwuqiangg/article/details/51296621)
 
 -Handler中loop方法为什么不会导致线程卡死。
 
