@@ -1,4 +1,4 @@
--精通Android开发，了解Android框架，了解各种优化技术，以及常见的系统问题
+-了解Android框架，了解各种优化技术，以及常见的系统问题
 
 -对 Android 系统应用管理、进程管理、内存管理机制有深入理解
 
@@ -31,6 +31,13 @@
 -对Android平台内存管理机制、进程管理机制、任务管理机制有深入理解、了解各种优化技术
 
 -ArrayList的使用，ArrayList使用过程中有没有遇到过坑。
+
+-> Arrays.asList不能add:此ArrayList非彼ArrayList，这是一个内部类，但是类名也叫 ArrayList.
+   Arrays.asList方法创建出来的 ArrayList 和真正我们平时用的 ArrayList只是继承自同一抽象类的两个不同子类，
+   而 Arrays.asList创建的 ArrayList 只能做一些简单的视图使用，不能做过多操作，所以 ArrayList的几种初始化方式里没有 Arrays.asList这一说。
+```
+
+```
 
 -HashMap，aba问题，GC算法，泛型的边际。
 
