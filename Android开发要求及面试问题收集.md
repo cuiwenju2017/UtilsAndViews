@@ -37,12 +37,15 @@ Arrays.asList方法创建出来的 ArrayList 和真正我们平时用的 ArrayLi
 而 Arrays.asList创建的 ArrayList 只能做一些简单的视图使用，不能做过多操作，所以 ArrayList的几种初始化方式里没有 Arrays.asList这一说。
 
 > subList 方法:
-上面提到了那个问题和 subList的坑有异曲同工之妙，都是由于返回的对象并不是真正的 ArrayList类型，而是和 ArrayList集成同一父类的不同子类而已。
-所以会产生第一个坑，就是把当把 subList返回的对象转换成 ArrayList 的时候.
+1.上面提到了那个问题和 subList的坑有异曲同工之妙，都是由于返回的对象并不是真正的 ArrayList类型，而是和 ArrayList集成同一父类的不同子类而已。
+所以会产生第一个坑，就是把当把 subList返回的对象转换成 ArrayList 的时候。
+2.当你在 subList 中操作的时候，其实就是在操作原始的 ArrayList。
+3.如果你使用 subList 方法获取了一个子列表，这之后又在原始列表上进行了新增或删除的操作，这是，你之前获取到的 subList 就已经废掉了，不能用了，
+不能用的意思就是你在 subList 上进行遍历、增加、删除操作都会抛出异常，没错，连遍历都不行了。
+其实与二坑的原因相同，subList 其实操作的是原始列表，当你在 subList 上进行操作时，会执行 checkForComodification方法，
+此方法会检查原始列表的个数是否和最初的相同，如果不相同，直接抛出 ConcurrentModificationException异常
 
-```
-
-```
+[参考：读了这一篇，让你少踩 ArrayList 的那些坑](https://www.cnblogs.com/fengzheng/p/12986513.html)
 
 -HashMap，aba问题，GC算法，泛型的边际。
 
