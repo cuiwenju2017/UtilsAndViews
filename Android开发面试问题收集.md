@@ -1,4 +1,4 @@
--ArrayList的使用，ArrayList使用过程中有没有遇到过坑。
+-ArrayList的使用，ArrayList使用过程中有没有遇到过坑。[参考：读了这一篇，让你少踩 ArrayList 的那些坑](https://www.cnblogs.com/fengzheng/p/12986513.html)
 ``` 
 Arrays.asList不能add:
 此ArrayList非彼ArrayList，这是一个内部类，但是类名也叫 ArrayList.
@@ -18,16 +18,13 @@ subList 就已经废掉了，不能用了，不能用的意思就是你在 subLi
 checkForComodification方法，此方法会检查原始列表的个数是否和最初的相同，如果不相同，直接抛出 ConcurrentModificationException
 异常。
 ```
-[参考：读了这一篇，让你少踩 ArrayList 的那些坑](https://www.cnblogs.com/fengzheng/p/12986513.html)
 
--GC算法
+-GC算法[参考：几种常见GC算法介绍](https://blog.csdn.net/iva_brother/article/details/87870576)
 ``` 
 常用的GC算法（引用计数法、标记-清除法、复制算法、标记-清除算法）
 ```
-[参考：几种常见GC算法介绍](https://blog.csdn.net/iva_brother/article/details/87870576)
 
--泛型的边际
-[参考：java泛型之泛型边界](https://blog.csdn.net/renwuqiangg/article/details/51296621)
+-泛型的边际[参考：java泛型之泛型边界](https://blog.csdn.net/renwuqiangg/article/details/51296621)
 
 -Handler中loop方法为什么不会导致线程卡死。
 
