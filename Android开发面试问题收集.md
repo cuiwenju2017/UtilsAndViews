@@ -1,6 +1,6 @@
 [GitHub持续更新：（声明：本答案为个人收集与总结并非标准答案，仅供参考，如有错误还望指出，谢谢！）](https://github.com/cuiwenju2017/UtilsAndViews/blob/master/Android%E5%BC%80%E5%8F%91%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E6%94%B6%E9%9B%86.md)
 
--ArrayList的使用，ArrayList使用过程中有没有遇到过坑。[参考：读了这一篇，让你少踩 ArrayList 的那些坑](https://www.cnblogs.com/fengzheng/p/12986513.html)
+ArrayList的使用，ArrayList使用过程中有没有遇到过坑。[参考：读了这一篇，让你少踩 ArrayList 的那些坑](https://www.cnblogs.com/fengzheng/p/12986513.html)
 ``` 
 Arrays.asList不能add:
 此ArrayList非彼ArrayList，这是一个内部类，但是类名也叫 ArrayList.Arrays.asList方法创建出来的 ArrayList
@@ -19,20 +19,20 @@ subList 就已经废掉了，不能用了，不能用的意思就是你在 subLi
 方法，此方法会检查原始列表的个数是否和最初的相同，如果不相同，直接抛出 ConcurrentModificationException异常。
 ```
 
--GC算法[参考：几种常见GC算法介绍](https://blog.csdn.net/iva_brother/article/details/87870576)
+GC算法[参考：几种常见GC算法介绍](https://blog.csdn.net/iva_brother/article/details/87870576)
 ``` 
 常用的GC算法（引用计数法、标记-清除法、复制算法、标记-清除算法）
 ```
 
--泛型的边际[参考：java泛型之泛型边界](https://blog.csdn.net/renwuqiangg/article/details/51296621)
+泛型的边际[参考：java泛型之泛型边界](https://blog.csdn.net/renwuqiangg/article/details/51296621)
 
--Handler中loop方法为什么不会导致线程卡死。[参考：为什么Looper中的Loop()方法不能导致主线程卡死?](https://blog.csdn.net/weixin_33738578/article/details/91412781)
+Handler中loop方法为什么不会导致线程卡死。[参考：为什么Looper中的Loop()方法不能导致主线程卡死?](https://blog.csdn.net/weixin_33738578/article/details/91412781)
 ```
 1.耗时操作本身并不会导致主线程卡死, 导致主线程卡死的真正原因是耗时操作之后的触屏操作, 没有在规定的时间内被分发。
 2.Looper 中的 loop()方法, 他的作用就是从消息队列MessageQueue 中不断地取消息, 然后将事件分发出去。
 ```
 
--动画的原理[参考：Android三种动画实现原理及使用](https://blog.csdn.net/weixin_39001306/article/details/80614286)
+动画的原理[参考：Android三种动画实现原理及使用](https://blog.csdn.net/weixin_39001306/article/details/80614286)
 ``` 
 Android动画目前分为三种：
 1.Frame Animation 帧动画，通过顺序播放一系列图像从而产生动画效果，。图片过多时容易造成OOM（Out Of Memory内存用完）异常。
@@ -47,9 +47,9 @@ Android动画目前分为三种：
 对不会响应点击事件的，因此其作用区域依然还在左上角。只不过是补间动画将其绘制在右下角而已，而属性动画则不会。
 ```
 
--View的事件分发机制？[参考：一文读懂Android View事件分发机制](https://www.jianshu.com/p/238d1b753e64)
+View的事件分发机制？[参考：一文读懂Android View事件分发机制](https://www.jianshu.com/p/238d1b753e64)
 
--View刷新机制
+View刷新机制
 ``` 
 View绘制分三个步骤:
 顺序是：onMeasure，onLayout，onDraw。调用invalidate方法只会执行onDraw方法；调用requestLayout方法只会执行
@@ -59,7 +59,7 @@ onMeasure方法和onLayout方法，并不会执行onDraw方法。所以当我们
 invalidate方法。
 ```
 
--如果后台的Activity由于某原因被系统回收了如何存取数据
+如果后台的Activity由于某原因被系统回收了如何存取数据
 ``` 
 onSaveInstanceState是用来保存UI状态的，你可以使用它保存你所想保存的东西，在Activity杀死之前，它一般在onStop
 或者onPause之前触发，onRestoreInstanceState则是在onResume之前触发回复状态，至于复写这个方法后onCreate方法
@@ -69,7 +69,8 @@ onSaveInstanceState是用来保存UI状态的，你可以使用它保存你所�
 存的信息。
 onSaveInstanceState和onRestoreInstanceState 是一对兄弟，一个负责存储，一个负责取出.“不一定”是成对的被调用的。
 ```
--activity的启动模式
+
+activity的启动模式
 ``` 
 standard:这个是android默认的Activity启动模式，每启动一个Activity都会被实例化一个Activity，并且新创建的
 Activity在堆栈中会在栈顶。
@@ -89,14 +90,14 @@ singleInstance:该种情况就用得比较少了，主要是指在该activity永
 余的基本和上面的singleTask保持一致。
 ```
 
--请描述Activity和Fragment的关联。
+请描述Activity和Fragment的关联。
 ``` 
 Fragment与Activity关联主要有两种方式，一种是通过在Activity的布局文件中写入fragment控件，使用name属性指定
 一个Fragment；
 另一种是在java代码中动态的添加与删除Fragment。
 ```
 
--请描述Android中线程与线程，进程与进程之间如何通信
+请描述Android中线程与线程，进程与进程之间如何通信
 ``` 
 线程间通信：
 1)主线程中创建子线程，如果为内部类或匿名内部类（new Thread(){}.start()）方式启动子线程，则可在子线程内部直
@@ -144,7 +145,7 @@ G、单列模式造成的内存泄漏，如context的使用，单列中传入的
 对象的时候，必须在该对象的生命周期结束前制null。
 ```
 
--请描述Android多分辨率的屏幕适配方法。
+请描述Android多分辨率的屏幕适配方法。
 ``` 
 1）使用dp、sp单位，带有一定的适配性，根据dpi自动适配屏幕
 2）创建不同分辨率、dpi、屏幕方向等规格的value文件夹，及对应dimens文件
@@ -153,7 +154,301 @@ G、单列模式造成的内存泄漏，如context的使用，单列中传入的
 5）使用weight权重属性，按照比例分配View布局
 ```
 
--MeasureSpec的意义，怎样计算MeasureSpec；
+GC是什么？为什么要有GC？
+``` 
+GC是垃圾回收的意思（gabage collection），内存处理器是编程人员容易出现问题的地方，忘记或者错误的内存回收导致
+程序或者系统的不稳定甚至崩溃，java的GC功能可以自动监测对象是否超过作用域从而达到自动回收内存的目的，java语
+言没有提供释放已分配内存的俄显示操作方法。
+```
+
+列出几个XML包括解释技术，并简述其区别？
+``` 
+包括：DOM（Document Object Modal）文档对象模型，SAX（Simple API for XML）。
+DOM是一次性将整个文档读入内存操作，如果是文档比较小，读入内存，可以极大提高操作的速度，但如果文档比较大，那
+么这个就吃力了。所以此时SAX应用而生，它不是一次性的将整个文档读入内存，这对于处理大型文档就比较就力了
+```
+
+switch语句能否作用在byte上，能否作用在long上，能否作用在String上？
+``` 
+switch可作用于char byte short int
+switch可作用于char byte short int对应的包装类
+switch不可作用于long double float boolean，包括他们的包装类
+switch中可以是字符串类型,String(jdk1.7之后才可以作用在string上)
+switch中可以是枚举类型
+```
+
+构造方法能否被重写或重载？什么是构造方法？构造方法的特点是什么？
+``` 
+概述：构造方法存在于类中，给对象数据（属性）初始化；
+特点：方法名与类名一样；无返回值无void;
+默认构造方法：我们不创建一个构造方法时，系统默认提供一个无参构造；当我们创建一个构造方法时，系统不再提供无
+参构造，所以在实际项目中，全部手动给出无参构造
+重载：存在于在一个类中，方法名相同，方法参数的类型或个数不同
+重写：存在于子父类中，方法名、方法参数、返回值全部相同
+所以：构造方法可以重载，不能重写
+在一个类中，可以有多个构造方法（方法参数不同） ，即重载，来实现对象属性不同的初始化；
+但是子类中不能定义一个方法无void无返回值的方法，编译错误，即子类无法继承构造方法，但是子类的构造器中可以调
+用父类的构造方法（默认自动调用无参构造）
+```
+
+String s = new String(“xyz”);创建了几个String Object?二者之间有什么区别？
+```
+这个跟常量池没有关系，只要是new，都是重新分配堆空间，如果不区分栈和堆，这里创建了1个String Object。如果是
+从jvm角度来说的话，它是创建了两个对象，String s是在栈里创建了一个变量，new String("xyz")是在堆里创建了一
+个对象并被s引用到。
+```
+
+try{}里有一个return语句，那么紧跟在这个try后的finally{}里的code会不会执行，什么时候被执行，在return前还是后？
+``` 
+会在return中间执行！
+try 中的 return 语句调用的函数先于 finally 中调用的函数执行，也就是说 return 语句先执行，finally 语句后执
+行，但 return 并不是让函数马上返回，而是 return 语句执行后，将把返回结果放置进函数栈中，此时函数并不是马上
+返回，它要执行 finally 语句后才真正开始返回！但此时会出现两种情况：
+①、如果finally中也有return，则会直接返回并终止程序，函数栈中的return不会被完成！；
+②、如果finally中没有return，则在执行完finally中的代码之后，会将函数栈中的try中的return的内容返回并终止程序；
+catch同try;
+public class Test1 {
+    public static void main(String[] args) {
+        try {
+            System.out.println(new Test1().testname());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String testname() throws Exception {
+        String t = "";
+
+        try {
+            t = "try";
+            System.out.println("try");
+            return t;
+        } catch (Exception e) {
+            // result = "catch";
+            t = "catch";
+            return t;
+        } finally {
+
+            System.out.println("finally");
+            // return t = "finally";
+        }
+    }
+}
+
+打印结果如下：
+try
+finally
+try
+将finally中的注释放开，打印结果如下：
+try
+finally
+finally
+```
+
+Integer与int的区别
+``` 
+1、Integer是int的包装类，int则是java的一种基本数据类型 
+2、Integer变量必须实例化后才能使用，而int变量不需要 
+3、Integer实际是对象的引用，当new一个Integer时，实际上是生成一个指针指向此对象；而int则是直接存储数据值 
+4、Integer的默认值是null，int的默认值是0
+```
+
+同步和异步有何异同，在什么情况下分别使用他们？
+``` 
+Java中交互方式分为同步和异步两种：
+同步交互：指发送一个请求,需要等待返回,然后才能够发送下一个请求，有个等待过程；
+异步交互：指发送一个请求,不需要等待返回,随时可以再发送下一个请求，即不需要等待。 
+
+区别：一个需要等待，一个不需要等待，在部分情况下，我们的项目开发中都会优先选择不需要等待的异步交互方式。
+哪些情况建议使用同步交互呢？比如银行的转账系统，对数据库的保存操作等等，都会使用同步交互操作，其余情况都优
+先使用异步交互,如果数据将在线程间共享。例如正在写的数据以后可能被另一个线程读到，或者正在读的数据可能已经被
+另一个线程写过了，那么这些数据就是共享数据，必须进行同步存取。当应用程序在对象上调用了一个需要花费很长时间来
+执行的方法，并且不希望让程序等待方法的返回时，就应该使用异步编程，在很多情况下采用异步途径往往更有效率。
+```
+
+启动一个线程是用run()还是start()?
+``` 
+启动一个线程是start()方法。
+启动线程之后start()方法会去调用run方法内容。
+区别：start是创建并启动一个线程，而run是要运行线程中的代码。
+```
+
+字节流与字符流的区别？
+``` 
+字节流在操作的时候本身是不会用到缓冲区（内存）的，是与文件本身直接操作的，而字符流在操作的时候是使用到缓冲区的
+字节流在操作文件时，即使不关闭资源（close方法），文件也能输出，但是如果字符流不使用close方法的话，则不会输出任
+何内容，说明字符流用的是缓冲区，并且可以使用flush方法强制进行刷新缓冲区，这时才能在不close的情况下输出内容
+```
+
+error和exception有什么区别？
+``` 
+Exception：
+1．可以是可被控制(checked) 或不可控制的(unchecked)。
+2．表示一个由程序员导致的错误。
+3．应该在应用程序级被处理。
+Error：
+1．总是不可控制的(unchecked)。
+2．经常用来用于表示系统错误或低层资源的错误。
+3．如何可能的话，应该在系统级被捕捉。
+```
+
+当一个线程进入一个对象的一个synchronized方法后，其它线程是否可进入此对象的其它方法？
+``` 
+不能，一个对象的一个synchronized方法只能由一个线程访问。 
+对象的synchronized方法不能进入了，但它的其他非synchronized方法还是可以访问的。
+```
+
+ArrayList和Vector的区别，HashMap和Hashtable的区别？
+``` 
+ArrayList与Vector都实现的List接口，当不同的是ArrayList是线程不安全的，而Vector是线程安全的。
+HashMap是线程不安全的，Hashtable是线程安全的，如果考虑性能的话使用HashMap,如果多个线程使用一个Map时，使用
+Hashtable.HashMap可以使用null作为key与value的值，但Hashtable不行，如果那样用了，则会出现NullPointerException异常
+```
+
+String 和StringBuffer有什么差别？在什么情况下使用它们？
+```
+String 对一串字符进行操作。不可变类。
+StringBuffer 也是对一串字符进行操作，但是可变类。
+String:是对象不是原始类型.为不可变对象,一旦被创建,就不能修改它的值.对于已经存在的String对象的修改都是重新创
+建一个新的对象,然后把新的值保存进去.
+String是final类,即不能被继承.
+
+StringBuffer:
+是一个可变对象,当对他进行修改的时候不会像String那样重新建立对象它只能通过构造函数来建立,
+StringBuffer sb = new StringBuffer();
+note:不能通过付值符号对他进行付值.
+```
+
+介绍JAVA开发中常用的Collection FrameWork(集合框架)？
+```
+Collection
+List 
+ArrayList
+LinkedList
+Set 
+HashSet
+TreeSet
+Map
+HashMap
+TreeMap
+Collection是最基本的集合接口，一个Collection代表一组Object，即Collection的元素（Elements）
+Map提供key到value的映射。
+```
+
+描述下横竖屏切换时候activity的生命周期
+``` 
+此时的生命周期跟清单文件里的Activity的配置有关系。
+1）不设置Activity的android:configChanges时，切屏会重新调用各个生命周期默认首先销毁当前activity，然后重新加载。
+2）设置Activity如下属性后，由onConfigurationChanged方法接管屏幕方向、尺寸、键盘显隐的配置改变，则切屏不会重新
+调用各个生命周期，只会执行onConfigurationChanged方法。通常在游戏开发，屏幕的朝向都是写死的。
+android:configChanges="orientation|keyboardHidden|screenSize"
+```
+
+android中的动画有哪几种，它们的特点和区别是什么？
+``` 
+帧动画，Frame动画，指通过指定的每一帧的图片和播放时间，有序的进行播放而形成的动画效果
+视图动画，也就是所谓的补间动画。指通过指定View的初始状态、变化时间、方式、通过一系列的算法去进行图片变换，
+从而实现动画效果。主要有scale、alpha、Translate、Rotate四种效果。 
+注意：只是在视图层实现了动画效果，并没有真正改变View的属性
+
+属性动画，通过不断地改变View的属性，不断重绘而形成动画效果。相比较视图动画，View的属性是真正改变了。 
+注意：Android3.0(API 11)以上才支持。
+```
+
+描述handler机制的原理
+``` 
+Message：消息，其中包含了消息ID，消息处理对象以及处理的数据等，由MessageQueue统一列队，终由Handler处理。
+Handler：处理者，负责Message的发送及处理。使用Handler时，需要实现handleMessage(Message msg)方法来对特定
+的Message进行处理，例如更新UI等。
+MessageQueue：消息队列，用来存放Handler发送过来的消息，并按照FIFO规则执行。当然，存放Message并非实际意义
+的保存，而是将Message以链表的方式串联起来的，等待Looper的抽取。
+Looper：消息泵，不断地从MessageQueue中抽取Message执行。因此，MessageQueue需要一个Looper。
+Thread：线程，负责调度整个消息循环，即消息循环的执行场所。
+
+Handler，Looper和MessageQueue就是简单的三角关系。
+Looper和MessageQueue一一对应，创建一个Looper的同时，会创建一个MessageQueue。
+而Handler与它们的关系，只是简单的聚集关系，即Handler里会引用当前线程里的特定Looper和MessageQueue。
+这样说来，多个Handler都可以共享同一Looper和MessageQueue了。
+这些Handler也就运行在同一个线程里，每个线程一个Loop而 一个MessageQueue。
+```
+
+如何将SQLite数据库（dictionary.db 文件）与apk文件一起发布？
+``` 
+可以将dictionary.db文件复制到Eclipse Android工程中的res\raw目录中，所有在res\raw目录中的文件不会被压缩，
+这样可以直接提取该目录中的文件。
+使用openDatabase方法来打开数据库文件，如果该文件不存在，系统会自动创建/sdcard/dictionary目录，并将res\raw
+目录 中的 dictionary.db文件复制到/sdcard/dictionary目录中。
+
+openDatabase方法的实现代码如下：
+private SQLiteDatabase openDatabase()
+    {
+        try
+        {
+            // 获得dictionary.db文件的绝对路径
+            String databaseFilename = DATABASE_PATH + "/" + DATABASE_FILENAME;
+            File dir = new File(DATABASE_PATH);
+            // 如果/sdcard/dictionary目录中存在，创建这个目录
+            if (!dir.exists())
+                dir.mkdir();
+            // 如果在/sdcard/dictionary目录中不存在
+            // dictionary.db文件，则从res\raw目录中复制这个文件到
+            // SD卡的目录（/sdcard/dictionary）
+            if (!(new File(databaseFilename)).exists())
+            {
+                // 获得封装dictionary.db文件的InputStream对象
+                InputStream is = getResources().openRawResource(R.raw.dictionary);
+                FileOutputStream fos = new FileOutputStream(databaseFilename);
+                byte[] buffer = new byte[8192];
+                int count = 0;
+                // 开始复制dictionary.db文件
+                while ((count = is.read(buffer)) > 0)
+                {
+                    fos.write(buffer, 0, count);
+                }
+                fos.close();
+                is.close();
+            }
+            // 打开/sdcard/dictionary目录中的dictionary.db文件
+            SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(
+                    databaseFilename, null);
+            return database;
+        }
+        catch (Exception e)
+        {
+        }
+        return null;
+    }
+
+在openDatabase方法中使用了几个常量，这些常量是在程序的主类（Main）中定义的，代码如下：
+public class Main extends Activity implements OnClickListener, TextWatcher{
+    private final String DATABASE_PATH = android.os.Environment
+            .getExternalStorageDirectory().getAbsolutePath()
+            + "/dictionary";
+    private final String DATABASE_FILENAME = "dictionary.db";
+}
+```
+
+如何启用Service,如何停用service
+``` 
+Context.startService()和Context.bindService
+解除绑定，可以调用unbindService()方法，调用该方法也会导致系统调用服务的onUnbind()-->onDestroy()方法
+```
+
+为什么要用ContentProvider?它和sql的实现上有什么差别?
+``` 
+ContentProvider出现的原因是为了数据共享，它和sql主要区别为它可以自定义共享的文件的暴露，sql不具备设置共享数据的权限。
+```
+
+请介绍一下Android的数据存储方式
+``` 
+使用SharedPreferences存储数据
+文件存储数据
+SQLite数据库存储数据
+使用ContentProvider存储数据
+网络存储数据
+```
+
+MeasureSpec的意义，怎样计算MeasureSpec；
 
 -LayoutParams是什么？
 
