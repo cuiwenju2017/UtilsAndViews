@@ -1,10 +1,11 @@
+[GitHub持续更新](https://github.com/cuiwenju2017/UtilsAndViews/blob/master/Android%E5%BC%80%E5%8F%91%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E6%94%B6%E9%9B%86.md)
+
 -ArrayList的使用，ArrayList使用过程中有没有遇到过坑。[参考：读了这一篇，让你少踩 ArrayList 的那些坑](https://www.cnblogs.com/fengzheng/p/12986513.html)
 ``` 
 Arrays.asList不能add:
-此ArrayList非彼ArrayList，这是一个内部类，但是类名也叫 ArrayList.
-Arrays.asList方法创建出来的 ArrayList 和真正我们平时用的 ArrayList只是继承自同一抽象类的两个不同子类，
-而 Arrays.asList创建的 ArrayList 只能做一些简单的视图使用，不能做过多操作，所以 ArrayList的几种初始化方式
-里没有 Arrays.asList这一说。
+此ArrayList非彼ArrayList，这是一个内部类，但是类名也叫 ArrayList.Arrays.asList方法创建出来的 ArrayList
+和真正我们平时用的 ArrayList只是继承自同一抽象类的两个不同子类，而 Arrays.asList创建的 ArrayList 只能做
+一些简单的视图使用，不能做过多操作，所以 ArrayList的几种初始化方式里没有 Arrays.asList这一说。
 
 subList 方法:
 1.上面提到了那个问题和 subList的坑有异曲同工之妙，都是由于返回的对象并不是真正的 ArrayList类型，而是和 ArrayList
@@ -14,9 +15,8 @@ subList 方法:
 
 3.如果你使用 subList 方法获取了一个子列表，这之后又在原始列表上进行了新增或删除的操作，这是，你之前获取到的 
 subList 就已经废掉了，不能用了，不能用的意思就是你在 subList 上进行遍历、增加、删除操作都会抛出异常，没错，
-连遍历都不行了。其实与二坑的原因相同，subList 其实操作的是原始列表，当你在 subList 上进行操作时，会执行 
-checkForComodification方法，此方法会检查原始列表的个数是否和最初的相同，如果不相同，直接抛出 ConcurrentModificationException
-异常。
+连遍历都不行了。其实与二坑的原因相同，subList 其实操作的是原始列表，当你在 subList 上进行操作时，会执行 checkForComodification
+方法，此方法会检查原始列表的个数是否和最初的相同，如果不相同，直接抛出 ConcurrentModificationException异常。
 ```
 
 -GC算法[参考：几种常见GC算法介绍](https://blog.csdn.net/iva_brother/article/details/87870576)
@@ -26,13 +26,28 @@ checkForComodification方法，此方法会检查原始列表的个数是否和�
 
 -泛型的边际[参考：java泛型之泛型边界](https://blog.csdn.net/renwuqiangg/article/details/51296621)
 
--Handler中loop方法为什么不会导致线程卡死。
+-Handler中loop方法为什么不会导致线程卡死。[参考：为什么Looper中的Loop()方法不能导致主线程卡死?](https://blog.csdn.net/weixin_33738578/article/details/91412781)
+```
+1.耗时操作本身并不会导致主线程卡死, 导致主线程卡死的真正原因是耗时操作之后的触屏操作, 没有在规定的时间内被分发。
+2.Looper 中的 loop()方法, 他的作用就是从消息队列MessageQueue 中不断地取消息, 然后将事件分发出去。
+```
 
--动画的原理，有没有实战过补间动画；
+-动画的原理[参考：Android三种动画实现原理及使用](https://blog.csdn.net/weixin_39001306/article/details/80614286)
+``` 
+Android动画目前分为三种：
+1.Frame Animation 帧动画，通过顺序播放一系列图像从而产生动画效果，。图片过多时容易造成OOM（Out Of Memory内存用完）异常。
+2.Tween Animation 补间动画（又叫view动画），是通过对场景里的对象不断做图像变换（透明度、缩放、平移、旋转）
+从而产生动画效果，是一种渐进式动画，并且View动画支持自定义。
+3.Accribute Animation 属性动画，这也是在android3.0之后引进的动画，在手机的版本上是android４.0就可以使用这
+个动 画，通过动态的改变对象的属性从而达到动画效果。
 
--bugly上面收集到的最难的bug是怎样的，如何解决的?
+补间动画和属性动画的区别:
+补间动画只是改变了View的显示效果而已，并不会真正的改变View的属性。而属性动画可以改变View的显示效果和属性。
+举个例子：例如屏幕左上角有一个Button按钮，使用补间动画将其移动到右下角，此刻你去点击右下角的Button，它是绝
+对不会响应点击事件的，因此其作用区域依然还在左上角。只不过是补间动画将其绘制在右下角而已，而属性动画则不会。
+```
 
--View的事件分发机制？
+-View的事件分发机制？[参考：一文读懂Android View事件分发机制](https://www.jianshu.com/p/238d1b753e64)
 
 -MeasureSpec的意义，怎样计算MeasureSpec；
 
