@@ -613,25 +613,79 @@ SELECT 'I''M '||'Chinese.'
 ```
 
 
-### MeasureSpec的意义，怎样计算MeasureSpec；
+### MeasureSpec的意义，怎样计算MeasureSpec；[参考：自定义View：Measure过程说明之MeasureSpec类详细讲解](https://blog.csdn.net/carson_ho/article/details/94545178)
+意义：MeasureSpec是View的一个内部类，真正的身份就是帮助View完成测量功能。
+
+计算：子View的MeasureSpec值根据子View的布局参数（LayoutParams）和父容器的MeasureSpec值计算得来的，具体计
+算逻辑封装在getChildMeasureSpec()里。即：子view的大小由父view的MeasureSpec值 和 子view的LayoutParams属性共同决定。
 
 
-### LayoutParams是什么？
+### LayoutParams是什么？[参考：自定义控件知识储备-LayoutParams的那些事](https://blog.csdn.net/yisizhu/article/details/51582622)
+LayoutParams，顾名思义，就是Layout Parameters :布局参数。
 
 
-### 自定义View和自定义ViewGroup的区别。
+### 自定义View和自定义ViewGroup的区别。[参考：自定义View和自定义ViewGroup一步到位](https://blog.csdn.net/zxl1173558248/article/details/82901254)
+ViewGroup是个View容器，它装纳child View并且负责把child View放入指定的位置。
+
+自定义ViewGroup时必须要重写onLayout()方法（依次排列子view）,而自定义View没有子View，所以不需要onLayout()。
 
 
-### View的绘制流程？ViewGroup的绘制流程？
+### View的绘制流程？ViewGroup的绘制流程？[参考：View和ViewGroup的基本绘制流程](https://blog.csdn.net/u011155781/article/details/52584044)
+view的绘制分为6步:
+
+对视图的背景进行绘制
+
+如果有必要，保存画布的图层，为褪色做准备(暂时忽略它)
+
+对视图的内容进行绘制, 在onDraw(canvas)方法中完成
+
+对当前视图的所有子视图进行绘制 ，调用dispatchDraw。
+
+如果有必要，绘制褪色边缘和恢复层(暂时忽略它)
+
+绘制装饰品（如滚动条）任何一个视图都是有滚动条的，只是一般情况下我们都没有让它显示出来而已.
+
+即我们关心四个步骤:
+
+绘制背景
+
+绘制内容
+
+绘制孩子
+
+绘制装饰
+
+绘制需要两个类, 画布(Canvas)和画笔(Paint)
+
+ViewGroup的绘制流程：
+
+ViewGroup继承View,绘制流程跟View是一致
+
+ViewGroup的测量：
+
+相同点:measure -> onMeasure
+
+不同点：ViewGroup需要在onMeasure去测量孩子
+
+自定义ViewGroup一定要重写onMeasure方法，如果不重写则子View获取不到宽和高。重写是在onMeasure方法中调用measureChildern（）
+方法，遍历出所有子View并对其进行测量。
+
+ViewGroup的布局：
+
+相同点:layout (父容器调用) -》 onLayout
+
+不同点:ViewGroup需要实现onLayout方法去布局孩子，调用孩子的layout方法，指定孩子上下左右的位置
+
+requestLayout();//请求重新布局 onLayout
+
+ViewGroup的绘制：
+
+相同点:draw -> onDraw
+
+不同点：ViewGroup一般不绘制自己，ViewGroup默认实现dispatchDraw去绘制孩子
 
 
-### onmeasure，onLayout，onDraw的调度流程；
-
-
-### 自定义View的measure时机；
-
-
-### 有没有写过自定义View。
+### 自定义View的measure时机；[参考：自定义控件View之onMeasure调用时机源码分析](https://blog.csdn.net/hty1053240123/article/details/76516426/)
 
 
 ### Scroller 是怎么实现 View 的弹性滑动的？
