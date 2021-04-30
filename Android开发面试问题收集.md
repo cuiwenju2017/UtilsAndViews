@@ -1,4 +1,4 @@
-[GitHub持续更新](https://github.com/cuiwenju2017/UtilsAndViews/blob/master/Android%E5%BC%80%E5%8F%91%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E6%94%B6%E9%9B%86.md)
+[GitHub持续更新：（声明：本答案为个人收集与总结并非标准答案，仅供参考，如有错误还望指出，谢谢！）](https://github.com/cuiwenju2017/UtilsAndViews/blob/master/Android%E5%BC%80%E5%8F%91%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E6%94%B6%E9%9B%86.md)
 
 -ArrayList的使用，ArrayList使用过程中有没有遇到过坑。[参考：读了这一篇，让你少踩 ArrayList 的那些坑](https://www.cnblogs.com/fengzheng/p/12986513.html)
 ``` 
@@ -48,6 +48,110 @@ Android动画目前分为三种：
 ```
 
 -View的事件分发机制？[参考：一文读懂Android View事件分发机制](https://www.jianshu.com/p/238d1b753e64)
+
+-View刷新机制
+``` 
+View绘制分三个步骤:
+顺序是：onMeasure，onLayout，onDraw。调用invalidate方法只会执行onDraw方法；调用requestLayout方法只会执行
+onMeasure方法和onLayout方法，并不会执行onDraw方法。所以当我们进行View更新时，若仅View的显示内容发生改变且
+新显示内容不影响View的大小、位置，则只需调用invalidate方法；若View宽高、位置发生改变且显示内容不变，只需调
+用requestLayout方法；若两者均发生改变，则需调用两者，按照View的绘制流程，推荐先调用requestLayout方法再调用
+invalidate方法。
+```
+
+-如果后台的Activity由于某原因被系统回收了如何存取数据
+``` 
+onSaveInstanceState是用来保存UI状态的，你可以使用它保存你所想保存的东西，在Activity杀死之前，它一般在onStop
+或者onPause之前触发，onRestoreInstanceState则是在onResume之前触发回复状态，至于复写这个方法后onCreate方法
+是否会被调用。
+1.Activity被杀死了，onCreate会被调用，且onRestoreInstanceState 在 onResume之前恢复上次保存的信息。
+2.Activity没被杀死，onCreate不会被调用，但onRestoreInstanceState 仍然会被调用，在 onResume之前恢复上次保
+存的信息。
+onSaveInstanceState和onRestoreInstanceState 是一对兄弟，一个负责存储，一个负责取出.“不一定”是成对的被调用的。
+```
+-activity的启动模式
+``` 
+standard:这个是android默认的Activity启动模式，每启动一个Activity都会被实例化一个Activity，并且新创建的
+Activity在堆栈中会在栈顶。
+
+singleTop:如果当前要启动的Activity就是在栈顶的位置，那么此时就会复用该Activity，并且不会重走onCreate方法，
+会直接它的onNewIntent方法，如果不在栈顶，就跟standard一样的。如果当前activity已经在前台显示着，突然来了一
+条推送消息，此时不想让接收推送的消息的activity再次创建，那么此时正好可以用该启动模式，如果之前activity栈中
+是A-->B-->C如果点击了推动的消息还是A-->B--C，不过此时C是不会再次创建的，而是调用C的onNewIntent。而如果现
+在activity中栈是A-->C-->B，再次打开推送的消息，此时跟正常的启动C就没啥区别了，当前栈中就是A-->C-->B-->C了。
+
+singleTask:该种情况下就比singleTop厉害了，不管在不在栈顶，在Activity的堆栈中永远保持一个。这种启动模式相对
+于singleTop而言是更加直接，比如之前activity栈中有A-->B-->C---D，再次打开了B的时候，在B上面的activity都会
+从activity栈中被移除。下面的acitivity还是不用管，所以此时栈中是A-->B，一般项目中主页面用到该启动模式。
+
+singleInstance:该种情况就用得比较少了，主要是指在该activity永远只在一个单独的栈中。一旦该模式的activity的
+实例已经存在于某个栈中，任何应用在激活该activity时都会重用该栈中的实例，解决了多个task共享一个activity。其
+余的基本和上面的singleTask保持一致。
+```
+
+-请描述Activity和Fragment的关联。
+``` 
+Fragment与Activity关联主要有两种方式，一种是通过在Activity的布局文件中写入fragment控件，使用name属性指定
+一个Fragment；
+另一种是在java代码中动态的添加与删除Fragment。
+```
+
+-请描述Android中线程与线程，进程与进程之间如何通信
+``` 
+线程间通信：
+1)主线程中创建子线程，如果为内部类或匿名内部类（new Thread(){}.start()）方式启动子线程，则可在子线程内部直
+接调用主线程的成员变量、final修饰的局部变量；
+2)若外部类（继承Thread接口的子线程类），可设置setter方法，主线程调用该方法通过参数传值。
+3)子线程中向主线程通信，可通过主线程的handler发送信息或Runnable代码对象，或调用activity.runOnUiThread(){}
+方式运行Runnable代码对象。
+
+进程间通信：
+1）隐式意图intent跨进程启动Activity，通过intent传递数据，通常以Uri形式；
+2）ContentProvider内容提供者，提供其它进程调用增删改查数据的入口；
+3）Broadcast广播，发送广播并通过intent传递数据
+4）通过AIDL连接其它进程的Service服务
+```
+
+内存溢出和内存泄漏有什么区别？何时会产生内存泄漏？内存优化有哪些方法？
+``` 
+ 一、原理
+内存溢出（Out of memory）:系统会给每个APP分配内存也就是Heap size值，当APP所需要的内存大于了系统分配的内存，
+就会造成内存溢出；通俗点就是10L桶只能装10L水，但是你却用来装11L的水，那就有1L的水就会溢出。
+内存泄漏（Memory leak）:当一个对象不在使用了，本应该被垃圾回收器（JVM）回收，但是这个对象由于被其他正在使用
+的对象所持有，造成无法被回收的结果，通俗点就是系统把一定的内存值A借给程序，但是系统却收不回完整的A值，那就是
+内存泄漏。
+
+二、两者的关系
+内存泄漏是造成内存溢出（OOM）的主要原因，因为系统分配给每个程序的内存也就是Heap size的值都是有限的，当内存
+泄漏到一定值的时候，最终会发生程序所需要的内存值加上泄漏值大于了系统所分配的内存额度，就是触发内存溢出。
+
+三、危害
+内存溢出：会触发Java.lang.OutOfMemoryError，造成程序崩溃
+内存泄漏：过多的内存泄漏会造成OOM的发送，同样也会造成相关UI的卡顿现象
+
+四、造成的原因以及处理
+A、大量的图片、音频、视频处理，当在内存比较低的系统上也容易造成内存溢出建议使用第三方，或者JNI来进行处理
+B、Bitmap对象的不正确处理（内存溢出）不要在主线程中处理图片使用Bitmap对象要用recycle释放高效的处理大图
+C、非静态匿名内部类Handler由于持有外部类Activity的引用所造成的内存泄漏根据WeakReference对象，对handler使
+用弱引用，并且调用removeCallbacksAndMessages移除。
+D、线程由于匿名内部类runnable持有activity的引用，从而关闭activity，线程未完成造成内存泄漏，把线程改成静态
+内部类，调用WeakReference来持有外部资源。
+E、BraodcastReceiver、File、Cursor等资源的使用未及时关闭在销毁activity时，应该及时销毁或者回收
+F、static关键字修饰的变量由于生命周期过长，容易造成内存泄漏尽量少使用静态变量，一定要使用要及时进行制null处理
+G、单列模式造成的内存泄漏，如context的使用，单列中传入的是activity的context，在关闭activity时，activity的
+内存无法被回收，因为单列持有activity的引用在context的使用上，应该传入application的context到单列模式中，这
+样就保证了单列的生命周期跟application的生命周期一样单列模式应该尽量少持有生命周期不同的外部对象，一旦持有该
+对象的时候，必须在该对象的生命周期结束前制null。
+```
+
+-请描述Android多分辨率的屏幕适配方法。
+``` 
+1）使用dp、sp单位，带有一定的适配性，根据dpi自动适配屏幕
+2）创建不同分辨率、dpi、屏幕方向等规格的value文件夹，及对应dimens文件
+3）创建不同分辨率、dpi、屏幕方向等规格的layout
+4）代码动态设置View控件的高度、宽度
+5）使用weight权重属性，按照比例分配View布局
+```
 
 -MeasureSpec的意义，怎样计算MeasureSpec；
 
