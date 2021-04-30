@@ -1,4 +1,4 @@
-[GitHub持续更新：（声明：本答案为个人收集与总结并非标准答案，仅供参考，如有错误还望指出，谢谢！）](https://github.com/cuiwenju2017/UtilsAndViews/blob/master/Android%E5%BC%80%E5%8F%91%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E6%94%B6%E9%9B%86.md)
+[GitHub持续更新：（声明：本答案为个人收集与总结并非标准答案，仅供参考，如有错误还望指出，谢谢！如有重复可能是常问问题）](https://github.com/cuiwenju2017/UtilsAndViews/blob/master/Android%E5%BC%80%E5%8F%91%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E6%94%B6%E9%9B%86.md)
 
 ArrayList的使用，ArrayList使用过程中有没有遇到过坑。[参考：读了这一篇，让你少踩 ArrayList 的那些坑](https://www.cnblogs.com/fengzheng/p/12986513.html)
 ``` 
@@ -446,6 +446,85 @@ ContentProvider出现的原因是为了数据共享，它和sql主要区别为�
 SQLite数据库存储数据
 使用ContentProvider存储数据
 网络存储数据
+```
+
+同步和异步的区别
+``` 
+同步执行的话，就是程序会呆板地从头执行到尾，耗时间的东西不执行完，程序不会继续往下走，等待时间长的话，有时候
+就会造成失去响应了。
+
+异步的好处，就是把一些东西，特别是耗时间的东西扔到后台去运行了(doInBackground)，程序可以继续做自己的事情，
+防止程序卡在那里失去响应。
+
+同步是指两个线程的运行是相关的，其中一个线程要阻塞等待另外一个线程的运行。
+
+异步的意思是两个线程毫无相关，自己运行自己的。
+```
+
+常见的内存泄漏的解决方案?
+``` 
+1. 非静态内部类、匿名内部类
+解决办法： 将非静态内部类、匿名内部类 改成静态内部类，或者直接抽离成一个外部类。 
+如果在静态内部类中，需要引用外部类对象，那么可以将这个引用封装在一个WeakReference中。
+
+2.静态的View
+解决办法： 在使用静态View时，需要确保在资源回收时，将静态View detach掉。
+
+3. Handler
+将Handler放入单独的类或者将Handler放入到静态内部类中（静态内部类不会持有外部类的引用）。如果想要在handler
+内部去调用所在的外部类Activity，可以在handler内部使用弱引用的方式指向所在Activity，这样不会导致内存泄漏。
+ 或者在onDestory时，调用相应的方法移除回调和删除消息。
+
+4.监听器（各种需要注册的Listener，Watcher等）
+解决办法： 在onDestory时，取消注册，editText.removeTextChangedListener
+
+5. 资源对象没关闭造成内存泄漏
+解决办法： 及时关闭资源
+
+6. 属性动画
+解决办法： 在在onDestory时，调用动画的cancel方法
+
+7. RxJava
+解决办法： 参考Uber出品的一个开源库AutoDispose的使用，可以参考下文： 
+Android架构中添加AutoDispose解决RxJava内存泄漏
+
+8. WebView
+解决办法： 在销毁webview前一定要onDetachedFromWindow，我们先将webview从它的父view中移除再调用destroy方法
+
+9. 其他的系统控件以及自定义View
+在 Android Lollipop 之前使用 AlertDialog 可能会导致内存泄漏 
+参考：一个内存泄漏引发的血案 
+Dialog和DialogFragment在Android5.0以下的内存泄漏 
+参考：解决Android5.0以下Dialog引起的内存泄漏 
+View的post方法导致的内存泄漏分析
+view中有线程或者动画 要及时停止
+这是为了防止内存泄漏，可以在onDetachedFromWindow方法中结束，这个方法回调的时机是 当View的Activity退出或者
+当前View被移除的时候 会调用 这时候是结束动画或者线程的好时机 另外还有一个对应的方法 onAttachedToWindow 这
+个方法调用的时机是在包含View的Activity启动时回调,回调在onDraw方法 之前
+```
+
+kotlin具有哪些优势？
+```
+更少的空指针异常
+更少的代码量
+更快的开发速度
+更一致的开发体验 
+```
+
+Android9.0有哪些新特性？
+``` 
+一、深度集成“Project Treble”，更方便对安卓系统进行升级。
+二、支持利用Wifi进行定位并且测量距离
+三、可注册5个蓝牙音频设备并保存每台蓝牙设备的音量偏好
+四、升级多任务界面功能，在多任务界面中可以对App进行操作：
+五、加强了对刘海屏的支持
+六、禁止从安卓系统的新版本刷回到老版本
+```
+
+SQLite如何查询第20条到第30条记录？SQLite如何拼接两个字符串？
+``` 
+Select * from table limit 19,11;
+SELECT 'I''M '||'Chinese.' 
 ```
 
 MeasureSpec的意义，怎样计算MeasureSpec；
