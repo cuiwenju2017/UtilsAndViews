@@ -1,7 +1,7 @@
 [GitHub持续更新：（声明：本答案为个人收集与总结并非标准答案，仅供参考，如有错误还望指出，谢谢！如有重复可能是常问问题）](https://github.com/cuiwenju2017/UtilsAndViews/blob/master/Android%E5%BC%80%E5%8F%91%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E6%94%B6%E9%9B%86.md)
 
 ArrayList的使用，ArrayList使用过程中有没有遇到过坑。[参考：读了这一篇，让你少踩 ArrayList 的那些坑](https://www.cnblogs.com/fengzheng/p/12986513.html)
-``` 
+ 
 Arrays.asList不能add:
 此ArrayList非彼ArrayList，这是一个内部类，但是类名也叫 ArrayList.Arrays.asList方法创建出来的 ArrayList
 和真正我们平时用的 ArrayList只是继承自同一抽象类的两个不同子类，而 Arrays.asList创建的 ArrayList 只能做
@@ -17,7 +17,6 @@ subList 方法:
 subList 就已经废掉了，不能用了，不能用的意思就是你在 subList 上进行遍历、增加、删除操作都会抛出异常，没错，
 连遍历都不行了。其实与二坑的原因相同，subList 其实操作的是原始列表，当你在 subList 上进行操作时，会执行 checkForComodification
 方法，此方法会检查原始列表的个数是否和最初的相同，如果不相同，直接抛出 ConcurrentModificationException异常。
-```
 
 GC算法[参考：几种常见GC算法介绍](https://blog.csdn.net/iva_brother/article/details/87870576)
 ``` 
