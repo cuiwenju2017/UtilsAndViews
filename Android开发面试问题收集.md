@@ -852,25 +852,10 @@ Binder被占满导致主线程无法和SystemServer通信
 ### viewmodel原理[参考：ViewModel 使用及原理解析](https://blog.csdn.net/xfhy_/article/details/88703853)
 
 
-### livedata为何具有生命周期感知能力
+### livedata为何具有生命周期感知能力[参考：Android LiveData我的理解](https://blog.csdn.net/alcoholdi/article/details/97259805)
 
 
-### shareperference如何保证线程安全，为什么不是进程安全的，如何实现进程安全的
-
-
-### viewmodel是如何解决内存泄漏问题的？能解决么
-
-
-### mmkv共享内存和binder的区别
-
-
-### 有做过多线程开发么
-
-
-### room如何实现orm的
-
-
-### kotlin和java产物一样么
+### viewmodel是如何解决内存泄漏问题的？能解决么[参考：使用ViewModel+Data Binding解决内存泄漏问题](https://www.jianshu.com/p/c8b3ce047de4?utm_campaign=maleskine&utm_content=note&utm_medium=seo_notes&utm_source=recommendation)
 
 
 ### 各种图片格式的区别
