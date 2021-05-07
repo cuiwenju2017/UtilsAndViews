@@ -747,37 +747,13 @@ View频繁的触发measure、layout，导致measure、layout累计耗时过多�
 扫描此模块下的layout文件，生成对应的binding类。
 
 
-### Recycleview滑动怎么优化
+### Recycleview滑动怎么优化[参考：RecyclerView性能优化](https://www.jianshu.com/p/1853ff1e8de6?utm_campaign=maleskine)
 
 
-### 一级缓存和二级缓存的区别
+### 一级缓存和二级缓存的区别[参考：一级缓存，二级缓存，分布式缓存和页面缓存](https://blog.csdn.net/androidxiaogang/article/details/52915905)
 
 
-### LayoutManager原理
-
-
-### onMeasure描述一下
-
-
-### onDraw描述一下
-
-
-### invalidate一定会调用onDraw么
-
-
-### Activity的生命周期
-
-
-### 国际化插件
-
-
-### hashmap
-
-
-### 2^n的原因（有多个原因）
-
-
-### 22反转链表
+### LayoutManager原理[参考：自定义LayoutManager的详解及其使用](https://blog.csdn.net/lylodyf/article/details/52846602)
 
 
 ### 协程原理
