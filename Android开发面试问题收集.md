@@ -759,61 +759,49 @@ View频繁的触发measure、layout，导致measure、layout累计耗时过多�
 ### 协程原理[参考：Kotlin 协程实现原理](https://blog.csdn.net/suyimin2010/article/details/91125803)
 
 
-### rxjava原理
+### rxjava原理[参考：RxJava原理解析一](https://www.jianshu.com/p/53b79866f58a)
 
 
-### leakcanary
+### leakcanary[参考：LeakCanary 内存泄漏原理完全解析](https://www.jianshu.com/p/59106802b62c)
 
 
-### 如何分析引用链
+### 线程池[参考：深入理解线程和线程池（图文详解）](https://blog.csdn.net/weixin_40271838/article/details/79998327)
 
 
-### 线程池
+### 事件分发[参考：图解 Android 事件分发机制](https://www.jianshu.com/p/e99b5e8bd67b)
 
 
-### 给你一堆数据，如何画曲线？
+### 责任链模式[参考：一篇文章搞懂Java设计模式之责任链模式](https://blog.csdn.net/u012810020/article/details/71194853)
 
 
-### 事件分发
+### 汽车加油问题[参考：汽车加油问题 贪心算法 Java（详细注释）](https://blog.csdn.net/qq_37294163/article/details/103277358)
 
 
-### 责任链模式
+### 如何实现快手和抖音的整屏滑动效果[参考：Android中模仿抖音的滑动RecycleView的实现](https://blog.csdn.net/weixin_36495794/article/details/80845103)
 
 
-### 汽车加油问题
+### 状态模式和策略模式的区别[参考：状态模式和策略模式的区别](https://blog.csdn.net/ruangong1203/article/details/52514919)
 
 
-### 有序无序时删除链表的重复节点、都删除、保留一个
+### sleep和wait的区别[参考：sleep和wait的区别](https://blog.csdn.net/qq_20009015/article/details/89980966)
+1、sleep是Thread的静态方法，wait是Object的方法，任何对象实例都能调用。
+
+2、sleep不会释放锁，它也不需要占用锁。wait会释放锁，但调用它的前提是当前线程占有锁(即代码要在synchronized中)。
+
+3、它们都可以被interrupted方法中断。
 
 
-### 如何实现快手和抖音的整屏滑动效果
+### Parcelable与Serializable[参考：序列化Serializable和Parcelable的理解和区别](https://www.jianshu.com/p/a60b609ec7e7)
+Serializable（Java自带）：
+Serializable是序列化的意思，表示将一个对象转换成可存储或可传输的状态。序列化后的对象可以在网络上进行传输，也可以存储到本地。
+
+Parcelable（android 专用）：
+除了Serializable之外，使用Parcelable也可以实现相同的效果，
+不过不同于将对象进行序列化，Parcelable方式的实现原理是将一个完整的对象进行分解，
+而分解后的每一部分都是Intent所支持的数据类型，这样也就实现传递对象的功能了。
 
 
-### 如何让运营能看懂社区文章
-
-
-### 有没有遇到什么难点呀
-
-
-### 线程池原理，几个参数
-
-
-### 线程池里面的阻塞队列是什么类型
-
-
-### 状态模式和策略模式的区别
-
-
-### sleep和wait的区别
-
-
-### Parcelable与Serializable
-
-
-### 深拷贝与浅拷贝
-
-
-### 如何实现深拷贝
+### 深拷贝与浅拷贝[参考：彻底讲明白浅拷贝与深拷贝](https://www.jianshu.com/p/35d69cf24f1f)
 
 
 ### sync和Reenterlock遇到异常的区别
@@ -895,12 +883,6 @@ View频繁的触发measure、layout，导致measure、layout累计耗时过多�
 
 
 ### 求浮点数的平方根
-
-
-### Binder的原理
-
-
-### 设计模式
 
 
 ### 工厂模式
