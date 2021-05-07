@@ -688,37 +688,63 @@ ViewGroup的绘制：
 ### 自定义View的measure时机；[参考：自定义控件View之onMeasure调用时机源码分析](https://blog.csdn.net/hty1053240123/article/details/76516426/)
 
 
-### Scroller 是怎么实现 View 的弹性滑动的？
+### Scroller是怎么实现View的弹性滑动的？[参考：Android Scroller实现View弹性滑动完全解析](https://www.jianshu.com/p/9419262a342a)
+通过startScroll()下面的invalidate();
+通过使View重绘，会间接的执行computeScroll()方法,
+仅仅通过Scroller，并不能实现View的滑动效果，同时需要配合View的invalidate()、computeScroll()、scrollTo()方法才可以完成。
 
 
 ### UI卡顿常见的原因及解决方案？
+人为在UI线程中做轻微耗时操作，导致UI线程卡顿；
+
+布局Layout过于复杂，无法在16ms内完成渲染；
+
+同一时间动画执行的次数过多，导致CPU或GPU负载过重；
+
+View过度绘制，导致某些像素在同一帧时间内被绘制多次，从而使CPU或GPU负载过重；
+
+View频繁的触发measure、layout，导致measure、layout累计耗时过多及整个View频繁的重新渲染；
+
+内存频繁触发GC过多（同一帧中频繁创建内存），导致暂时阻塞渲染操作；
+
+冗余资源及逻辑等导致加载和执行缓慢；
+
+臭名昭著的ANR；
 
 
-### Glide使用过程中的坑，EventBus使用过程中的坑。
+### Glide使用过程中的坑[参考：Android glide使用过程中遇到的坑(进阶篇)](https://www.jianshu.com/p/deccde405e04)
 
 
-### 网络协议okhttp中的缓存机制，dex加载流程，组件化的原理。
+### EventBus使用过程中的坑。[参考：EventBus使用过程中，遇到的问题点](https://blog.csdn.net/wolfking0608/article/details/70239105)
 
 
-### Fragment的生命周期管理过程中遇到的坑和解决办法。
+### 网络协议okhttp中的缓存机制[参考：OKHttp全解析系列（五） --OKHttp的缓存机制](https://www.jianshu.com/p/fb81207af121)
 
 
-### 排序算法，观察者模式和单例模式，抽象类和接口的关系。
+### dex加载流程[参考：Android动态加载Dex过程](https://blog.csdn.net/a2923790861/article/details/80539862)
 
 
-### databinding原理，binder原理。
+### 组件化的原理。[参考：“终于懂了” 系列：Android组件化，全面掌握！ | 掘金技术征文-双节特别篇](https://juejin.cn/post/6881116198889586701)
 
 
-### 多进程通信问题；binder优势；aidl生成的java类细节；多进程遇到过哪些问题？
+### Fragment的生命周期管理过程中遇到的坑和解决办法。[参考：踩坑，Fragment使用遇到那些坑](https://blog.csdn.net/xiaoxiaocaizi123/article/details/79074501)
 
 
-### 子线程中维护的looper，消息队列无消息时候的处理节省性能的处理方案。
+### 抽象类和接口的关系。[参考：Java 接口和抽象类区别](https://blog.csdn.net/xw13106209/article/details/6923556)
 
 
-### 你遇到的最难的技术问题和解决方案。
+### databinding原理[参考：Android的DataBinding原理介绍](https://blog.csdn.net/xiangzhihong8/article/details/52688943)
 
 
-### viewBinding的原理
+### binder原理。[参考：简单理解Binder机制的原理](https://blog.csdn.net/augfun/article/details/82343249)
+
+
+### 子线程中维护的looper，消息队列无消息时候的处理节省性能的处理方案。[参考：子线程中：new Handler需要做哪些准备？消息队列中无消息的时候，Looper的处理方案是什么？](https://blog.csdn.net/yichen97/article/details/106107874/)
+
+
+### viewBinding的原理[参考：Android ViewBinding使用及原理](https://www.jianshu.com/p/431c040b6af8)
+原理就是Google在那个用来编译的gradle插件中增加了新功能，当某个module开启ViewBinding功能后，编译的时候就去
+扫描此模块下的layout文件，生成对应的binding类。
 
 
 ### Recycleview滑动怎么优化
