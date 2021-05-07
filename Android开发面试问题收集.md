@@ -805,21 +805,51 @@ Parcelable（android 专用）：
 
 
 ### sync和Reenterlock遇到异常的区别
+synchronized是关键字，ReentrantLock是类
+
+ReentrantLock可以对获取锁的等待时间进行设置，避免死锁
+
+ReentrantLock可以获取各种锁的信息
+
+ReentrantLock可以灵活地实现多路通知
+
+机制: sync操作Mark Word , lock调用Unsafe类的park()方法
 
 
-### 可重入锁和不可重入锁
+### 可重入锁和不可重入锁[参考：可重入锁和不可重入锁](https://blog.csdn.net/u014473112/article/details/82998477)
 
 
-### funA,funB,funC,funD，postInvalidate和Invalidate的区别
+### postInvalidate和Invalidate的区别[参考：简单讲下postInvalidate和Invalidate的区别](https://blog.csdn.net/codeyanbao/article/details/82694281)
 
 
-### anr 分类及原理
+### anr分类及原理[参考：安卓ANR问题1_ANR问题类型及产生原理](https://www.jianshu.com/p/ddfc4678067d)
+ANR问题类型及产生原理
+
+ANR(Application Not Responding):即应用无响应. 在日常使用安卓手机的过程中, 对最anr最直接的印象就是手机弹框
+显示应用未响应. 选择继续等待或者关闭.如果应用程序的主线程在规定的时间内, 没有完成特定操作和事件, 就会发生ANR.
+
+四种ANR类型
+
+KeyDispatchTimeout : input事件在5S内没有处理完成发生ANR
+
+ServiceTimeout : bind,create,start,unbind等操作,前台Service在20s内,后台Service在200s内没有处理完成发生ANR
+
+BroadcastTimeout : BroadcastReceiver onReceiver处理事务时前台广播在10S内,后台广播在60s内 (应用程序应该避
+免在BroadcastReceiver里做耗时的操作或计算。如果响应Intent广播需要执行一个耗时的动作的话，应用程序应该启动一个 Service).
+没有处理完成发生ANR
+
+ProcessContentProviderPublishTimedOutLocked : ContentProvider publish在10s内没有处理完成发生ANR其中第四种ANR发生的概率最小.
+
+ANR产生的常见原因
+
+主线程耗时操作,如复杂的layout,庞大的for循环,IO等. (实际APP开发时开发者会避开这种, 没有见到过这种问题产生ANR);
+主线程被子线程同步锁block. (当子线程先拿着锁, 主线程等待这把锁的时候, 子线程太耗时. 导致主线程一直被阻塞, 从而ANR)
+主线程被Binder对端阻塞
+Binder被占满导致主线程无法和SystemServer通信
+得不到系统资源(CPU/RAM/IO) (耗时的动画需要大量的计算工作，可能导致CPU负载过重.)
 
 
-### viewmodel原理
-
-
-### 用了哪些jetpack的东西
+### viewmodel原理[参考：ViewModel 使用及原理解析](https://blog.csdn.net/xfhy_/article/details/88703853)
 
 
 ### livedata为何具有生命周期感知能力
