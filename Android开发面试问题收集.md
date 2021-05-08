@@ -1034,28 +1034,16 @@ Socket（网络）：
 Android进程间通信 - Socket使用（TCP、UDP）
 
 
-### AIDL的用法
+### AIDL的用法[参考：Android AIDL使用详解](https://www.jianshu.com/p/29999c1a93cd)
 
 
-### onIntercept在哪用
+### 使屏幕常亮[参考：Android让屏幕保持常亮的三种方法](https://blog.csdn.net/llljjlj/article/details/80631664)
 
 
-### 事件分发底层的产生
+### canvas的save和restore的作用[参考：canvas的save与restore方法的作用](https://blog.csdn.net/u014788227/article/details/52250208)
+save：用来保存Canvas的状态。save之后，可以调用Canvas的平移、放缩、旋转、错切、裁剪等操作。 
 
-
-### RecycleView的用法里面的各种Manager作用
-
-
-### wake lock：使屏幕常亮
-
-
-### Activity是如何被限制到状态栏和导航栏之下的
-
-
-### canvas的save和restore的作用
-
-
-### canvas的density有什么作用
+restore：用来恢复Canvas之前保存的状态。防止save后对Canvas执行的操作对后续的绘制有影响。
 
 
 ### vsync是如何生成的
