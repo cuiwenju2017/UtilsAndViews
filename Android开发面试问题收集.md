@@ -989,13 +989,49 @@ public enum EasySingleton{
 ### 共享内存原理[参考：共享内存实现原理](https://blog.csdn.net/mw_nice/article/details/82888091)
 
 
-### kotlin协程的四个dispatcher及区别
+### kotlin协程的四个dispatcher及区别[参考：Kotlin协程核心库分析-1 Dispatchers](https://blog.csdn.net/qfanmingyiq/article/details/105184822)
 
 
 ### window，decorview，ViewRootImpl的关系,面试官 想让你回答如何window和windowManager如何联系的。viewRootImpl是联系window和decorview的纽带
+Activity
+不负责控制视图，只是控制生命周期和处理事件，真正控制视图的是Window,Activity中含有一个Window，Window才是真
+正代表一个窗口
+
+Window
+视图的承载器，内部持有DecorView,而DecorView是View的根布局，Window是一个抽象类，真正的实现类是PhoneWindow，
+PhoneWindow有个内部类DecorView,通过其来加载R.layout.activity_main。Window通过WindowManager将DecorView加
+载其中，并将DecorView交给ViewRoot，进行视图的绘制及其他交互
+
+DecorView
+是FrameLayout的子类，是android的根视图，相当于顶级View，一般来说内部包含竖直方向LinearLayout,在linearlayout
+中含有三部分，上面是ViewStub,延迟加载的视图，中间是标题栏，下面是内容栏，就是我们熟悉的android.R.id.content
+
+ViewRoot
+所有View的绘制及事件分发交互都是通过它来进行的，有个真正的实现类ViewRootImpl,它是链接WindowManagerService
+和DecorView的纽带，View的测量，布局，绘制都是通过它来实现的，所以我们常见的事件分发真正的过程是
 
 
-### 进程间的通信方式
+### 进程间的通信方式[参考：Android进程间通信 - 几种方式的对比总结](https://blog.csdn.net/hzw2017/article/details/81275438)
+常用有如下几种：
+
+Bundle （四大组件间）
+
+文件共享：
+可参考Android进程通信 - 序列化Serialzable与Parcelable中的示例
+
+AIDL （基于Binder）：
+能自动生成Binder文件的工具，相当于工具。
+Android进程通信 - AIDL的使用方法
+
+Messenger（基于Binder）：
+类似于Hnadler发消息用法
+Android进程间通信 - Messenger的使用和理解
+
+ContentProvider（基于Binder）：
+Android进程间通信 - ContentProvider内容提供者
+
+Socket（网络）：
+Android进程间通信 - Socket使用（TCP、UDP）
 
 
 ### AIDL的用法
