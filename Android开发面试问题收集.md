@@ -859,63 +859,134 @@ Binder被占满导致主线程无法和SystemServer通信
 
 
 ### 各种图片格式的区别
+目前android支持的5种图片格式，就是svg、png、webp、jpeg、gif、bmp。使用最多的还是png格式，因为支持RGB三色和
+透明度设置，可以设置很好的logo效果。SVG格式，则是因为体积小，这个对于压缩包大小很有利，而且实现的效果和png差
+不多，所以目前使用的也是越来越多。webp格式一般用于网络加载图片，图片体积相对于png或者jpg都是很有优势的。GIF
+一般是作为动画展示的，但是由于图片太大，所以一般不建议使用，可以使用Lottie动画库代替。
+
+SVG图片：
+矢量图，由视觉设计出SVG图片，使用Androidstudio导入，最后是xml文件，可以适配各种分辨率的屏幕。先定义好要画的
+图形，等待显示的时候，才会将图形画出来。这种方式体积很小，相对于png图片，可以减少50%，但是不适合复杂的图形。
+
+PNG图片：
+无损压缩，支持RGB三色和Alpha透明度设置，android基本使用都是这种方式，但是因为体积较大，所以每次apk包大的时
+候都会将图片进行一遍压缩，https://tinypng.com/网站可以对png图片进行压缩。
+
+WEBP图片：
+google开发的压缩格式，体积相对于png图片减少25%，同时也支持透明度的设置，一般用于网络图片格式。
+
+JPEG图片：
+有损压缩，不支持透明背景，不适用与android系统的logo图片，适用于大图。
+
+GIF图片：
+无损压缩，主要是展示动画，可以设置透明背景色。可以使用Glide和Fresco两个库进行加载，Picasso不支持加载动态图片。
+
+BMP图片：
+bitmap，没有进行任何压缩，所以图片占空间很大，一般很少使用。
 
 
-### 如何保证内存与文件的同步
+### 一张图片占用的内存大小[参考：Android中一张图片占用的内存大小是如何计算的](https://www.cnblogs.com/dasusu/p/9789389.html)
 
 
-### 开一个线程commit，commit不用加锁么？
+### MVC,MMVM,MVP[参考：MVC、MVP、MVVM，我到底该怎么选？](https://blog.csdn.net/singwhatiwanna/article/details/80904132)
 
 
-### 怎么确定bitmap被复用了
+### 手写单例模式，并分析[参考：手写单例模式](https://blog.csdn.net/wand1995/article/details/97760451)
+懒汉式:
+``` 
+public class Singleton{
+	private static Singleton instance;
+	private Singleton(){}
+	public static synchronized Singleton getInstance(){
+		if(instance == null){
+			instance = new Singleton();
+		}
+		return instance;
+	}
+}
+```
+代码简单明了，而且使用了懒加载模式，加上了synchronized关键字，解决了在多线程情况下正常工作，但是它并不高效。
+因为在任何时候只能有一个线程调用 getInstance() 方法。但是同步操作只需要在第一次调用时才被需要，即第一次创建
+单例实例对象时。
+
+双重检验锁模式:
+``` 
+public class Singleton{
+	private volatile static Singleton instance;
+	private Singleton(){}
+	public static Singleton getInstance(){
+		if(instance == null){ 		  //Single Checked
+			Synchronized(Singleton.class){
+				if(instance == null){ //Double Checked
+					instance = new Singleton();
+				}
+			}
+		}
+		return instance;
+	}
+}
+```
+双重检验锁模式（double checked locking pattern），是一种使用同步块加锁的方法。程序员称其为双重检查锁，因为
+会有两次检查 instance == null，一次是在同步块外，一次是在同步块内。为什么在同步块内还要再检验一次？因为可能
+会有多个线程一起进入同步块外的 if，如果在同步块内不进行二次检验的话就会生成多个实例了。
+
+饿汉式static final field:
+``` 
+public class Singleton{
+	//第一次加载类到内存中时就会初始化
+	private static final Singleton instance = new Singleton();
+	private Singleton(){}
+	public static Singleton getInstance(){
+		return instance;
+	}
+}
+```
+饿汉式写法很简单，因为单例的实例被声明成 static 和 final 变量了，在第一次加载类到内存中时就会初始化，所以创
+建实例本身是线程安全的。缺点是它不是一种懒加载模式（lazy initialization），单例会在加载类后一开始就被初始化，
+即使客户端没有调用 getInstance()方法。饿汉式的创建方式在一些场景中将无法使用，例如 Singleton 实例的创建是依
+赖参数或者配置文件的，在 getInstance() 之前必须调用某个方法设置参数给它，那样这种单例写法就无法使用了。
+
+静态内部类 static nested class:
+``` 
+public class Singleton{
+	public static class Single{
+		private static final Singleton INSTANCE = new Singleton();
+	}
+	private Singleton(){}
+	public static final Singleton getInstance(){
+		return Single.INSTANCE;
+	}
+}
+```
+这种写法仍然使用JVM本身机制保证了线程安全问题；由于 SingletonHolder 是私有的，除了 getInstance() 之外没有
+办法访问它，因此它是懒汉式的；同时读取实例的时候不会进行同步，没有性能缺陷；也不依赖 JDK 版本。
+
+枚举 Enum:
+``` 
+public enum EasySingleton{
+    INSTANCE;
+}
+```
+我们可以通过EasySingleton.INSTANCE来访问实例，这比调用getInstance()方法简单多了。创建枚举默认就是线程安全的，
+所以不需要担心double checked locking，而且还能防止反序列化导致重新创建新的对象。
 
 
-### 一张图片占用的内存大小
+### 找到两个数组中的两个元素的和等于某个值[参考：快速找出一个数组中的两个数字，让这两个数字之和等于一个给定的值](https://blog.csdn.net/mimi9919/article/details/51335337/)
 
 
-### MVC,MMVM,MVP
+### StartService和BindService的生命周期[参考：startService和bindService的区别，生命周期以及使用场景](https://www.jianshu.com/p/73f10b6730c6)
 
 
-### MMVM如何解决MVP中存在的问题
+### 求浮点数的平方根[参考：求一个浮点数的平方根——牛顿迭代法](https://blog.csdn.net/HuanCaoO/article/details/79860213)
 
 
-### 内存泄漏
+### 工厂模式[参考：工厂模式](https://blog.csdn.net/qq_38238296/article/details/79841395)
 
 
-### 内存泄漏的几种情况
+### 建造者模式[参考：一篇文章就彻底弄懂建造者模式(Builder Pattern)](https://www.jianshu.com/p/3d1c9ffb0a28)
 
 
-### LeakCancary分析内存泄漏的原理
-
-
-### 手写单例模式，并分析
-
-
-### 找到两个数组中的两个元素的和等于某个值
-
-
-### StartService和BindService的生命周期
-
-
-### 求浮点数的平方根
-
-
-### 工厂模式
-
-
-### 抽象工厂模式和普通工厂模式
-
-
-### 建造者模式
-
-
-### 启动模式有几种
-
-
-### 共享内存原理
-
-
-### java能实现共享内存么
+### 共享内存原理[参考：共享内存实现原理](https://blog.csdn.net/mw_nice/article/details/82888091)
 
 
 ### kotlin协程的四个dispatcher及区别
@@ -1131,9 +1202,6 @@ Binder被占满导致主线程无法和SystemServer通信
 ### 接触过MMKV吗？说说SharedPreference和它的区别
 
 
-### 第三方数据库框架用过哪些？有没有自己封装过一个SQLite的库
-
-
 ### SQLite是线程安全的吗 & SharedPreference是线程安全的吗？
 
 
@@ -1144,12 +1212,6 @@ Binder被占满导致主线程无法和SystemServer通信
 
 
 ### 谈谈你对SQLite事务的认识
-
-
-### ListView是什么？如何使用？
-
-
-### RecyclerView是什么？如何使用？如何返回不一样的Item。
 
 
 ### ListView和RecycyclerView的区别是什么？
@@ -1191,13 +1253,7 @@ Binder被占满导致主线程无法和SystemServer通信
 ### WebView会导致内存泄露吗？原因是什么？解决方式有哪些？
 
 
-### 你知道Hybrid开发吗？说说你的相关经验
-
-
 ### 说说WebSettings & WebViewClient & WebChromeClient这三个类的作用 & 用法。
-
-
-### 说说你了解的Hybrid框架。
 
 
 ### 如何提高原生的WebView加载速度？
@@ -1215,22 +1271,7 @@ Binder被占满导致主线程无法和SystemServer通信
 ### ViewPager + Fragment结合使用存在的内存泄漏的原因是什么？如何解决？
 
 
-### 什么是事件分发机制？主要用来解决什么问题？(校招&实习)
-
-
-### 给我说说事件分发的流程 & 你项目解决事件冲突的一些案例。
-
-
-### 分别讲讲有关事件分发的三个方法的作用及关系。
-
-
 ### 如果我在一个设置了点击事件的TextView中dispatchTouchEvent方法强制返回ture或者false会发生什么？
-
-
-### 谈谈你对MotionEvent的认识？Cancel事件是什么情况下触发的？
-
-
-### requestLayout(),onLayout(),onDraw(),drawChild()区别和联系？
 
 
 ### 加分项：
