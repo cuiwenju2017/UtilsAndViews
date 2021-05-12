@@ -1046,73 +1046,215 @@ save：用来保存Canvas的状态。save之后，可以调用Canvas的平移、
 restore：用来恢复Canvas之前保存的状态。防止save后对Canvas执行的操作对后续的绘制有影响。
 
 
-### vsync是如何生成的
+### vsync是如何生成的[参考：理解 VSync](https://blog.csdn.net/zhaizu/article/details/51882768)
 
 
-### android中异步一般怎么实现
+### android中异步一般怎么实现[参考：Android实现异步的几种方法](https://blog.csdn.net/u011803341/article/details/52774867)
 
 
-### android中内存泄漏发生的情况
+### android中内存泄漏发生的情况[参考：Android 中内存泄漏的原因和解决方案](https://www.jianshu.com/p/abee7c186bfa)
 
 
-### 如何去获取view的宽高
+### 如何去获取view的宽高[参考：在activity中如何正确获取View的宽高](https://blog.csdn.net/zgh0711/article/details/70336354)
 
 
-### 如何实现一个悬浮窗
+### 如何实现一个悬浮窗[参考：Android 悬浮窗功能的实现](https://blog.csdn.net/huangliniqng/article/details/95372212/)
 
 
-### 一个悬浮窗悬浮在顶层，覆盖了底层的app的启动图标，如果让事件启动图标接收到click事件
+### Android M之前与之后的权限变化[参考：Android 6.0 的权限管理变化](https://www.jianshu.com/p/f60260e98418)
+运行时权限：Android 6.0 中不仅要在 AndroidManifest.xml 中声明权限，还在运行的时候增加了权限动态判断
+
+涉及到的以下权限都会在运行时被判断：传感器、日历、摄像头、通讯录、地理位置、麦克风、电话、短信、存储空间、兼容方式
+
+在 Android 6.0 中默认对 targetSdkVersion 小于 23 的应用申请的权限进行允许，但是在 targetSdkVersion 大于等
+于 23 的应用中 ，就需要在代码上去进行动态的判断
 
 
-### Android M之前与之后的权限变化
+### RxJava中map和flatmap的区别[参考：Rxjava map和flatMap区别](https://blog.csdn.net/new_abc/article/details/84318464)
 
 
-### RxJava中map和flatmap的区别
+### viewgroup是如何刷新的[参考：ViewGroup和View的理解和当子视图发生更新时通知viewgroup更新](https://blog.csdn.net/utilc/article/details/9838341)
 
 
-### view的绘制
+### onMeasure,onlayout,onDraw分别起什么作用[参考：Android onMeasure，onLayout，onDraw的理解](https://blog.csdn.net/JimTrency/article/details/52837776)
+测量——onMeasure()：决定View的大小
+
+布局——onLayout()：决定View在ViewGroup中的位置
+
+绘制——onDraw()：如何绘制这个View。
 
 
-### viewgroup是如何刷新的
+### 洗牌问题[参考：面试题之洗牌问题（java实现）](https://blog.csdn.net/qq_22993855/article/details/106932204)
+``` 
+    static List<Integer> left = new ArrayList<>();
+    static List<Integer> right = new ArrayList<>();
+    static int num1;
+    static int num2;
+
+    public static void main(String[] args) {
+        //输入需要的牌的数量,洗牌的次数,以及每张牌的号码
+        Scanner sc = new Scanner(System.in);
+        System.out.println("请输入牌数n:");
+        int n = sc.nextInt();
+        System.out.println("请输入洗牌的次数k:");
+        int[] arr = new int[n];
+        int[] newArr = new int[n];
+        int k = sc.nextInt();
+        System.out.println("请输入牌的序列:");
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        System.out.println("您好,你此次拥有的牌数为:" + n + "张牌,你要求的洗牌次数为:"+ k + "次,其中:");
+        //进行洗牌操作:传入牌数组,洗牌的次数,洗牌之后保存的新牌数组
+        shuffleArr(arr,k,newArr);
+    }
+
+    //封装洗牌的方法
+    public static void shuffleArr(int[] arr, int k, int[] newArr) {
+        //进行洗牌操作
+        for (int i = 0; i < k; i++) {
+            //重点!!!!!!!!!!!!每次进行洗牌前,需要将左手和右手清空,同时,重新将排序后的新排序重新分给左右手,再进行新的排序操作!!!!!!!!!!!!!!!!!!!!!
+            cards(arr);
+            if(i % 2 == 0){
+                //重新分配牌,并将牌分配到左右手上展示
+                //cards(arr);
+                int flag = 1;
+                //当进行奇数次排序
+                for (int p = newArr.length - 1;p >= 0;p--){
+                    if(flag == 1 && p != 0){
+                        newArr[p] = right.get(num2);
+                        num2--;
+                        flag = 0;
+                    }else if(flag == 0 && p != 0){
+                        newArr[p] = left.get(num1);
+                        num1--;
+                        flag = 1;
+                    }else if(p == 0){
+                        newArr[p] = left.get(num1);
+                        System.out.println("第" + (i+1) + "次洗牌后的牌序为:");
+                        printArrays(newArr);
+                        copyArr(newArr,arr);
+                    }
+                }
+                //最后再存储一次牌,并打印一下
+                //cards(arr);
+
+            }else {
+                //重新分配牌,并打印左右手上此时有什么牌
+
+                //进行偶数次排序
+                int flag = 0;
+                //当进行奇数次排序
+                for (int p = newArr.length - 1;p >= 0;p--){
+                    if(flag == 0 && p != 0){
+                        newArr[p] = left.get(num1);
+                        num1--;
+                        flag = 1;
+                    }else if(flag == 1 && p != 0){
+                        newArr[p] = right.get(num2);
+                        num2--;
+                        flag = 0;
+                    }else if(flag == 0 && p == 0){
+                        newArr[p] = left.get(num1);
+                        System.out.println("第" + (i+1) + "次洗牌后的牌序为:");
+                        printArrays(newArr);
+                        copyArr(newArr,arr);
+                    }else if(flag == 1 && p == 0){
+                        newArr[p] = right.get(num2);
+                        System.out.println("第" + (i+1) + "次洗牌后的牌序为:");
+                        //打印排序过后的新牌组
+                        printArrays(newArr);
+                        copyArr(newArr,arr);
+                    }
+                }
+            }
+            //cards(arr);
+        }
+
+    }
+    //打印每次洗牌后的排序的方法
+    public static void printArrays(int[] newArr) {
+        for (int i = 0; i < newArr.length; i++) {
+            System.out.print(newArr[i] + " ");
+        }
+        System.out.println("");
+    }
+
+    //将洗牌后的新牌组代替旧牌组的方法
+    public static void copyArr(int[] newArr,int[] arr) {
+        for (int i = 0; i < newArr.length; i++) {
+            arr[i] = newArr[i];
+        }
+    }
+
+    //存储每一次洗牌后的新牌组到左右手的方法,为下一次洗牌进行操作
+    public static void store(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr.length % 2 != 0){
+                if(i <= arr.length/2){
+                    left.add(arr[i]);
+                }else {
+                    right.add(arr[i]);
+                }
+            }else{
+                if(i < arr.length/2){
+                    left.add(arr[i]);
+                }else {
+                    right.add(arr[i]);
+                }
+            }
+
+        }
+        num1 = left.size() - 1;
+        num2 = right.size() - 1;
+    }
+
+    //打印左右手上各有哪些牌
+    public static void printCards(){
+        //打印左右手上各有什么牌
+        System.out.println("左手上的牌为:");
+        for (Integer card : left) {
+            System.out.print(card + " ");
+        }
+        System.out.println("");
+        System.out.println("右手上的牌为:");
+        for (Integer card : right) {
+            System.out.print(card + " ");
+        }
+        System.out.println("");
+    }
 
 
-### onMeasure,onlayout,onDraw分别起什么作用
+    //将左右手清空,重新分配牌和左右手展示牌封装成一个方法
+    public static void cards(int[] arr){
+        left.clear();
+        right.clear();
+        store(arr);
+        printCards();
+    }
+```
 
 
-### onLayout的时候可以layout自己么？
+### 面向对象原则[参考：面向对象的六大原则](https://blog.csdn.net/xiao_nian/article/details/87097110)
+三大特性指的是封装、继承和多态；
+
+六大原则指的是单一职责原则、开闭式原则、迪米特原则、里氏替换原则、依赖倒置原则以及接口隔离原则，其中，单一职
+责原则是指一个类应该是一组相关性很高的函数和数据的封装，这是为了提高程序的内聚性，而其他五个原则是通过抽象来
+实现的，目的是为了降低程序的耦合性以及提高可扩展性。
 
 
-### 洗牌问题
+### 典型情况下的Activity生命周期？[参考：Activity的生命周期（典型和异常生命周期）](https://blog.csdn.net/daxiong25/article/details/80745697)
 
 
-### 接雨水
+### Activity的启动模式 & 使用场景[参考：android activity 四大启动模式及使用场景](https://blog.csdn.net/u011337574/article/details/79979573)
+android activity的启动模式有4种：分别是standard,singleTop,singleTask和singleInstance。在AndroidManifest.xml中，
+通过标签的android:launchMode属性可以设置启动模式。
 
 
-### 两道设计
+### 如何在任意位置关掉应用所有Activity？[参考：随时随地退出应用（结束之前所有的Activity）](https://blog.csdn.net/juer2017/article/details/78728634?spm=1001.2014.3001.5506)
 
 
-### 面向对象原则
-
-
-### 用代码描述你觉得最有设计感的项目
-
-
-### 典型情况下的Activity生命周期？
-
-
-### 异常情况下的Activity的生命周期 & 数据如何保存和恢复？
-
-
-### 从Activity A跳转到Activity B之后，然后再点击back建之后，它们的生命周期调用流程是什么？
-
-
-### 如何统计Activity的工作时间？
-
-
-### Activity的启动模式 & 使用场景
-
-
-### 如何在任意位置关掉应用所有Activity & 如何在任意位置关掉指定的Activity？
+### 如何在任意位置关掉指定的Activity？[参考：你知道吗？Android里如何关闭某个指定activity](https://blog.csdn.net/androidokk/article/details/96477182)
 
 
 ### Activity的启动流程(从源码角度解析)？
@@ -1296,6 +1438,39 @@ restore：用来恢复Canvas之前保存的状态。防止save后对Canvas执行
 
 
 ### 如果我在一个设置了点击事件的TextView中dispatchTouchEvent方法强制返回ture或者false会发生什么？
+
+
+### viewGroup 怎么知道view有没有消费事件
+
+
+### 内存泄漏有哪些？怎么排查
+
+
+### android的handler机制
+
+
+### android的anr机制
+
+
+### android冷启动优化
+
+
+### android弱网优化
+
+
+### android长图片加载怎么实现
+
+
+### 一个app发布一个版本后，发现变卡了，你如何复现？如何得知某个地方变卡，如何得知用户在某行代码变卡
+
+
+### android 动画机制有哪些？
+
+
+### lottie的原理
+
+
+### 直播中的动画要怎么做？要做成动态的，比如礼物是可以配置的？
 
 
 ### 加分项：
