@@ -1257,52 +1257,78 @@ android activity的启动模式有4种：分别是standard,singleTop,singleTask�
 ### 如何在任意位置关掉指定的Activity？[参考：你知道吗？Android里如何关闭某个指定activity](https://blog.csdn.net/androidokk/article/details/96477182)
 
 
-### Activity的启动流程(从源码角度解析)？
+### Activity的启动流程(从源码角度解析)？[参考：Android源码分析-Activity的启动过程](https://blog.csdn.net/singwhatiwanna/article/details/18154335)
 
 
-### Activity任务栈是什么？在项目中有用到它吗？说给我听听
+### Activity任务栈是什么？在项目中有用到它吗？说给我听听[参考：Activity启动模式与任务栈(Task)全面深入记录（上）](https://blog.csdn.net/javazejian/article/details/52071885)
 
 
-### 广播是什么？
+### 广播的注册方式有哪些？[参考：Android中广播的使用](https://blog.csdn.net/daluyang/article/details/79702321)
 
 
-### 广播的注册方式有哪些？
+### 广播的分类 & 特性 & 使用场景？[参考：Android：BroadcastRecevicer广播类型汇总](https://blog.csdn.net/carson_ho/article/details/53160580)
+普通广播（Normal Broadcast）
+
+系统广播（System Broadcast）
+
+有序广播（Ordered Broadcast）
+
+粘性广播（Sticky Broadcast）
+
+App应用内广播（Local Broadcast）
+
+使用场景：充电电池电量监听、时间变化监听等。
 
 
-### 广播的分类 & 特性 & 使用场景？
+### 什么是内容提供者？[参考：Android开发之内容提供者——创建自己的ContentProvider(详解)](https://blog.csdn.net/dmk877/article/details/50387741)
+首先我们必须要明白的是ContentProvider(内容提供者)是android中的四大组件之一，但是在一般的开发中，可能使用比
+较少。ContentProvider为不同的软件之间数据共享，提供统一的接口。
 
 
-### 什么是内容提供者？
+### ContentProvider,ContentResolver,ContentObserver之间的关系[参考：Android ContentProvider、ContentResolver和ContentObserver的使用](https://blog.csdn.net/heqiangflytosky/article/details/31777363)
 
 
-### 说说如何创建自己应用的内容提供者 & 使用场景
+### 说说ContentProvider的权限管理[参考：ContentProvider权限设置](https://blog.csdn.net/robertcpp/article/details/51337891)
 
 
-### 说说ContentProvider的原理
+### 什么是Service?[参考：Android Service介绍和使用](https://blog.csdn.net/yh18668197127/article/details/86213380)
+Service服务是Android四大组件之一,是一种程序后台运行的方案,用于不需要用户交互,长期运行的任务
+
+Service并不是在单独进程中运行,也是运行在应用程序进程的主线程中,在执行具体耗时任务过程中要手动开启子线程,应用
+程序进程被杀死,所有依赖该进程的服务也会停止运行
 
 
-### ContentProvider,ContentResolver,ContentObserver之间的关系
+### 说说Service的生命周期[参考：Android Service生命周期浅析](https://www.jianshu.com/p/cc25fbb5c0b3)
 
 
-### 说说ContentProvider的权限管理
+### Service和Thread的区别？[参考：Android中Service和Thread的区别](https://blog.csdn.net/mynameishuangshuai/article/details/51821662)
+Thread 是程序执行的最小单元，它是分配CPU的基本单位。可以用 Thread 来执行一些异步的操作。
+
+Service是Android的四大组件之一，被用来执行长时间的后台任务。默认情况下Service是运行在主线程中的。
+
+二者的使用上的区别：
+
+1.在Android中，Thread只是一个用来执行后台任务的工具类，它可以在Activity中被创建，也可以在Service中被创建。
+
+2.Service组件主要有两个作用：后台运行和跨进程访问。service可以在android系统后台独立运行，线程是不可以。
+
+3.Service类是可以供其他应用程序来调用这个Service的而Thread只是在本类中在使用，如果本类关闭那么这个thread也
+就下岗了而Service类则不会。
+
+4.如果需要执行复杂耗时的操作，必须在Service中再创建一个Thread来执行任务。Service的优先级高于后台挂起的Activity，
+当然也高于Activity所创建的Thread，因此，系统可能在内存不足的时候优先杀死后台的Activity或者Thread，而不会轻
+易杀死Service组件，即使被迫杀死Service，也会在资源可用时重启被杀死的Service。
 
 
-### 什么是Service?
+### Android 5.0以上的隐式启动问题及其解决方案。[参考：Android 5.0之后隐式声明Intent 启动Service引发的问题](https://blog.csdn.net/l2show/article/details/47421961)
 
 
-### 说说Service的生命周期
-
-
-### Service和Thread的区别？
-
-
-### Android 5.0以上的隐式启动问题及其解决方案。
-
-
-### Service保活方案
+### Service保活方案[参考：Android进程保活（最新）带你浅析这几种可行性的保活方案](https://blog.csdn.net/qq_37199105/article/details/81224842)
 
 
 ### IntentService是什么 & 原理 & 使用场景 & 和Service的区别。
+[参考：Android面试一天一题（1Day）IntentService作用是什么](https://blog.csdn.net/zxccxzzxz/article/details/52377191)
+[参考：IntentService和Service区别](https://www.jianshu.com/p/5a32226d2ce0)
 
 
 ### 创建一个独立进程的Service应该怎样做？
