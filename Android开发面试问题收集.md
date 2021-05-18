@@ -1331,16 +1331,27 @@ Service是Android的四大组件之一，被用来执行长时间的后台任务
 [参考：IntentService和Service区别](https://www.jianshu.com/p/5a32226d2ce0)
 
 
-### 创建一个独立进程的Service应该怎样做？
+### 创建一个独立进程的Service应该怎样做？[参考：Android 通过Service 单独进程模仿离线推送](https://blog.csdn.net/yan8024/article/details/48790339)
 
 
-### 子线程一定不能更新UI吗？
+### 子线程一定不能更新UI吗？[参考：Android：为什么子线程不能更新UI](https://www.jianshu.com/p/58c999d3ada7)
+子线程可以在ViewRootImpl还没有被创建之前更新UI；
+
+访问UI是没有加对象锁的，在子线程环境下更新UI，会造成不可预期的风险；
+
+ViewRootImpl对象是在onResume方法回调之后才创建，那么就说明了为什么在生命周期的onCreate方法里，甚至是onResume
+方法里都可以实现子线程更新UI，因为此时还没有创建ViewRootImpl对象，并不会进行是否为主线程的判断；
 
 
-### 给我说说Handler的原理
+### Handler的原理[参考：android Handler机制原理解析（一篇就够，包你形象而深刻）](https://blog.csdn.net/luoyingxing/article/details/86500542)
 
 
-### Handler导致的内存泄露你是如何解决的？
+### Handler导致的内存泄露是如何解决的？[参考：handler导致内存泄露的真正原因](https://blog.csdn.net/alex01550/article/details/82744191)
+1.使用static 修饰的handler，但是一般会弱引用activity对象，因为要使用activity对象中的成员
+
+2.单独定义handler，同样可以弱引用activity
+
+3.使用内部类的handler，在onDestroy方法中removeCallbacksAndMessages
 
 
 ### 如何使用Handler让子线程和子线程通信？
