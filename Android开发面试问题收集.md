@@ -1354,79 +1354,193 @@ ViewRootImpl对象是在onResume方法回调之后才创建，那么就说明了
 3.使用内部类的handler，在onDestroy方法中removeCallbacksAndMessages
 
 
-### 如何使用Handler让子线程和子线程通信？
+### 如何使用Handler让子线程和子线程通信？[参考：Handler实现子线程与子线程、主线程之间通信](https://blog.csdn.net/androidsj/article/details/79816866)
 
 
-### HandlerThread是什么 & 原理 & 使用场景？
+### HandlerThread是什么 & 原理 & 使用场景？[参考：handlerThread使用场景分析及源码解析](https://blog.csdn.net/nightcurtis/article/details/77676349)
 
 
-### 一个线程能否创建多个Handler,Handler和Looper之间的对应关系？
+### 一个线程能否创建多个Handler,Handler和Looper之间的对应关系？[参考：【面试】一个线程能否创建多个Handler，Handler跟Looper之间的对应关系 ？](https://blog.csdn.net/u013293125/article/details/105411971/)
+一个线程能够创建多个Handler
+
+Handler跟Looper没有对应关系，线程才跟Looper有对应关系，一个线程对应着一个Looper
 
 
-### 为什么Android系统不建议子线程访问UI？
+### 为什么Android系统不建议子线程访问UI？[参考：Android：为什么子线程不能更新UI](https://www.jianshu.com/p/58c999d3ada7)
+谷歌提出：“一定要在主线程更新UI”，实际是为了提高界面的效率和安全性，带来更好的流畅性；反推一下，假如允许多线
+程更新UI，但是访问UI是没有加锁的，一旦多线程抢占了资源，那么界面将会乱套更新了，体验效果就不言而喻了；
+所以在Android中规定必须在主线程更新UI。
 
 
-### AsyncTask是什么？能解决什么问题
+### AsyncTask是什么？能解决什么问题[参考：AsyncTask](https://www.jianshu.com/p/6751aa65fcb6)
+AsyncTask是什么：
+
+AsyncTask是Android封装的一个轻量级的异步类，可以在线程池中执行异步任务，并可以将执行进度和结果传递给UI线程。
+
+AsyncTask的内部封装了两个线程池(SerialExecutor、THREAD_POOL_EXECUTOR)和一个Handler。
+
+其中SerialExecutor线程池用于任务的排队，让需要执行的多个耗时任务，按顺序排列，THREAD_POOL_EXECUTOR线程池
+才真正地执行任务，Handler用于从工作线程切换到主线程。
+
+AsyncTask出现的契机：
+
+线程的创建和销毁都会有开销，如果在进程中频繁的创建和销毁线程，是不可取的。应该采用线程池，可以避免因为频繁创
+建和销毁线程所带来的系统开销。
 
 
-### 给我谈谈AsyncTask的三个泛型参数作用 & 它的一些方法作用。
+### 给我谈谈AsyncTask的三个泛型参数作用 & 它的一些方法作用。[参考：AsyncTask](https://www.jianshu.com/p/6751aa65fcb6)
+``` 
+public abstract class AsyncTask<Params, Progress, Result>{}
+```
+Params：开始异步任务执行时传入的参数类型；
+
+Progress：异步任务执行过程中，返回下载进度值的类型；
+
+Result：异步任务执行完成后，返回的结果类型；
+
+如果AsyncTask确定不需要传递具体参数，那么这三个泛型参数可以用Void来代替。
 
 
-### 给我说说AsyncTask的原理
-
-
-### 你觉得AsyncTask有不足之处吗？
+### AsyncTask的原理[参考：AsyncTask的原理和缺点](https://blog.csdn.net/wjinhhua/article/details/60578133)
 
 
 ### Android中v4包下Fragment和app包下Fragment的区别是什么？
+1.app包中的fragment在3.0以上才可以使用，最好使用兼容低版本的。
+
+2.v4包下的可以兼容到 1.6版本。
+
+3.两者都可以使用<fragment>标签，但是app包下的fragment所在的activity继承Activity即可。v4包下的fragment所在
+的activity必须继承FragmentActivity，否则会报错。
+
+4.getSupportFragmentManager（）对应的是 v4 ；getFragmentManager（）对应的是 app；
 
 
-### Fragment的生命周期 & 请结合Activity的生命周期再一起说说。
+### Fragment的生命周期 & 请结合Activity的生命周期再一起说说。[参考：Activity与Fragment的生命周期](https://blog.csdn.net/zjclugger/article/details/10442335)
 
 
-### 说说Fragment如何进行懒加载。
+### Fragment如何进行懒加载。[参考：Androidx 下 Fragment 懒加载的新实现](https://www.jianshu.com/p/2201a107d5b5?utm_campaign=hugo)
 
 
-### ViewPager + Fragment结合使用会出现内存泄漏吗 & 如何解决？
+### ViewPager + Fragment结合使用会出现内存泄漏吗 & 如何解决？[参考：记录ViewPager+fragment 内存泄露问题](https://blog.csdn.net/qq_32536991/article/details/88837924)
 
 
 ### Fragment如何和Activity进行通信 & Fragment之间如何进行通信？
+[参考：Android：手把手教你 实现Activity 与 Fragment 相互通信（含Demo）](https://www.jianshu.com/p/825eb1f98c19)
+[参考：【Android】Fragment之间数据传递的三种方式](https://www.jianshu.com/p/f87baad32662)
 
 
-### 给我谈谈Fragment3种切换的方式以及区别 & 使用场景。
+### 给我谈谈Fragment3种切换的方式以及区别 & 使用场景。[参考：Fragment生命周期-3种不同的切换方式生命周期变化](https://blog.csdn.net/luoxianli2011/article/details/106899777)
+1.通过add、hide、show方式来切换fragment
 
+当以这种方式进行Fragment1和Fragment2切换时，Fragment隐藏的时候并不走onDestroyView()，所有的现实也不会走onCreateView()，所有的view都会保存在内存。
 
-### 文件存储
+2.使用replace()方法进行切换Fragment
+
+通过replace方法进行替换的方式，Fragment都是进行了销毁、重建新Fragment的过程，相当于走了一整套的生命周期
+
+3.使用ViewPager方式切换Fragment
+
+当使用ViewPager进行Fragment切换时，所有的Fragment都会进行预加载。
 
 
 ### 说说Android中数据持久化的方式 & 使用场景
+第一种： 使用SharedPreferences存储数据：
+
+适用范围：保存少量的数据，且这些数据的格式非常简单：字符串型、基本类型的值。比如应用程序的各种配置信息
+（如是否打开音效、是否使用震动效果、小游戏的玩家积分等），解锁口 令密码等
+
+核心原理：保存基于XML文件存储的key-value键值对数据，通常用来存储一些简单的配置信息。通过DDMS的File Explorer
+面板，展开文件浏览树,很明显SharedPreferences数据总是存储在/data/data//shared_prefs目录下。SharedPreferences
+对象本身只能获取数据而不支持存储和修改,存储修改是通过SharedPreferences.edit()获取的内部接口Editor对象实现。
+ SharedPreferences本身是一 个接口，程序无法直接创建SharedPreferences实例，只能通过Context提供的getSharedPreferences(String name, int mode)
+ 方法来获取SharedPreferences实例，该方法中name表示要操作的xml文件名，第二个参数具体如下：
+
+Context.MODE_PRIVATE: 指定该SharedPreferences数据只能被本应用程序读、写。
+
+Context.MODE_WORLD_READABLE: 指定该SharedPreferences数据能被其他应用程序读，但不能写。
+
+Context.MODE_WORLD_WRITEABLE: 指定该SharedPreferences数据能被其他应用程序读，写
+
+SharedPreferences对象与SQLite数据库相比，免去了创建数据库，创建表，写SQL语句等诸多操作，相对而言更加方便，
+简洁。但是SharedPreferences也有其自身缺陷，比如其职能存储boolean，int，float，long和String五种简单的数据
+类型，比如其无法进行条件查询等。所以不论SharedPreferences的数据存储操作是如何简单，它也只能是存储方式的一种
+补充，而无法完全替代如SQLite数据库这样的其他数据存储方式。
+
+第二种： 文件存储数据：
+
+可以在设备本身的存储设备或者外接的存储设备中创建用于保存数据的文件。同样在默认的状态下，文件是不能在不同的程序间共享。
+
+写文件：调用Context.openFileOutput()方法根据指定的路径和文件名来创建文件，这个方法会返回一个FileOutputStream对象。
+
+读取文件：调用Context.openFileInput()方法通过制定的路径和文件名来返回一个标准的Java FileInputStream对象。
+
+第三种：SQLite存储数据：
+
+SQLite Database数据库。Android对数据库的支持很好，它本身集成了SQLite数据库，每个应用都可以方便的使用它，或
+者更确切的说，Android完全依赖于SQLite数据库，它所有的系统数据和用到的结构化数据都存储在数据库中。 它具有以
+下优点： 
+
+a. 效率出众，这是无可否认的 
+
+b. 十分适合存储结构化数据 
+
+c. 方便在不同的Activity，甚至不同的应用之间传递数据。　　
+
+第四种：ContentProvider：
+
+Android系统中能实现所有应用程序共享的一种数据存储方式，由于数据通常在各应用间的是互相私密的，所以此存储方式
+较少使用，但是其又是必不可少的一种存储方式。例如音频，视频，图片和通讯录，一般都可以采用此种方式进行存储。
+每个ContentProvider都会对外提供一个公共的URI（包装成Uri对象），如果应用程序有数据需要共享时，就需要使用ContentProvider
+为这些数据定义一个URI，然后其他的应用程序就通过Content Provider传入这个URI来对数据进行操作。
 
 
-### 接触过MMKV吗？说说SharedPreference和它的区别
+### SharedPreference和MMKV的区别[参考：MMKV组件实现原理以及和SharedPreferences的比较（一）](https://blog.csdn.net/qq_39424143/article/details/95103783)
+MMKV是基于mmap内存映射关系的key-value组件，底层序列化/反序列化使用protobuf实现。性能高，稳定性强。
+
+SharedPreferences是Android提供的一种使用XML文件保存内容的机制，内部通过XML写入文件
 
 
 ### SQLite是线程安全的吗 & SharedPreference是线程安全的吗？
+[参考：SQLite线程安全相关整理](https://blog.csdn.net/u013427969/article/details/90209917)
 
 
-### 请简单的给我说说什么是三级缓存？
+### 什么是三级缓存？[参考：android三级缓存详解](https://blog.csdn.net/u012138137/article/details/50921209?locationNum=3&fps=1)
 
 
-### SharedPreference的apply和commit的区别
+### SharedPreference的apply和commit的区别[参考：SharedPreferences中的commit和apply方法](https://www.jianshu.com/p/c8d10357c939)
+commit和apply虽然都是原子性操作，但是原子的操作不同，commit是原子提交到数据库，所以从提交数据到存在Disk中都是同步过程，中间不可打断。
+
+而apply方法的原子操作是原子提交的内存中，而非数据库，所以在提交到内存中时不可打断，之后再异步提交数据到数据库中，因此也不会有相应的返回值。
+
+所有commit提交是同步过程，效率会比apply异步提交的速度慢，但是apply没有返回值，永远无法知道存储是否失败。
+
+在不关心提交结果是否成功的情况下，优先考虑apply方法。
 
 
-### 谈谈你对SQLite事务的认识
+### 谈谈你对SQLite事务的认识[参考：Sqlite事务理解](https://blog.csdn.net/qq_40111789/article/details/82670810)
 
 
-### ListView和RecycyclerView的区别是什么？
+### ListView和RecycyclerView的区别是什么？[参考：ListView和RecyclerView的使用和区别](https://blog.csdn.net/qq_39899087/article/details/86513378)
+1）ListView布局单一，RecycleView可以根据LayoutManger有横向，瀑布和表格布局
+
+2）自定义适配器中，ListView的适配器继承ArrayAdapter;RecycleView的适配器继承RecyclerAdapter,并将范类指定为子项对象类.ViewHolder(内部类)。
+
+3）ListView优化需要自定义ViewHolder和判断convertView是否为null。 而RecyclerView是存在规定好的ViewHolder。
+
+4）绑定事件的方式不同，ListView是在主方法中ListView对象的setOnItemClickListener方法；RecyclerView则是在子项具体的View中去注册事件。
 
 
 ### 分别讲讲你对ListView & RecyclerView的优化经验。
+[参考：ListView的优化](https://www.jianshu.com/p/f0408a0f0610)
+[参考：RecyclerView性能优化及高级使用](https://blog.csdn.net/smileiam/article/details/88396546)
 
 
-### 给我说说RecyclerView的回收复用机制
+### RecyclerView的回收复用机制[参考：基于滑动场景解析RecyclerView的回收复用机制原理](https://www.jianshu.com/p/9306b365da57)
 
 
 ### 说说你是如何给ListView & RecyclerView加上拉刷新 & 下拉加载更多机制
+[参考：ListView增加下拉刷新，上拉加载更多](https://www.jianshu.com/p/adb2f8aa863c)
+[参考：让RecyclerView上拉刷新下拉加载更多更简便易用](https://www.jianshu.com/)
 
 
 ### 谈谈你是如何对ListView & RecycleView进行局部刷新的？
