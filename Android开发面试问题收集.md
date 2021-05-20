@@ -1544,24 +1544,84 @@ commit和apply虽然都是原子性操作，但是原子的操作不同，commit
 
 
 ### 谈谈你是如何对ListView & RecycleView进行局部刷新的？
+[参考：android ListView 局部刷新](https://blog.csdn.net/bzlj2912009596/article/details/80660112)
+[参考：Android recyclerview 局部刷新问题](https://blog.csdn.net/yanmantian/article/details/103615971)
 
 
-### 你对Bitmap了解吗？它在内存中如何存在？
+### Bitmap在内存中如何存在的？[参考：Bitmap 在内存中有多大？](https://blog.csdn.net/u011494285/article/details/80523775)
 
 
-### 有关Bitmap导致OOM的原因知道吗？如何优化？
+### 有关Bitmap导致OOM的原因？如何优化？
+因为Android系统对内存有一个限制，如果超出该限制，就会出现OOM。为了避免这个问题，需要在加载资源时尽量考虑如何节约内存，尽快释放资源等等。
 
+Android系统版本对图片加载，回收的影响：
 
-### 给我谈谈图片压缩。
+1，在Android 2.3以及之后，采用的是并发回收机制，避免在回收内存时的卡顿现象。
+
+2，在Android 2.3.3(API Level 10)以及之前，Bitmap的backing pixel 数据存储在native memory, 与Bitmap本身是
+分开的，Bitmap本身存储在dalvik heap 中。导致其pixel数据不能判断是否还需要使用，不能及时释放，容易引起OOM错误。
+ 从Android 3.0(API 11)开始，pixel数据与Bitmap一起存储在Dalvik heap中。
+
+在加载图片资源时，可采用以下一些方法来避免OOM的问题：
+
+1，在Android 2.3.3以及之前，建议使用Bitmap.recycle()方法，及时释放资源。
+
+2，在Android 3.0开始，可设置BitmapFactory.options.inBitmap值，(从缓存中获取)达到重用Bitmap的目的。如果设置，
+则inPreferredConfig属性值会被重用的Bitmap该属性值覆盖。
+
+3，通过设置Options.inPreferredConfig值来降低内存消耗：
+
+默认为ARGB_8888: 每个像素4字节. 共32位。
+
+Alpha_8: 只保存透明度，共8位，1字节。
+
+ARGB_4444: 共16位，2字节。
+
+RGB_565:共16位，2字节。
+
+如果不需要透明度，可把默认值ARGB_8888改为RGB_565,节约一半内存。
+
+4，通过设置Options.inSampleSize 对大图片进行压缩，可先设置Options.inJustDecodeBounds，获取Bitmap的外围数据，
+宽和高等。然后计算压缩比例，进行压缩。
+
+5，设置Options.inPurgeable和inInputShareable：让系统能及时回收内存。inPurgeable:设置为True,则使用BitmapFactory
+创建的Bitmap用于存储Pixel的内存空间，在系统内存不足时可以被回收，当应用需要再次访问该Bitmap的Pixel时，系统
+会再次调用BitmapFactory 的decode方法重新生成Bitmap的Pixel数组。设置为False时，表示不能被回收。inInputShareable：设
+置是否深拷贝，与inPurgeable结合使用，inPurgeable为false时，该参数无意义。
+
+6，使用decodeStream代替其他decodeResource,setImageResource,setImageBitmap等方法来加载图片。区别： decodeStream
+直接读取图片字节码，调用nativeDecodeAsset/nativeDecodeStream来完成decode。无需使用Java空间的一些额外处理过程，
+节省dalvik内存。但是由于直接读取字节码，没有处理过程，因此不会根据机器的各种分辨率来自动适应，需要在hdpi,mdpi
+和ldpi中分别配置相应的图片资源，否则在不同分辨率机器上都是同样的大小(像素点数量)，显示的实际大小不对。decodeResource
+会在读取完图片数据后，根据机器的分辨率，进行图片的适配处理，导致增大了很多dalvik内存消耗。
+
+decodeStream调用过程：
+
+decodeStream(InputStream,Rect,Options) -> nativeDecodeAsset/nativeDecodeStream
+
+decodeResource调用过程：即finishDecode之后，调用额外的Java层的createBitmap方法，消耗更多dalvik内存。
+
+decodeResource(Resource,resId,Options)  -> decodeResourceStream (设置Options的inDensity和inTargetDensity参数) 
+ -> decodeStream() (在完成Decode后，进行finishDecode操作)finishDecode() -> Bitmap.createScaleBitmap()
+ (根据inDensity和inTargetDensity计算scale) -> Bitmap.createBitmap()
+ 
+ 
+### 给我谈谈图片压缩。[参考：浅谈android中加载高清大图及图片压缩方式(二)](https://blog.csdn.net/u013064109/article/details/51415879)
 
 
 ### LruCache & DiskLruCache原理。
+[参考：LruCache——解决OOM的利器](https://blog.csdn.net/wzhseu/article/details/81745799)
+[参考：LruCache 和 DiskLruCache 的使用以及原理分析](https://blog.csdn.net/qq_15893929/article/details/85229364)
 
 
 ### 说说你平常会使用的一些第三方图片加载库,最好给我谈谈它的原理。
+[参考：Glide实现原理解析](https://blog.csdn.net/hxl517116279/article/details/99639520)
+[参考：Android图片加载框架之(Glide和Picasso的区别，Glide的简单使用)](https://blog.csdn.net/jing_80/article/details/81020718)
 
 
 ### 如果让你设计一个图片加载库，你会如何设计？
+[参考：Android 框架练成 教你打造高效的图片加载框架](https://blog.csdn.net/lmj623565791/article/details/41874561)
+[参考：如何设计一个图片加载框架](https://blog.csdn.net/u012124438/article/details/113797946)
 
 
 ### 你知道Android中处理图片的一些库吗(OpenCv & GPUImage …)？
