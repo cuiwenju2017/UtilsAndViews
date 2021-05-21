@@ -1624,64 +1624,106 @@ decodeResource(Resource,resId,Options)  -> decodeResourceStream (设置Options�
 [参考：如何设计一个图片加载框架](https://blog.csdn.net/u012124438/article/details/113797946)
 
 
-### 你知道Android中处理图片的一些库吗(OpenCv & GPUImage …)？
+### WebView会导致内存泄露吗？原因是什么？解决方式有哪些？[参考：腾讯Android高工灵魂三问：WebView会存在内存泄漏吗？为什么？泄漏了怎么解决？](https://blog.csdn.net/zzz777qqq/article/details/110482537)
 
 
-### WebView会导致内存泄露吗？原因是什么？解决方式有哪些？
+### 说说WebSettings & WebViewClient & WebChromeClient这三个类的作用 & 用法。[参考：Android：最全面的 Webview 详解](https://blog.csdn.net/carson_ho/article/details/52693322)
+WebSettings类作用：对WebView进行配置和管理
+
+WebViewClient类作用：处理各种通知 & 请求事件
+
+WebChromeClient类作用：辅助 WebView 处理 Javascript 的对话框,网站图标,网站标题等等。
 
 
-### 说说WebSettings & WebViewClient & WebChromeClient这三个类的作用 & 用法。
+### 如何提高原生的WebView加载速度？[参考：Android:WebView提升首次加载速度](https://blog.csdn.net/qq_23575795/article/details/83473418)
 
 
-### 如何提高原生的WebView加载速度？
+### 谈谈你对webView工作机制的认识,你在项目中优化过它吗？说说是从哪些方面着手的？[参考：Android：手把手教你构建 全面的WebView 缓存机制 & 资源加载方案](https://www.jianshu.com/p/5e7075f4875f)
 
 
-### 谈谈你对webView工作机制的认识,你在项目中优化过它吗？说说是从哪些方面着手的？
+### 什么是ViewPager?说说它的那些适配器。(校招&实习)[参考：ViewPager概述](https://blog.csdn.net/qq_35255047/article/details/75646364)
 
 
-### 什么是ViewPager?说说它的那些适配器。(校招&实习)
+### 你了解ViewPager2吗？和ViewPager 1有哪些区别？[参考：探索取代ViewPager的ViewPager2](https://blog.csdn.net/qq_39872430/article/details/104023554)
+1.ViewPager2 API最大的变化是它现在使用RecyclerView。
+
+2.使用 ViewPager2 需要迁移到 AndroidX，因为android.support库中不支持ViewPager2。
+
+3.FragmentStateAdapter 替换 FragmentStatePagerAdapter
+
+4.RecyclerView.Adapter 替代 PagerAdapter
+
+5.registerOnPageChangeCallback 替换 addPageChangeListener
+
+关于为什么使用ViewPager2而不是继续使用ViewPager的原因，请看下面的ViewPager2变化。
+
+ViewPager2 基于 RecyclerView
+
+允许垂直分页，说明也支持LayoutManager，在源码中也可以看到。
+
+支持RTL布局，国内一般适配的很少，到目前为止我还没有见过，可谁知道产品的想法呢。
+
+改善数据更改通知
+
+支持使用代码滚动ViewPager2
+
+引入了MarginPageTransformer 以提供在页面之间创建空间的功能。
+
+引入CompositePageTransformer 来组合多个Page Transformer。
+
+getCurrentItem() 和 getCurrentItem() 方法的隐式使用
+
+由于RecyclerView包含ViewPager2的一部分，因此支持DiffUtil
+
+引入ItemDecorator可以对行进行操作，和RecyclerView一致
 
 
-### 你了解ViewPager2吗？和ViewPager 1有哪些区别？
+### ViewPager + Fragment结合使用存在的内存泄漏的原因是什么？如何解决？[参考：viewpager + fragment+FragmentStatePagerAdapter中用List存放多个Fragment 造成的内存泄漏](https://blog.csdn.net/k_hello/article/details/82996162)
 
 
-### ViewPager + Fragment结合使用存在的内存泄漏的原因是什么？如何解决？
+### 如果我在一个设置了点击事件的TextView中dispatchTouchEvent方法强制返回ture或者false会发生什么？[参考：Android学习之路--View--事件传递机制](https://blog.csdn.net/jiayi_fly/article/details/54098367)
 
 
-### 如果我在一个设置了点击事件的TextView中dispatchTouchEvent方法强制返回ture或者false会发生什么？
+### viewGroup 怎么知道view有没有消费事件[参考：Android ViewGroup/View 事件分发机制详解](https://blog.csdn.net/WALLEZhe/article/details/51737034)
+onTouchEvent 返回true时，表示事件被消费掉了。一旦事件被消费掉了，其他父元素的onTouchEvent方法都不会被调用。
+如果没有人消耗事件，则最终当前Activity会消耗掉。则下次的MOVE、UP事件都不会再传下去了。
 
 
-### viewGroup 怎么知道view有没有消费事件
+### 内存泄漏有哪些？怎么排查[参考：Android内存泄漏检测和定位](https://www.jianshu.com/p/1972a6d1f0fc)
 
 
-### 内存泄漏有哪些？怎么排查
+### android的handler机制[参考：Android Handler异步通信：深入详解Handler机制源码](https://blog.csdn.net/carson_ho/article/details/80388560)
 
 
-### android的handler机制
+### android的anr机制[参考：Android ANR机制的原理以及问题分析（一）](https://blog.csdn.net/wcsbhwy/article/details/108704392)
 
 
-### android的anr机制
+### android冷启动优化[参考：Android性能优化之冷启动优化](https://blog.csdn.net/dfskhgalshgkajghljgh/article/details/100084219)
 
 
-### android冷启动优化
+### android弱网优化[参考：Android 网络性能优化（4）弱网优化](https://blog.csdn.net/rikkatheworld/article/details/109050268)
 
 
-### android弱网优化
-
-
-### android长图片加载怎么实现
+### android长图片加载怎么实现[参考：Android中如何加载大图片和长图片](https://blog.csdn.net/haoxuhong/article/details/80879982)
 
 
 ### 一个app发布一个版本后，发现变卡了，你如何复现？如何得知某个地方变卡，如何得知用户在某行代码变卡
+[参考：Android性能优化-检测App卡顿](https://www.jianshu.com/p/9e8f88eac490?utm_campaign=maleskine&utm_content=note&utm_medium=seo_notes&utm_source=recommendation)
+[参考：Android卡顿检测及优化](https://blog.csdn.net/u013309870/article/details/106801022)
 
 
-### android 动画机制有哪些？
+### android 动画机制有哪些？[参考：Android动画机制及其使用](https://blog.csdn.net/qq_15128547/article/details/56496625)
 
 
-### lottie的原理
+### lottie的原理[参考：Android 之 Lottie 实现炫酷动画背后的原理](https://blog.csdn.net/singwhatiwanna/article/details/90687150)
 
 
 ### 直播中的动画要怎么做？要做成动态的，比如礼物是可以配置的？
+[参考：直播App中Android酷炫礼物动画实现方案（上篇）](https://blog.csdn.net/urDFmQCUL2/article/details/78349700)
+
+[SVGA官网](http://svga.io/)
+
+[SVGAPlayer-Android库](https://github.com/svga/SVGAPlayer-Android)
 
 
 ### 加分项：
