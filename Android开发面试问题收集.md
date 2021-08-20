@@ -1,6 +1,5 @@
 [GitHub持续更新：（声明：本答案为个人收集与总结并非标准答案，仅供参考，如有错误还望指出，谢谢！如有重复可能是常问问题）](https://github.com/cuiwenju2017/UtilsAndViews/blob/master/Android%E5%BC%80%E5%8F%91%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E6%94%B6%E9%9B%86.md)
 
-
 ### ArrayList的使用，ArrayList使用过程中有没有遇到过坑。[参考：读了这一篇，让你少踩 ArrayList 的那些坑](https://www.cnblogs.com/fengzheng/p/12986513.html)
 Arrays.asList不能add:
 
@@ -8,9 +7,7 @@ Arrays.asList不能add:
 和真正我们平时用的 ArrayList只是继承自同一抽象类的两个不同子类，而 Arrays.asList创建的 ArrayList 只能做
 一些简单的视图使用，不能做过多操作，所以 ArrayList的几种初始化方式里没有 Arrays.asList这一说。
 
-subList 方法:
-
-1.上面提到了那个问题和 subList的坑有异曲同工之妙，都是由于返回的对象并不是真正的 ArrayList类型，而是和 ArrayList
+subList 方法:1.上面提到了那个问题和 subList的坑有异曲同工之妙，都是由于返回的对象并不是真正的 ArrayList类型，而是和 ArrayList
 集成同一父类的不同子类而已。所以会产生第一个坑，就是把当把 subList返回的对象转换成 ArrayList 的时候。
 
 2.当你在 subList 中操作的时候，其实就是在操作原始的 ArrayList。
@@ -20,24 +17,18 @@ subList 就已经废掉了，不能用了，不能用的意思就是你在 subLi
 连遍历都不行了。其实与二坑的原因相同，subList 其实操作的是原始列表，当你在 subList 上进行操作时，会执行 checkForComodification
 方法，此方法会检查原始列表的个数是否和最初的相同，如果不相同，直接抛出 ConcurrentModificationException异常。
 
-
 ### GC算法[参考：几种常见GC算法介绍](https://blog.csdn.net/iva_brother/article/details/87870576)
 常用的GC算法（引用计数法、标记-清除法、复制算法、标记-清除算法）
 
-
 ### 泛型的边际[参考：java泛型之泛型边界](https://blog.csdn.net/renwuqiangg/article/details/51296621)
-
 
 ### Handler中loop方法为什么不会导致线程卡死。[参考：为什么Looper中的Loop()方法不能导致主线程卡死?](https://blog.csdn.net/weixin_33738578/article/details/91412781)
 1.耗时操作本身并不会导致主线程卡死, 导致主线程卡死的真正原因是耗时操作之后的触屏操作, 没有在规定的时间内被分发。
 
 2.Looper 中的 loop()方法, 他的作用就是从消息队列MessageQueue 中不断地取消息, 然后将事件分发出去。
 
-
 ### 动画的原理[参考：Android三种动画实现原理及使用](https://blog.csdn.net/weixin_39001306/article/details/80614286)
-Android动画目前分为三种：
-
-1.Frame Animation 帧动画，通过顺序播放一系列图像从而产生动画效果，。图片过多时容易造成OOM（Out Of Memory内存用完）异常。
+Android动画目前分为三种：1.Frame Animation 帧动画，通过顺序播放一系列图像从而产生动画效果，。图片过多时容易造成OOM（Out Of Memory内存用完）异常。
 
 2.Tween Animation 补间动画（又叫view动画），是通过对场景里的对象不断做图像变换（透明度、缩放、平移、旋转）
 从而产生动画效果，是一种渐进式动画，并且View动画支持自定义。
@@ -50,19 +41,14 @@ Android动画目前分为三种：
 举个例子：例如屏幕左上角有一个Button按钮，使用补间动画将其移动到右下角，此刻你去点击右下角的Button，它是绝
 对不会响应点击事件的，因此其作用区域依然还在左上角。只不过是补间动画将其绘制在右下角而已，而属性动画则不会。
 
-
 ### View的事件分发机制？[参考：一文读懂Android View事件分发机制](https://www.jianshu.com/p/238d1b753e64)
 
-
 ### View刷新机制
-View绘制分三个步骤:
-
-顺序是：onMeasure，onLayout，onDraw。调用invalidate方法只会执行onDraw方法；调用requestLayout方法只会执行
+View绘制分三个步骤:顺序是：onMeasure，onLayout，onDraw。调用invalidate方法只会执行onDraw方法；调用requestLayout方法只会执行
 onMeasure方法和onLayout方法，并不会执行onDraw方法。所以当我们进行View更新时，若仅View的显示内容发生改变且
 新显示内容不影响View的大小、位置，则只需调用invalidate方法；若View宽高、位置发生改变且显示内容不变，只需调
 用requestLayout方法；若两者均发生改变，则需调用两者，按照View的绘制流程，推荐先调用requestLayout方法再调用
 invalidate方法。
-
 
 ### 如果后台的Activity由于某原因被系统回收了如何存取数据
 onSaveInstanceState是用来保存UI状态的，你可以使用它保存你所想保存的东西，在Activity杀死之前，它一般在onStop
@@ -75,7 +61,6 @@ onSaveInstanceState是用来保存UI状态的，你可以使用它保存你所�
 存的信息。
 
 onSaveInstanceState和onRestoreInstanceState 是一对兄弟，一个负责存储，一个负责取出.“不一定”是成对的被调用的。
-
 
 ### activity的启动模式
 standard:这个是android默认的Activity启动模式，每启动一个Activity都会被实例化一个Activity，并且新创建的
@@ -95,18 +80,14 @@ singleInstance:该种情况就用得比较少了，主要是指在该activity永
 实例已经存在于某个栈中，任何应用在激活该activity时都会重用该栈中的实例，解决了多个task共享一个activity。其
 余的基本和上面的singleTask保持一致。
 
-
 ### 请描述Activity和Fragment的关联。 
 Fragment与Activity关联主要有两种方式，一种是通过在Activity的布局文件中写入fragment控件，使用name属性指定
 一个Fragment；
 
 另一种是在java代码中动态的添加与删除Fragment。
 
-
 ### 请描述Android中线程与线程，进程与进程之间如何通信
-线程间通信：
-
-1)主线程中创建子线程，如果为内部类或匿名内部类（new Thread(){}.start()）方式启动子线程，则可在子线程内部直
+线程间通信：1)主线程中创建子线程，如果为内部类或匿名内部类（new Thread(){}.start()）方式启动子线程，则可在子线程内部直
 接调用主线程的成员变量、final修饰的局部变量；
 
 2)若外部类（继承Thread接口的子线程类），可设置setter方法，主线程调用该方法通过参数传值。
@@ -114,9 +95,7 @@ Fragment与Activity关联主要有两种方式，一种是通过在Activity的�
 3)子线程中向主线程通信，可通过主线程的handler发送信息或Runnable代码对象，或调用activity.runOnUiThread(){}
 方式运行Runnable代码对象。
 
-进程间通信：
-
-1）隐式意图intent跨进程启动Activity，通过intent传递数据，通常以Uri形式；
+进程间通信：1）隐式意图intent跨进程启动Activity，通过intent传递数据，通常以Uri形式；
 
 2）ContentProvider内容提供者，提供其它进程调用增删改查数据的入口；
 
@@ -124,31 +103,22 @@ Fragment与Activity关联主要有两种方式，一种是通过在Activity的�
 
 4）通过AIDL连接其它进程的Service服务
 
-
 ### 内存溢出和内存泄漏有什么区别？何时会产生内存泄漏？内存优化有哪些方法？
- 一、原理
- 
-内存溢出（Out of memory）:系统会给每个APP分配内存也就是Heap size值，当APP所需要的内存大于了系统分配的内存，
+ 一、原理：内存溢出（Out of memory）:系统会给每个APP分配内存也就是Heap size值，当APP所需要的内存大于了系统分配的内存，
 就会造成内存溢出；通俗点就是10L桶只能装10L水，但是你却用来装11L的水，那就有1L的水就会溢出。
 
 内存泄漏（Memory leak）:当一个对象不在使用了，本应该被垃圾回收器（JVM）回收，但是这个对象由于被其他正在使用
 的对象所持有，造成无法被回收的结果，通俗点就是系统把一定的内存值A借给程序，但是系统却收不回完整的A值，那就是
 内存泄漏。
 
-二、两者的关系
-
-内存泄漏是造成内存溢出（OOM）的主要原因，因为系统分配给每个程序的内存也就是Heap size的值都是有限的，当内存
+二、两者的关系：内存泄漏是造成内存溢出（OOM）的主要原因，因为系统分配给每个程序的内存也就是Heap size的值都是有限的，当内存
 泄漏到一定值的时候，最终会发生程序所需要的内存值加上泄漏值大于了系统所分配的内存额度，就是触发内存溢出。
 
-三、危害
-
-内存溢出：会触发Java.lang.OutOfMemoryError，造成程序崩溃
+三、危害：内存溢出：会触发Java.lang.OutOfMemoryError，造成程序崩溃
 
 内存泄漏：过多的内存泄漏会造成OOM的发送，同样也会造成相关UI的卡顿现象
 
-四、造成的原因以及处理
-
-A、大量的图片、音频、视频处理，当在内存比较低的系统上也容易造成内存溢出建议使用第三方，或者JNI来进行处理
+四、造成的原因以及处理：A、大量的图片、音频、视频处理，当在内存比较低的系统上也容易造成内存溢出建议使用第三方，或者JNI来进行处理
 
 B、Bitmap对象的不正确处理（内存溢出）不要在主线程中处理图片使用Bitmap对象要用recycle释放高效的处理大图
 
@@ -167,7 +137,6 @@ G、单列模式造成的内存泄漏，如context的使用，单列中传入的
 样就保证了单列的生命周期跟application的生命周期一样单列模式应该尽量少持有生命周期不同的外部对象，一旦持有该
 对象的时候，必须在该对象的生命周期结束前制null。
 
-
 ### 请描述Android多分辨率的屏幕适配方法。
 1）使用dp、sp单位，带有一定的适配性，根据dpi自动适配屏幕
 
@@ -179,19 +148,16 @@ G、单列模式造成的内存泄漏，如context的使用，单列中传入的
 
 5）使用weight权重属性，按照比例分配View布局
 
-
 ### GC是什么？为什么要有GC？ 
 GC是垃圾回收的意思（gabage collection），内存处理器是编程人员容易出现问题的地方，忘记或者错误的内存回收导致
 程序或者系统的不稳定甚至崩溃，java的GC功能可以自动监测对象是否超过作用域从而达到自动回收内存的目的，java语
 言没有提供释放已分配内存的俄显示操作方法。
-
 
 ### 列出几个XML包括解释技术，并简述其区别？
 包括：DOM（Document Object Modal）文档对象模型，SAX（Simple API for XML）。
 
 DOM是一次性将整个文档读入内存操作，如果是文档比较小，读入内存，可以极大提高操作的速度，但如果文档比较大，那
 么这个就吃力了。所以此时SAX应用而生，它不是一次性的将整个文档读入内存，这对于处理大型文档就比较就力了
-
 
 ### switch语句能否作用在byte上，能否作用在long上，能否作用在String上？
 switch可作用于char byte short int
@@ -203,7 +169,6 @@ switch不可作用于long double float boolean，包括他们的包装类
 switch中可以是字符串类型,String(jdk1.7之后才可以作用在string上)
 
 switch中可以是枚举类型
-
 
 ### 构造方法能否被重写或重载？什么是构造方法？构造方法的特点是什么？
 概述：构造方法存在于类中，给对象数据（属性）初始化；
@@ -222,12 +187,10 @@ switch中可以是枚举类型
 在一个类中，可以有多个构造方法（方法参数不同） ，即重载，来实现对象属性不同的初始化；但是子类中不能定义一个
 方法无void无返回值的方法，编译错误，即子类无法继承构造方法，但是子类的构造器中可以调用父类的构造方法（默认自动调用无参构造）
 
-
 ### String s = new String(“xyz”);创建了几个String Object?二者之间有什么区别？
 这个跟常量池没有关系，只要是new，都是重新分配堆空间，如果不区分栈和堆，这里创建了1个String Object。如果是
 从jvm角度来说的话，它是创建了两个对象，String s是在栈里创建了一个变量，new String("xyz")是在堆里创建了一
 个对象并被s引用到。
-
 
 ### try{}里有一个return语句，那么紧跟在这个try后的finally{}里的code会不会执行，什么时候被执行，在return前还是后？
 会在return中间执行！
@@ -284,7 +247,6 @@ finally
 
 finally
 
-
 ### Integer与int的区别 
 1、Integer是int的包装类，int则是java的一种基本数据类型 
 
@@ -294,11 +256,8 @@ finally
 
 4、Integer的默认值是null，int的默认值是0
 
-
 ### 同步和异步有何异同，在什么情况下分别使用他们？
-Java中交互方式分为同步和异步两种：
-
-同步交互：指发送一个请求,需要等待返回,然后才能够发送下一个请求，有个等待过程；
+Java中交互方式分为同步和异步两种：同步交互：指发送一个请求,需要等待返回,然后才能够发送下一个请求，有个等待过程；
 
 异步交互：指发送一个请求,不需要等待返回,随时可以再发送下一个请求，即不需要等待。 
 
@@ -308,7 +267,6 @@ Java中交互方式分为同步和异步两种：
 另一个线程写过了，那么这些数据就是共享数据，必须进行同步存取。当应用程序在对象上调用了一个需要花费很长时间来
 执行的方法，并且不希望让程序等待方法的返回时，就应该使用异步编程，在很多情况下采用异步途径往往更有效率。
 
-
 ### 启动一个线程是用run()还是start()?
 启动一个线程是start()方法。
 
@@ -316,35 +274,28 @@ Java中交互方式分为同步和异步两种：
 
 区别：start是创建并启动一个线程，而run是要运行线程中的代码。
 
-
 ### 字节流与字符流的区别？
 字节流在操作的时候本身是不会用到缓冲区（内存）的，是与文件本身直接操作的，而字符流在操作的时候是使用到缓冲区的
 字节流在操作文件时，即使不关闭资源（close方法），文件也能输出，但是如果字符流不使用close方法的话，则不会输出任
 何内容，说明字符流用的是缓冲区，并且可以使用flush方法强制进行刷新缓冲区，这时才能在不close的情况下输出内容
 
 ### error和exception有什么区别？
-Exception：
-
-1．可以是可被控制(checked) 或不可控制的(unchecked)。
+Exception：1．可以是可被控制(checked) 或不可控制的(unchecked)。
 
 2．表示一个由程序员导致的错误。
 
 3．应该在应用程序级被处理。
 
-Error：
-
-1．总是不可控制的(unchecked)。
+Error：1．总是不可控制的(unchecked)。
 
 2．经常用来用于表示系统错误或低层资源的错误。
 
 3．如何可能的话，应该在系统级被捕捉。
 
-
 ### 当一个线程进入一个对象的一个synchronized方法后，其它线程是否可进入此对象的其它方法？
 不能，一个对象的一个synchronized方法只能由一个线程访问。 
 
 对象的synchronized方法不能进入了，但它的其他非synchronized方法还是可以访问的。
-
 
 ### ArrayList和Vector的区别，HashMap和Hashtable的区别？
 ArrayList与Vector都实现的List接口，当不同的是ArrayList是线程不安全的，而Vector是线程安全的。
@@ -352,7 +303,6 @@ ArrayList与Vector都实现的List接口，当不同的是ArrayList是线程不�
 HashMap是线程不安全的，Hashtable是线程安全的，如果考虑性能的话使用HashMap,如果多个线程使用一个Map时，使用
 
 Hashtable.HashMap可以使用null作为key与value的值，但Hashtable不行，如果那样用了，则会出现NullPointerException异常
-
 
 ### String 和StringBuffer有什么差别？在什么情况下使用它们？
 String 对一串字符进行操作。不可变类。
@@ -364,14 +314,11 @@ String:是对象不是原始类型.为不可变对象,一旦被创建,就不能�
 
 String是final类,即不能被继承.
 
-StringBuffer:
-
-是一个可变对象,当对他进行修改的时候不会像String那样重新建立对象它只能通过构造函数来建立,
+StringBuffer:是一个可变对象,当对他进行修改的时候不会像String那样重新建立对象它只能通过构造函数来建立,
 
 StringBuffer sb = new StringBuffer();
 
 note:不能通过付值符号对他进行付值.
-
 
 ### 介绍JAVA开发中常用的Collection FrameWork(集合框架)？
 Collection
@@ -396,7 +343,6 @@ note:不能通过付值符号对他进行付值.
 
 Collection是最基本的集合接口，一个Collection代表一组Object，即Collection的元素（Elements）Map提供key到value的映射。
 
-
 ### 描述下横竖屏切换时候activity的生命周期
 此时的生命周期跟清单文件里的Activity的配置有关系。
 
@@ -405,7 +351,6 @@ Collection是最基本的集合接口，一个Collection代表一组Object，即
 2）设置Activity如下属性后，由onConfigurationChanged方法接管屏幕方向、尺寸、键盘显隐的配置改变，则切屏不会重新
 调用各个生命周期，只会执行onConfigurationChanged方法。通常在游戏开发，屏幕的朝向都是写死的。
 android:configChanges="orientation|keyboardHidden|screenSize"
-
 
 ### android中的动画有哪几种，它们的特点和区别是什么？
 帧动画，Frame动画，指通过指定的每一帧的图片和播放时间，有序的进行播放而形成的动画效果
@@ -419,9 +364,8 @@ android:configChanges="orientation|keyboardHidden|screenSize"
  
 注意：Android3.0(API 11)以上才支持。
 
-
 ### 描述handler机制的原理
- Message：消息，其中包含了消息ID，消息处理对象以及处理的数据等，由MessageQueue统一列队，终由Handler处理。
+Message：消息，其中包含了消息ID，消息处理对象以及处理的数据等，由MessageQueue统一列队，终由Handler处理。
  
 Handler：处理者，负责Message的发送及处理。使用Handler时，需要实现handleMessage(Message msg)方法来对特定
 的Message进行处理，例如更新UI等。
@@ -437,7 +381,6 @@ Handler，Looper和MessageQueue就是简单的三角关系。Looper和MessageQue
 创建一个MessageQueue。而Handler与它们的关系，只是简单的聚集关系，即Handler里会引用当前线程里的特定Looper
 和MessageQueue。这样说来，多个Handler都可以共享同一Looper和MessageQueue了。这些Handler也就运行在同一个线
 程里，每个线程一个Loop而 一个MessageQueue。
-
 
 ### 如何将SQLite数据库（dictionary.db 文件）与apk文件一起发布？
 可以将dictionary.db文件复制到Eclipse Android工程中的res\raw目录中，所有在res\raw目录中的文件不会被压缩，
@@ -497,16 +440,13 @@ public class Main extends Activity implements OnClickListener, TextWatcher{
 }
 ```
 
-
 ### 如何启用Service,如何停用service
 Context.startService()和Context.bindService
 
 解除绑定，可以调用unbindService()方法，调用该方法也会导致系统调用服务的onUnbind()-->onDestroy()方法
 
-
 ### 为什么要用ContentProvider?它和sql的实现上有什么差别?
 ContentProvider出现的原因是为了数据共享，它和sql主要区别为它可以自定义共享的文件的暴露，sql不具备设置共享数据的权限。
-
 
 ### 请介绍一下Android的数据存储方式
 使用SharedPreferences存储数据
@@ -519,7 +459,6 @@ SQLite数据库存储数据
 
 网络存储数据
 
-
 ### 同步和异步的区别
  同步执行的话，就是程序会呆板地从头执行到尾，耗时间的东西不执行完，程序不会继续往下走，等待时间长的话，有时候
 就会造成失去响应了。
@@ -531,7 +470,6 @@ SQLite数据库存储数据
 
 异步的意思是两个线程毫无相关，自己运行自己的。
 
-
 ### 常见的内存泄漏的解决方案?
 1. 非静态内部类、匿名内部类
 
@@ -542,9 +480,7 @@ SQLite数据库存储数据
 
 解决办法： 在使用静态View时，需要确保在资源回收时，将静态View detach掉。
 
-3. Handler
-
-将Handler放入单独的类或者将Handler放入到静态内部类中（静态内部类不会持有外部类的引用）。如果想要在handler
+3. Handler：将Handler放入单独的类或者将Handler放入到静态内部类中（静态内部类不会持有外部类的引用）。如果想要在handler
 内部去调用所在的外部类Activity，可以在handler内部使用弱引用的方式指向所在Activity，这样不会导致内存泄漏。
 或者在onDestory时，调用相应的方法移除回调和删除消息。
 
@@ -581,7 +517,6 @@ view中有线程或者动画 要及时停止
 当前View被移除的时候 会调用 这时候是结束动画或者线程的好时机 另外还有一个对应的方法 onAttachedToWindow 这
 个方法调用的时机是在包含View的Activity启动时回调,回调在onDraw方法 之前
 
-
 ### kotlin具有哪些优势？
 更少的空指针异常
 
@@ -590,7 +525,6 @@ view中有线程或者动画 要及时停止
 更快的开发速度
 
 更一致的开发体验 
-
 
 ### Android9.0有哪些新特性？
 一、深度集成“Project Treble”，更方便对安卓系统进行升级。
@@ -605,13 +539,11 @@ view中有线程或者动画 要及时停止
 
 六、禁止从安卓系统的新版本刷回到老版本
 
-
 ### SQLite如何查询第20条到第30条记录？SQLite如何拼接两个字符串？
 ``` 
 Select * from table limit 19,11;
 SELECT 'I''M '||'Chinese.' 
 ```
-
 
 ### MeasureSpec的意义，怎样计算MeasureSpec；[参考：自定义View：Measure过程说明之MeasureSpec类详细讲解](https://blog.csdn.net/carson_ho/article/details/94545178)
 意义：MeasureSpec是View的一个内部类，真正的身份就是帮助View完成测量功能。
@@ -619,16 +551,13 @@ SELECT 'I''M '||'Chinese.'
 计算：子View的MeasureSpec值根据子View的布局参数（LayoutParams）和父容器的MeasureSpec值计算得来的，具体计
 算逻辑封装在getChildMeasureSpec()里。即：子view的大小由父view的MeasureSpec值 和 子view的LayoutParams属性共同决定。
 
-
 ### LayoutParams是什么？[参考：自定义控件知识储备-LayoutParams的那些事](https://blog.csdn.net/yisizhu/article/details/51582622)
 LayoutParams，顾名思义，就是Layout Parameters :布局参数。
-
 
 ### 自定义View和自定义ViewGroup的区别。[参考：自定义View和自定义ViewGroup一步到位](https://blog.csdn.net/zxl1173558248/article/details/82901254)
 ViewGroup是个View容器，它装纳child View并且负责把child View放入指定的位置。
 
 自定义ViewGroup时必须要重写onLayout()方法（依次排列子view）,而自定义View没有子View，所以不需要onLayout()。
-
 
 ### View的绘制流程？ViewGroup的绘制流程？[参考：View和ViewGroup的基本绘制流程](https://blog.csdn.net/u011155781/article/details/52584044)
 view的绘制分为6步:
@@ -684,15 +613,12 @@ ViewGroup的绘制：
 
 不同点：ViewGroup一般不绘制自己，ViewGroup默认实现dispatchDraw去绘制孩子
 
-
 ### 自定义View的measure时机；[参考：自定义控件View之onMeasure调用时机源码分析](https://blog.csdn.net/hty1053240123/article/details/76516426/)
-
 
 ### Scroller是怎么实现View的弹性滑动的？[参考：Android Scroller实现View弹性滑动完全解析](https://www.jianshu.com/p/9419262a342a)
 通过startScroll()下面的invalidate();
 通过使View重绘，会间接的执行computeScroll()方法,
 仅仅通过Scroller，并不能实现View的滑动效果，同时需要配合View的invalidate()、computeScroll()、scrollTo()方法才可以完成。
-
 
 ### UI卡顿常见的原因及解决方案？
 人为在UI线程中做轻微耗时操作，导致UI线程卡顿；
@@ -711,77 +637,53 @@ View频繁的触发measure、layout，导致measure、layout累计耗时过多�
 
 臭名昭著的ANR；
 
-
 ### Glide使用过程中的坑[参考：Android glide使用过程中遇到的坑(进阶篇)](https://www.jianshu.com/p/deccde405e04)
-
 
 ### EventBus使用过程中的坑。[参考：EventBus使用过程中，遇到的问题点](https://blog.csdn.net/wolfking0608/article/details/70239105)
 
-
 ### 网络协议okhttp中的缓存机制[参考：OKHttp全解析系列（五） --OKHttp的缓存机制](https://www.jianshu.com/p/fb81207af121)
-
 
 ### dex加载流程[参考：Android动态加载Dex过程](https://blog.csdn.net/a2923790861/article/details/80539862)
 
-
 ### 组件化的原理。[参考：“终于懂了” 系列：Android组件化，全面掌握！ | 掘金技术征文-双节特别篇](https://juejin.cn/post/6881116198889586701)
-
 
 ### Fragment的生命周期管理过程中遇到的坑和解决办法。[参考：踩坑，Fragment使用遇到那些坑](https://blog.csdn.net/xiaoxiaocaizi123/article/details/79074501)
 
-
 ### 抽象类和接口的关系。[参考：Java 接口和抽象类区别](https://blog.csdn.net/xw13106209/article/details/6923556)
-
 
 ### databinding原理[参考：Android的DataBinding原理介绍](https://blog.csdn.net/xiangzhihong8/article/details/52688943)
 
-
 ### binder原理。[参考：简单理解Binder机制的原理](https://blog.csdn.net/augfun/article/details/82343249)
 
-
 ### 子线程中维护的looper，消息队列无消息时候的处理节省性能的处理方案。[参考：子线程中：new Handler需要做哪些准备？消息队列中无消息的时候，Looper的处理方案是什么？](https://blog.csdn.net/yichen97/article/details/106107874/)
-
 
 ### viewBinding的原理[参考：Android ViewBinding使用及原理](https://www.jianshu.com/p/431c040b6af8)
 原理就是Google在那个用来编译的gradle插件中增加了新功能，当某个module开启ViewBinding功能后，编译的时候就去
 扫描此模块下的layout文件，生成对应的binding类。
 
-
 ### Recycleview滑动怎么优化[参考：RecyclerView性能优化](https://www.jianshu.com/p/1853ff1e8de6?utm_campaign=maleskine)
-
 
 ### 一级缓存和二级缓存的区别[参考：一级缓存，二级缓存，分布式缓存和页面缓存](https://blog.csdn.net/androidxiaogang/article/details/52915905)
 
-
 ### LayoutManager原理[参考：自定义LayoutManager的详解及其使用](https://blog.csdn.net/lylodyf/article/details/52846602)
-
 
 ### 协程原理[参考：Kotlin 协程实现原理](https://blog.csdn.net/suyimin2010/article/details/91125803)
 
-
 ### rxjava原理[参考：RxJava原理解析一](https://www.jianshu.com/p/53b79866f58a)
-
 
 ### leakcanary[参考：LeakCanary 内存泄漏原理完全解析](https://www.jianshu.com/p/59106802b62c)
 
-
 ### 线程池[参考：深入理解线程和线程池（图文详解）](https://blog.csdn.net/weixin_40271838/article/details/79998327)
-
 
 ### 事件分发[参考：图解 Android 事件分发机制](https://www.jianshu.com/p/e99b5e8bd67b)
 
-
 ### 责任链模式[参考：一篇文章搞懂Java设计模式之责任链模式](https://blog.csdn.net/u012810020/article/details/71194853)
-
 
 ### 汽车加油问题[参考：汽车加油问题 贪心算法 Java（详细注释）](https://blog.csdn.net/qq_37294163/article/details/103277358)
 
-
 ### 如何实现快手和抖音的整屏滑动效果[参考：Android中模仿抖音的滑动RecycleView的实现](https://blog.csdn.net/weixin_36495794/article/details/80845103)
 
-
 ### 状态模式和策略模式的区别[参考：状态模式和策略模式的区别](https://blog.csdn.net/ruangong1203/article/details/52514919)
-
 
 ### sleep和wait的区别[参考：sleep和wait的区别](https://blog.csdn.net/qq_20009015/article/details/89980966)
 1、sleep是Thread的静态方法，wait是Object的方法，任何对象实例都能调用。
@@ -789,7 +691,6 @@ View频繁的触发measure、layout，导致measure、layout累计耗时过多�
 2、sleep不会释放锁，它也不需要占用锁。wait会释放锁，但调用它的前提是当前线程占有锁(即代码要在synchronized中)。
 
 3、它们都可以被interrupted方法中断。
-
 
 ### Parcelable与Serializable[参考：序列化Serializable和Parcelable的理解和区别](https://www.jianshu.com/p/a60b609ec7e7)
 Serializable（Java自带）：
@@ -800,9 +701,7 @@ Parcelable（android 专用）：
 不过不同于将对象进行序列化，Parcelable方式的实现原理是将一个完整的对象进行分解，
 而分解后的每一部分都是Intent所支持的数据类型，这样也就实现传递对象的功能了。
 
-
 ### 深拷贝与浅拷贝[参考：彻底讲明白浅拷贝与深拷贝](https://www.jianshu.com/p/35d69cf24f1f)
-
 
 ### sync和Reenterlock遇到异常的区别
 synchronized是关键字，ReentrantLock是类
@@ -815,22 +714,15 @@ ReentrantLock可以灵活地实现多路通知
 
 机制: sync操作Mark Word , lock调用Unsafe类的park()方法
 
-
 ### 可重入锁和不可重入锁[参考：可重入锁和不可重入锁](https://blog.csdn.net/u014473112/article/details/82998477)
-
 
 ### postInvalidate和Invalidate的区别[参考：简单讲下postInvalidate和Invalidate的区别](https://blog.csdn.net/codeyanbao/article/details/82694281)
 
-
 ### anr分类及原理[参考：安卓ANR问题1_ANR问题类型及产生原理](https://www.jianshu.com/p/ddfc4678067d)
-ANR问题类型及产生原理
-
-ANR(Application Not Responding):即应用无响应. 在日常使用安卓手机的过程中, 对最anr最直接的印象就是手机弹框
+ANR问题类型及产生原理：ANR(Application Not Responding):即应用无响应. 在日常使用安卓手机的过程中, 对最anr最直接的印象就是手机弹框
 显示应用未响应. 选择继续等待或者关闭.如果应用程序的主线程在规定的时间内, 没有完成特定操作和事件, 就会发生ANR.
 
-四种ANR类型
-
-KeyDispatchTimeout : input事件在5S内没有处理完成发生ANR
+四种ANR类型：KeyDispatchTimeout : input事件在5S内没有处理完成发生ANR
 
 ServiceTimeout : bind,create,start,unbind等操作,前台Service在20s内,后台Service在200s内没有处理完成发生ANR
 
@@ -840,23 +732,17 @@ BroadcastTimeout : BroadcastReceiver onReceiver处理事务时前台广播在10S
 
 ProcessContentProviderPublishTimedOutLocked : ContentProvider publish在10s内没有处理完成发生ANR其中第四种ANR发生的概率最小.
 
-ANR产生的常见原因
-
-主线程耗时操作,如复杂的layout,庞大的for循环,IO等. (实际APP开发时开发者会避开这种, 没有见到过这种问题产生ANR);
+ANR产生的常见原因：主线程耗时操作,如复杂的layout,庞大的for循环,IO等. (实际APP开发时开发者会避开这种, 没有见到过这种问题产生ANR);
 主线程被子线程同步锁block. (当子线程先拿着锁, 主线程等待这把锁的时候, 子线程太耗时. 导致主线程一直被阻塞, 从而ANR)
 主线程被Binder对端阻塞
 Binder被占满导致主线程无法和SystemServer通信
 得不到系统资源(CPU/RAM/IO) (耗时的动画需要大量的计算工作，可能导致CPU负载过重.)
 
-
 ### viewmodel原理[参考：ViewModel 使用及原理解析](https://blog.csdn.net/xfhy_/article/details/88703853)
-
 
 ### livedata为何具有生命周期感知能力[参考：Android LiveData我的理解](https://blog.csdn.net/alcoholdi/article/details/97259805)
 
-
 ### viewmodel是如何解决内存泄漏问题的？能解决么[参考：使用ViewModel+Data Binding解决内存泄漏问题](https://www.jianshu.com/p/c8b3ce047de4?utm_campaign=maleskine&utm_content=note&utm_medium=seo_notes&utm_source=recommendation)
-
 
 ### 各种图片格式的区别
 目前android支持的5种图片格式，就是svg、png、webp、jpeg、gif、bmp。使用最多的还是png格式，因为支持RGB三色和
@@ -864,32 +750,23 @@ Binder被占满导致主线程无法和SystemServer通信
 不多，所以目前使用的也是越来越多。webp格式一般用于网络加载图片，图片体积相对于png或者jpg都是很有优势的。GIF
 一般是作为动画展示的，但是由于图片太大，所以一般不建议使用，可以使用Lottie动画库代替。
 
-SVG图片：
-矢量图，由视觉设计出SVG图片，使用Androidstudio导入，最后是xml文件，可以适配各种分辨率的屏幕。先定义好要画的
+SVG图片：矢量图，由视觉设计出SVG图片，使用Androidstudio导入，最后是xml文件，可以适配各种分辨率的屏幕。先定义好要画的
 图形，等待显示的时候，才会将图形画出来。这种方式体积很小，相对于png图片，可以减少50%，但是不适合复杂的图形。
 
-PNG图片：
-无损压缩，支持RGB三色和Alpha透明度设置，android基本使用都是这种方式，但是因为体积较大，所以每次apk包大的时
+PNG图片：无损压缩，支持RGB三色和Alpha透明度设置，android基本使用都是这种方式，但是因为体积较大，所以每次apk包大的时
 候都会将图片进行一遍压缩，https://tinypng.com/网站可以对png图片进行压缩。
 
-WEBP图片：
-google开发的压缩格式，体积相对于png图片减少25%，同时也支持透明度的设置，一般用于网络图片格式。
+WEBP图片：google开发的压缩格式，体积相对于png图片减少25%，同时也支持透明度的设置，一般用于网络图片格式。
 
-JPEG图片：
-有损压缩，不支持透明背景，不适用与android系统的logo图片，适用于大图。
+JPEG图片：有损压缩，不支持透明背景，不适用与android系统的logo图片，适用于大图。
 
-GIF图片：
-无损压缩，主要是展示动画，可以设置透明背景色。可以使用Glide和Fresco两个库进行加载，Picasso不支持加载动态图片。
+GIF图片：无损压缩，主要是展示动画，可以设置透明背景色。可以使用Glide和Fresco两个库进行加载，Picasso不支持加载动态图片。
 
-BMP图片：
-bitmap，没有进行任何压缩，所以图片占空间很大，一般很少使用。
-
+BMP图片：bitmap，没有进行任何压缩，所以图片占空间很大，一般很少使用。
 
 ### 一张图片占用的内存大小[参考：Android中一张图片占用的内存大小是如何计算的](https://www.cnblogs.com/dasusu/p/9789389.html)
 
-
 ### MVC,MMVM,MVP[参考：MVC、MVP、MVVM，我到底该怎么选？](https://blog.csdn.net/singwhatiwanna/article/details/80904132)
-
 
 ### 手写单例模式，并分析[参考：手写单例模式](https://blog.csdn.net/wand1995/article/details/97760451)
 懒汉式:
@@ -970,96 +847,67 @@ public enum EasySingleton{
 我们可以通过EasySingleton.INSTANCE来访问实例，这比调用getInstance()方法简单多了。创建枚举默认就是线程安全的，
 所以不需要担心double checked locking，而且还能防止反序列化导致重新创建新的对象。
 
-
 ### 找到两个数组中的两个元素的和等于某个值[参考：快速找出一个数组中的两个数字，让这两个数字之和等于一个给定的值](https://blog.csdn.net/mimi9919/article/details/51335337/)
-
 
 ### StartService和BindService的生命周期[参考：startService和bindService的区别，生命周期以及使用场景](https://www.jianshu.com/p/73f10b6730c6)
 
-
 ### 求浮点数的平方根[参考：求一个浮点数的平方根——牛顿迭代法](https://blog.csdn.net/HuanCaoO/article/details/79860213)
-
 
 ### 工厂模式[参考：工厂模式](https://blog.csdn.net/qq_38238296/article/details/79841395)
 
-
 ### 建造者模式[参考：一篇文章就彻底弄懂建造者模式(Builder Pattern)](https://www.jianshu.com/p/3d1c9ffb0a28)
-
 
 ### 共享内存原理[参考：共享内存实现原理](https://blog.csdn.net/mw_nice/article/details/82888091)
 
-
 ### kotlin协程的四个dispatcher及区别[参考：Kotlin协程核心库分析-1 Dispatchers](https://blog.csdn.net/qfanmingyiq/article/details/105184822)
 
-
 ### window，decorview，ViewRootImpl的关系,面试官 想让你回答如何window和windowManager如何联系的。viewRootImpl是联系window和decorview的纽带
-Activity
-不负责控制视图，只是控制生命周期和处理事件，真正控制视图的是Window,Activity中含有一个Window，Window才是真
+Activity：不负责控制视图，只是控制生命周期和处理事件，真正控制视图的是Window,Activity中含有一个Window，Window才是真
 正代表一个窗口
 
-Window
-视图的承载器，内部持有DecorView,而DecorView是View的根布局，Window是一个抽象类，真正的实现类是PhoneWindow，
+Window：视图的承载器，内部持有DecorView,而DecorView是View的根布局，Window是一个抽象类，真正的实现类是PhoneWindow，
 PhoneWindow有个内部类DecorView,通过其来加载R.layout.activity_main。Window通过WindowManager将DecorView加
 载其中，并将DecorView交给ViewRoot，进行视图的绘制及其他交互
 
-DecorView
-是FrameLayout的子类，是android的根视图，相当于顶级View，一般来说内部包含竖直方向LinearLayout,在linearlayout
+DecorView：是FrameLayout的子类，是android的根视图，相当于顶级View，一般来说内部包含竖直方向LinearLayout,在linearlayout
 中含有三部分，上面是ViewStub,延迟加载的视图，中间是标题栏，下面是内容栏，就是我们熟悉的android.R.id.content
 
-ViewRoot
-所有View的绘制及事件分发交互都是通过它来进行的，有个真正的实现类ViewRootImpl,它是链接WindowManagerService
+ViewRoot：所有View的绘制及事件分发交互都是通过它来进行的，有个真正的实现类ViewRootImpl,它是链接WindowManagerService
 和DecorView的纽带，View的测量，布局，绘制都是通过它来实现的，所以我们常见的事件分发真正的过程是
 
-
 ### 进程间的通信方式[参考：Android进程间通信 - 几种方式的对比总结](https://blog.csdn.net/hzw2017/article/details/81275438)
-常用有如下几种：
+常用有如下几种：Bundle （四大组件间）
 
-Bundle （四大组件间）
+文件共享：可参考Android进程通信 - 序列化Serialzable与Parcelable中的示例
 
-文件共享：
-可参考Android进程通信 - 序列化Serialzable与Parcelable中的示例
-
-AIDL （基于Binder）：
-能自动生成Binder文件的工具，相当于工具。
+AIDL （基于Binder）：能自动生成Binder文件的工具，相当于工具。
 Android进程通信 - AIDL的使用方法
 
-Messenger（基于Binder）：
-类似于Hnadler发消息用法
+Messenger（基于Binder）：类似于Hnadler发消息用法
 Android进程间通信 - Messenger的使用和理解
 
-ContentProvider（基于Binder）：
-Android进程间通信 - ContentProvider内容提供者
+ContentProvider（基于Binder）：Android进程间通信 - ContentProvider内容提供者
 
-Socket（网络）：
-Android进程间通信 - Socket使用（TCP、UDP）
-
+Socket（网络）：Android进程间通信 - Socket使用（TCP、UDP）
 
 ### AIDL的用法[参考：Android AIDL使用详解](https://www.jianshu.com/p/29999c1a93cd)
 
-
 ### 使屏幕常亮[参考：Android让屏幕保持常亮的三种方法](https://blog.csdn.net/llljjlj/article/details/80631664)
-
 
 ### canvas的save和restore的作用[参考：canvas的save与restore方法的作用](https://blog.csdn.net/u014788227/article/details/52250208)
 save：用来保存Canvas的状态。save之后，可以调用Canvas的平移、放缩、旋转、错切、裁剪等操作。 
 
 restore：用来恢复Canvas之前保存的状态。防止save后对Canvas执行的操作对后续的绘制有影响。
 
-
 ### vsync是如何生成的[参考：理解 VSync](https://blog.csdn.net/zhaizu/article/details/51882768)
-
 
 ### android中异步一般怎么实现[参考：Android实现异步的几种方法](https://blog.csdn.net/u011803341/article/details/52774867)
 
-
 ### android中内存泄漏发生的情况[参考：Android 中内存泄漏的原因和解决方案](https://www.jianshu.com/p/abee7c186bfa)
-
 
 ### 如何去获取view的宽高[参考：在activity中如何正确获取View的宽高](https://blog.csdn.net/zgh0711/article/details/70336354)
 
-
 ### 如何实现一个悬浮窗[参考：Android 悬浮窗功能的实现](https://blog.csdn.net/huangliniqng/article/details/95372212/)
-
 
 ### Android M之前与之后的权限变化[参考：Android 6.0 的权限管理变化](https://www.jianshu.com/p/f60260e98418)
 运行时权限：Android 6.0 中不仅要在 AndroidManifest.xml 中声明权限，还在运行的时候增加了权限动态判断
@@ -1069,12 +917,9 @@ restore：用来恢复Canvas之前保存的状态。防止save后对Canvas执行
 在 Android 6.0 中默认对 targetSdkVersion 小于 23 的应用申请的权限进行允许，但是在 targetSdkVersion 大于等
 于 23 的应用中 ，就需要在代码上去进行动态的判断
 
-
 ### RxJava中map和flatmap的区别[参考：Rxjava map和flatMap区别](https://blog.csdn.net/new_abc/article/details/84318464)
 
-
 ### viewgroup是如何刷新的[参考：ViewGroup和View的理解和当子视图发生更新时通知viewgroup更新](https://blog.csdn.net/utilc/article/details/9838341)
-
 
 ### onMeasure,onlayout,onDraw分别起什么作用[参考：Android onMeasure，onLayout，onDraw的理解](https://blog.csdn.net/JimTrency/article/details/52837776)
 测量——onMeasure()：决定View的大小
@@ -1082,7 +927,6 @@ restore：用来恢复Canvas之前保存的状态。防止save后对Canvas执行
 布局——onLayout()：决定View在ViewGroup中的位置
 
 绘制——onDraw()：如何绘制这个View。
-
 
 ### 洗牌问题[参考：面试题之洗牌问题（java实现）](https://blog.csdn.net/qq_22993855/article/details/106932204)
 ``` 
@@ -1234,7 +1078,6 @@ restore：用来恢复Canvas之前保存的状态。防止save后对Canvas执行
     }
 ```
 
-
 ### 面向对象原则[参考：面向对象的六大原则](https://blog.csdn.net/xiao_nian/article/details/87097110)
 三大特性指的是封装、继承和多态；
 
@@ -1242,29 +1085,21 @@ restore：用来恢复Canvas之前保存的状态。防止save后对Canvas执行
 责原则是指一个类应该是一组相关性很高的函数和数据的封装，这是为了提高程序的内聚性，而其他五个原则是通过抽象来
 实现的，目的是为了降低程序的耦合性以及提高可扩展性。
 
-
 ### 典型情况下的Activity生命周期？[参考：Activity的生命周期（典型和异常生命周期）](https://blog.csdn.net/daxiong25/article/details/80745697)
-
 
 ### Activity的启动模式 & 使用场景[参考：android activity 四大启动模式及使用场景](https://blog.csdn.net/u011337574/article/details/79979573)
 android activity的启动模式有4种：分别是standard,singleTop,singleTask和singleInstance。在AndroidManifest.xml中，
 通过标签的android:launchMode属性可以设置启动模式。
 
-
 ### 如何在任意位置关掉应用所有Activity？[参考：随时随地退出应用（结束之前所有的Activity）](https://blog.csdn.net/juer2017/article/details/78728634?spm=1001.2014.3001.5506)
-
 
 ### 如何在任意位置关掉指定的Activity？[参考：你知道吗？Android里如何关闭某个指定activity](https://blog.csdn.net/androidokk/article/details/96477182)
 
-
 ### Activity的启动流程(从源码角度解析)？[参考：Android源码分析-Activity的启动过程](https://blog.csdn.net/singwhatiwanna/article/details/18154335)
-
 
 ### Activity任务栈是什么？在项目中有用到它吗？说给我听听[参考：Activity启动模式与任务栈(Task)全面深入记录（上）](https://blog.csdn.net/javazejian/article/details/52071885)
 
-
 ### 广播的注册方式有哪些？[参考：Android中广播的使用](https://blog.csdn.net/daluyang/article/details/79702321)
-
 
 ### 广播的分类 & 特性 & 使用场景？[参考：Android：BroadcastRecevicer广播类型汇总](https://blog.csdn.net/carson_ho/article/details/53160580)
 普通广播（Normal Broadcast）
@@ -1279,17 +1114,13 @@ App应用内广播（Local Broadcast）
 
 使用场景：充电电池电量监听、时间变化监听等。
 
-
 ### 什么是内容提供者？[参考：Android开发之内容提供者——创建自己的ContentProvider(详解)](https://blog.csdn.net/dmk877/article/details/50387741)
 首先我们必须要明白的是ContentProvider(内容提供者)是android中的四大组件之一，但是在一般的开发中，可能使用比
 较少。ContentProvider为不同的软件之间数据共享，提供统一的接口。
 
-
 ### ContentProvider,ContentResolver,ContentObserver之间的关系[参考：Android ContentProvider、ContentResolver和ContentObserver的使用](https://blog.csdn.net/heqiangflytosky/article/details/31777363)
 
-
 ### 说说ContentProvider的权限管理[参考：ContentProvider权限设置](https://blog.csdn.net/robertcpp/article/details/51337891)
-
 
 ### 什么是Service?[参考：Android Service介绍和使用](https://blog.csdn.net/yh18668197127/article/details/86213380)
 Service服务是Android四大组件之一,是一种程序后台运行的方案,用于不需要用户交互,长期运行的任务
@@ -1297,18 +1128,14 @@ Service服务是Android四大组件之一,是一种程序后台运行的方案,�
 Service并不是在单独进程中运行,也是运行在应用程序进程的主线程中,在执行具体耗时任务过程中要手动开启子线程,应用
 程序进程被杀死,所有依赖该进程的服务也会停止运行
 
-
 ### 说说Service的生命周期[参考：Android Service生命周期浅析](https://www.jianshu.com/p/cc25fbb5c0b3)
-
 
 ### Service和Thread的区别？[参考：Android中Service和Thread的区别](https://blog.csdn.net/mynameishuangshuai/article/details/51821662)
 Thread 是程序执行的最小单元，它是分配CPU的基本单位。可以用 Thread 来执行一些异步的操作。
 
 Service是Android的四大组件之一，被用来执行长时间的后台任务。默认情况下Service是运行在主线程中的。
 
-二者的使用上的区别：
-
-1.在Android中，Thread只是一个用来执行后台任务的工具类，它可以在Activity中被创建，也可以在Service中被创建。
+二者的使用上的区别：1.在Android中，Thread只是一个用来执行后台任务的工具类，它可以在Activity中被创建，也可以在Service中被创建。
 
 2.Service组件主要有两个作用：后台运行和跨进程访问。service可以在android系统后台独立运行，线程是不可以。
 
@@ -1319,20 +1146,15 @@ Service是Android的四大组件之一，被用来执行长时间的后台任务
 当然也高于Activity所创建的Thread，因此，系统可能在内存不足的时候优先杀死后台的Activity或者Thread，而不会轻
 易杀死Service组件，即使被迫杀死Service，也会在资源可用时重启被杀死的Service。
 
-
 ### Android 5.0以上的隐式启动问题及其解决方案。[参考：Android 5.0之后隐式声明Intent 启动Service引发的问题](https://blog.csdn.net/l2show/article/details/47421961)
 
-
 ### Service保活方案[参考：Android进程保活（最新）带你浅析这几种可行性的保活方案](https://blog.csdn.net/qq_37199105/article/details/81224842)
-
 
 ### IntentService是什么 & 原理 & 使用场景 & 和Service的区别。
 [参考：Android面试一天一题（1Day）IntentService作用是什么](https://blog.csdn.net/zxccxzzxz/article/details/52377191)
 [参考：IntentService和Service区别](https://www.jianshu.com/p/5a32226d2ce0)
 
-
 ### 创建一个独立进程的Service应该怎样做？[参考：Android 通过Service 单独进程模仿离线推送](https://blog.csdn.net/yan8024/article/details/48790339)
-
 
 ### 子线程一定不能更新UI吗？[参考：Android：为什么子线程不能更新UI](https://www.jianshu.com/p/58c999d3ada7)
 子线程可以在ViewRootImpl还没有被创建之前更新UI；
@@ -1342,9 +1164,7 @@ Service是Android的四大组件之一，被用来执行长时间的后台任务
 ViewRootImpl对象是在onResume方法回调之后才创建，那么就说明了为什么在生命周期的onCreate方法里，甚至是onResume
 方法里都可以实现子线程更新UI，因为此时还没有创建ViewRootImpl对象，并不会进行是否为主线程的判断；
 
-
 ### Handler的原理[参考：android Handler机制原理解析（一篇就够，包你形象而深刻）](https://blog.csdn.net/luoyingxing/article/details/86500542)
-
 
 ### Handler导致的内存泄露是如何解决的？[参考：handler导致内存泄露的真正原因](https://blog.csdn.net/alex01550/article/details/82744191)
 1.使用static 修饰的handler，但是一般会弱引用activity对象，因为要使用activity对象中的成员
@@ -1353,40 +1173,30 @@ ViewRootImpl对象是在onResume方法回调之后才创建，那么就说明了
 
 3.使用内部类的handler，在onDestroy方法中removeCallbacksAndMessages
 
-
 ### 如何使用Handler让子线程和子线程通信？[参考：Handler实现子线程与子线程、主线程之间通信](https://blog.csdn.net/androidsj/article/details/79816866)
 
-
 ### HandlerThread是什么 & 原理 & 使用场景？[参考：handlerThread使用场景分析及源码解析](https://blog.csdn.net/nightcurtis/article/details/77676349)
-
 
 ### 一个线程能否创建多个Handler,Handler和Looper之间的对应关系？[参考：【面试】一个线程能否创建多个Handler，Handler跟Looper之间的对应关系 ？](https://blog.csdn.net/u013293125/article/details/105411971/)
 一个线程能够创建多个Handler
 
 Handler跟Looper没有对应关系，线程才跟Looper有对应关系，一个线程对应着一个Looper
 
-
 ### 为什么Android系统不建议子线程访问UI？[参考：Android：为什么子线程不能更新UI](https://www.jianshu.com/p/58c999d3ada7)
 谷歌提出：“一定要在主线程更新UI”，实际是为了提高界面的效率和安全性，带来更好的流畅性；反推一下，假如允许多线
 程更新UI，但是访问UI是没有加锁的，一旦多线程抢占了资源，那么界面将会乱套更新了，体验效果就不言而喻了；
 所以在Android中规定必须在主线程更新UI。
 
-
 ### AsyncTask是什么？能解决什么问题[参考：AsyncTask](https://www.jianshu.com/p/6751aa65fcb6)
-AsyncTask是什么：
-
-AsyncTask是Android封装的一个轻量级的异步类，可以在线程池中执行异步任务，并可以将执行进度和结果传递给UI线程。
+AsyncTask是什么：AsyncTask是Android封装的一个轻量级的异步类，可以在线程池中执行异步任务，并可以将执行进度和结果传递给UI线程。
 
 AsyncTask的内部封装了两个线程池(SerialExecutor、THREAD_POOL_EXECUTOR)和一个Handler。
 
 其中SerialExecutor线程池用于任务的排队，让需要执行的多个耗时任务，按顺序排列，THREAD_POOL_EXECUTOR线程池
 才真正地执行任务，Handler用于从工作线程切换到主线程。
 
-AsyncTask出现的契机：
-
-线程的创建和销毁都会有开销，如果在进程中频繁的创建和销毁线程，是不可取的。应该采用线程池，可以避免因为频繁创
+AsyncTask出现的契机：线程的创建和销毁都会有开销，如果在进程中频繁的创建和销毁线程，是不可取的。应该采用线程池，可以避免因为频繁创
 建和销毁线程所带来的系统开销。
-
 
 ### 给我谈谈AsyncTask的三个泛型参数作用 & 它的一些方法作用。[参考：AsyncTask](https://www.jianshu.com/p/6751aa65fcb6)
 ``` 
@@ -1400,9 +1210,7 @@ Result：异步任务执行完成后，返回的结果类型；
 
 如果AsyncTask确定不需要传递具体参数，那么这三个泛型参数可以用Void来代替。
 
-
 ### AsyncTask的原理[参考：AsyncTask的原理和缺点](https://blog.csdn.net/wjinhhua/article/details/60578133)
-
 
 ### Android中v4包下Fragment和app包下Fragment的区别是什么？
 1.app包中的fragment在3.0以上才可以使用，最好使用兼容低版本的。
@@ -1414,20 +1222,15 @@ Result：异步任务执行完成后，返回的结果类型；
 
 4.getSupportFragmentManager（）对应的是 v4 ；getFragmentManager（）对应的是 app；
 
-
 ### Fragment的生命周期 & 请结合Activity的生命周期再一起说说。[参考：Activity与Fragment的生命周期](https://blog.csdn.net/zjclugger/article/details/10442335)
-
 
 ### Fragment如何进行懒加载。[参考：Androidx 下 Fragment 懒加载的新实现](https://www.jianshu.com/p/2201a107d5b5?utm_campaign=hugo)
 
-
 ### ViewPager + Fragment结合使用会出现内存泄漏吗 & 如何解决？[参考：记录ViewPager+fragment 内存泄露问题](https://blog.csdn.net/qq_32536991/article/details/88837924)
-
 
 ### Fragment如何和Activity进行通信 & Fragment之间如何进行通信？
 [参考：Android：手把手教你 实现Activity 与 Fragment 相互通信（含Demo）](https://www.jianshu.com/p/825eb1f98c19)
 [参考：【Android】Fragment之间数据传递的三种方式](https://www.jianshu.com/p/f87baad32662)
-
 
 ### 给我谈谈Fragment3种切换的方式以及区别 & 使用场景。[参考：Fragment生命周期-3种不同的切换方式生命周期变化](https://blog.csdn.net/luoxianli2011/article/details/106899777)
 1.通过add、hide、show方式来切换fragment
@@ -1442,18 +1245,15 @@ Result：异步任务执行完成后，返回的结果类型；
 
 当使用ViewPager进行Fragment切换时，所有的Fragment都会进行预加载。
 
-
 ### 说说Android中数据持久化的方式 & 使用场景
-第一种： 使用SharedPreferences存储数据：
-
-适用范围：保存少量的数据，且这些数据的格式非常简单：字符串型、基本类型的值。比如应用程序的各种配置信息
+第一种： 使用SharedPreferences存储数据：适用范围：保存少量的数据，且这些数据的格式非常简单：字符串型、基本类型的值。比如应用程序的各种配置信息
 （如是否打开音效、是否使用震动效果、小游戏的玩家积分等），解锁口 令密码等
 
 核心原理：保存基于XML文件存储的key-value键值对数据，通常用来存储一些简单的配置信息。通过DDMS的File Explorer
 面板，展开文件浏览树,很明显SharedPreferences数据总是存储在/data/data//shared_prefs目录下。SharedPreferences
 对象本身只能获取数据而不支持存储和修改,存储修改是通过SharedPreferences.edit()获取的内部接口Editor对象实现。
- SharedPreferences本身是一 个接口，程序无法直接创建SharedPreferences实例，只能通过Context提供的getSharedPreferences(String name, int mode)
- 方法来获取SharedPreferences实例，该方法中name表示要操作的xml文件名，第二个参数具体如下：
+SharedPreferences本身是一 个接口，程序无法直接创建SharedPreferences实例，只能通过Context提供的getSharedPreferences(String name, int mode)
+方法来获取SharedPreferences实例，该方法中name表示要操作的xml文件名，第二个参数具体如下：
 
 Context.MODE_PRIVATE: 指定该SharedPreferences数据只能被本应用程序读、写。
 
@@ -1466,29 +1266,21 @@ SharedPreferences对象与SQLite数据库相比，免去了创建数据库，创
 类型，比如其无法进行条件查询等。所以不论SharedPreferences的数据存储操作是如何简单，它也只能是存储方式的一种
 补充，而无法完全替代如SQLite数据库这样的其他数据存储方式。
 
-第二种： 文件存储数据：
-
-可以在设备本身的存储设备或者外接的存储设备中创建用于保存数据的文件。同样在默认的状态下，文件是不能在不同的程序间共享。
+第二种： 文件存储数据：可以在设备本身的存储设备或者外接的存储设备中创建用于保存数据的文件。同样在默认的状态下，文件是不能在不同的程序间共享。
 
 写文件：调用Context.openFileOutput()方法根据指定的路径和文件名来创建文件，这个方法会返回一个FileOutputStream对象。
 
 读取文件：调用Context.openFileInput()方法通过制定的路径和文件名来返回一个标准的Java FileInputStream对象。
 
-第三种：SQLite存储数据：
-
-SQLite Database数据库。Android对数据库的支持很好，它本身集成了SQLite数据库，每个应用都可以方便的使用它，或
+第三种：SQLite存储数据：SQLite Database数据库。Android对数据库的支持很好，它本身集成了SQLite数据库，每个应用都可以方便的使用它，或
 者更确切的说，Android完全依赖于SQLite数据库，它所有的系统数据和用到的结构化数据都存储在数据库中。 它具有以
-下优点： 
-
-a. 效率出众，这是无可否认的 
+下优点： a. 效率出众，这是无可否认的 
 
 b. 十分适合存储结构化数据 
 
 c. 方便在不同的Activity，甚至不同的应用之间传递数据。　　
 
-第四种：ContentProvider：
-
-Android系统中能实现所有应用程序共享的一种数据存储方式，由于数据通常在各应用间的是互相私密的，所以此存储方式
+第四种：ContentProvider：Android系统中能实现所有应用程序共享的一种数据存储方式，由于数据通常在各应用间的是互相私密的，所以此存储方式
 较少使用，但是其又是必不可少的一种存储方式。例如音频，视频，图片和通讯录，一般都可以采用此种方式进行存储。
 每个ContentProvider都会对外提供一个公共的URI（包装成Uri对象），如果应用程序有数据需要共享时，就需要使用ContentProvider
 为这些数据定义一个URI，然后其他的应用程序就通过Content Provider传入这个URI来对数据进行操作。
@@ -1499,13 +1291,10 @@ MMKV是基于mmap内存映射关系的key-value组件，底层序列化/反序�
 
 SharedPreferences是Android提供的一种使用XML文件保存内容的机制，内部通过XML写入文件
 
-
 ### SQLite是线程安全的吗 & SharedPreference是线程安全的吗？
 [参考：SQLite线程安全相关整理](https://blog.csdn.net/u013427969/article/details/90209917)
 
-
 ### 什么是三级缓存？[参考：android三级缓存详解](https://blog.csdn.net/u012138137/article/details/50921209?locationNum=3&fps=1)
-
 
 ### SharedPreference的apply和commit的区别[参考：SharedPreferences中的commit和apply方法](https://www.jianshu.com/p/c8d10357c939)
 commit和apply虽然都是原子性操作，但是原子的操作不同，commit是原子提交到数据库，所以从提交数据到存在Disk中都是同步过程，中间不可打断。
@@ -1516,9 +1305,7 @@ commit和apply虽然都是原子性操作，但是原子的操作不同，commit
 
 在不关心提交结果是否成功的情况下，优先考虑apply方法。
 
-
 ### 谈谈你对SQLite事务的认识[参考：Sqlite事务理解](https://blog.csdn.net/qq_40111789/article/details/82670810)
-
 
 ### ListView和RecycyclerView的区别是什么？[参考：ListView和RecyclerView的使用和区别](https://blog.csdn.net/qq_39899087/article/details/86513378)
 1）ListView布局单一，RecycleView可以根据LayoutManger有横向，瀑布和表格布局
@@ -1529,42 +1316,32 @@ commit和apply虽然都是原子性操作，但是原子的操作不同，commit
 
 4）绑定事件的方式不同，ListView是在主方法中ListView对象的setOnItemClickListener方法；RecyclerView则是在子项具体的View中去注册事件。
 
-
 ### 分别讲讲你对ListView & RecyclerView的优化经验。
 [参考：ListView的优化](https://www.jianshu.com/p/f0408a0f0610)
 [参考：RecyclerView性能优化及高级使用](https://blog.csdn.net/smileiam/article/details/88396546)
 
-
 ### RecyclerView的回收复用机制[参考：基于滑动场景解析RecyclerView的回收复用机制原理](https://www.jianshu.com/p/9306b365da57)
-
 
 ### 说说你是如何给ListView & RecyclerView加上拉刷新 & 下拉加载更多机制
 [参考：ListView增加下拉刷新，上拉加载更多](https://www.jianshu.com/p/adb2f8aa863c)
 [参考：让RecyclerView上拉刷新下拉加载更多更简便易用](https://www.jianshu.com/)
 
-
 ### 谈谈你是如何对ListView & RecycleView进行局部刷新的？
 [参考：android ListView 局部刷新](https://blog.csdn.net/bzlj2912009596/article/details/80660112)
 [参考：Android recyclerview 局部刷新问题](https://blog.csdn.net/yanmantian/article/details/103615971)
 
-
 ### Bitmap在内存中如何存在的？[参考：Bitmap 在内存中有多大？](https://blog.csdn.net/u011494285/article/details/80523775)
-
 
 ### 有关Bitmap导致OOM的原因？如何优化？
 因为Android系统对内存有一个限制，如果超出该限制，就会出现OOM。为了避免这个问题，需要在加载资源时尽量考虑如何节约内存，尽快释放资源等等。
 
-Android系统版本对图片加载，回收的影响：
-
-1，在Android 2.3以及之后，采用的是并发回收机制，避免在回收内存时的卡顿现象。
+Android系统版本对图片加载，回收的影响：1，在Android 2.3以及之后，采用的是并发回收机制，避免在回收内存时的卡顿现象。
 
 2，在Android 2.3.3(API Level 10)以及之前，Bitmap的backing pixel 数据存储在native memory, 与Bitmap本身是
 分开的，Bitmap本身存储在dalvik heap 中。导致其pixel数据不能判断是否还需要使用，不能及时释放，容易引起OOM错误。
  从Android 3.0(API 11)开始，pixel数据与Bitmap一起存储在Dalvik heap中。
 
-在加载图片资源时，可采用以下一些方法来避免OOM的问题：
-
-1，在Android 2.3.3以及之前，建议使用Bitmap.recycle()方法，及时释放资源。
+在加载图片资源时，可采用以下一些方法来避免OOM的问题：1，在Android 2.3.3以及之前，建议使用Bitmap.recycle()方法，及时释放资源。
 
 2，在Android 3.0开始，可设置BitmapFactory.options.inBitmap值，(从缓存中获取)达到重用Bitmap的目的。如果设置，
 则inPreferredConfig属性值会被重用的Bitmap该属性值覆盖。
@@ -1595,9 +1372,7 @@ RGB_565:共16位，2字节。
 和ldpi中分别配置相应的图片资源，否则在不同分辨率机器上都是同样的大小(像素点数量)，显示的实际大小不对。decodeResource
 会在读取完图片数据后，根据机器的分辨率，进行图片的适配处理，导致增大了很多dalvik内存消耗。
 
-decodeStream调用过程：
-
-decodeStream(InputStream,Rect,Options) -> nativeDecodeAsset/nativeDecodeStream
+decodeStream调用过程：decodeStream(InputStream,Rect,Options) -> nativeDecodeAsset/nativeDecodeStream
 
 decodeResource调用过程：即finishDecode之后，调用额外的Java层的createBitmap方法，消耗更多dalvik内存。
 
@@ -1605,27 +1380,21 @@ decodeResource(Resource,resId,Options)  -> decodeResourceStream (设置Options�
  -> decodeStream() (在完成Decode后，进行finishDecode操作)finishDecode() -> Bitmap.createScaleBitmap()
  (根据inDensity和inTargetDensity计算scale) -> Bitmap.createBitmap()
  
- 
 ### 给我谈谈图片压缩。[参考：浅谈android中加载高清大图及图片压缩方式(二)](https://blog.csdn.net/u013064109/article/details/51415879)
-
 
 ### LruCache & DiskLruCache原理。
 [参考：LruCache——解决OOM的利器](https://blog.csdn.net/wzhseu/article/details/81745799)
 [参考：LruCache 和 DiskLruCache 的使用以及原理分析](https://blog.csdn.net/qq_15893929/article/details/85229364)
 
-
 ### 说说你平常会使用的一些第三方图片加载库,最好给我谈谈它的原理。
 [参考：Glide实现原理解析](https://blog.csdn.net/hxl517116279/article/details/99639520)
 [参考：Android图片加载框架之(Glide和Picasso的区别，Glide的简单使用)](https://blog.csdn.net/jing_80/article/details/81020718)
-
 
 ### 如果让你设计一个图片加载库，你会如何设计？
 [参考：Android 框架练成 教你打造高效的图片加载框架](https://blog.csdn.net/lmj623565791/article/details/41874561)
 [参考：如何设计一个图片加载框架](https://blog.csdn.net/u012124438/article/details/113797946)
 
-
 ### WebView会导致内存泄露吗？原因是什么？解决方式有哪些？[参考：腾讯Android高工灵魂三问：WebView会存在内存泄漏吗？为什么？泄漏了怎么解决？](https://blog.csdn.net/zzz777qqq/article/details/110482537)
-
 
 ### 说说WebSettings & WebViewClient & WebChromeClient这三个类的作用 & 用法。[参考：Android：最全面的 Webview 详解](https://blog.csdn.net/carson_ho/article/details/52693322)
 WebSettings类作用：对WebView进行配置和管理
@@ -1634,15 +1403,11 @@ WebViewClient类作用：处理各种通知 & 请求事件
 
 WebChromeClient类作用：辅助 WebView 处理 Javascript 的对话框,网站图标,网站标题等等。
 
-
 ### 如何提高原生的WebView加载速度？[参考：Android:WebView提升首次加载速度](https://blog.csdn.net/qq_23575795/article/details/83473418)
-
 
 ### 谈谈你对webView工作机制的认识,你在项目中优化过它吗？说说是从哪些方面着手的？[参考：Android：手把手教你构建 全面的WebView 缓存机制 & 资源加载方案](https://www.jianshu.com/p/5e7075f4875f)
 
-
 ### 什么是ViewPager?说说它的那些适配器。(校招&实习)[参考：ViewPager概述](https://blog.csdn.net/qq_35255047/article/details/75646364)
-
 
 ### 你了解ViewPager2吗？和ViewPager 1有哪些区别？[参考：探索取代ViewPager的ViewPager2](https://blog.csdn.net/qq_39872430/article/details/104023554)
 1.ViewPager2 API最大的变化是它现在使用RecyclerView。
@@ -1677,46 +1442,33 @@ getCurrentItem() 和 getCurrentItem() 方法的隐式使用
 
 引入ItemDecorator可以对行进行操作，和RecyclerView一致
 
-
 ### ViewPager + Fragment结合使用存在的内存泄漏的原因是什么？如何解决？[参考：viewpager + fragment+FragmentStatePagerAdapter中用List存放多个Fragment 造成的内存泄漏](https://blog.csdn.net/k_hello/article/details/82996162)
 
-
 ### 如果我在一个设置了点击事件的TextView中dispatchTouchEvent方法强制返回ture或者false会发生什么？[参考：Android学习之路--View--事件传递机制](https://blog.csdn.net/jiayi_fly/article/details/54098367)
-
 
 ### viewGroup 怎么知道view有没有消费事件[参考：Android ViewGroup/View 事件分发机制详解](https://blog.csdn.net/WALLEZhe/article/details/51737034)
 onTouchEvent 返回true时，表示事件被消费掉了。一旦事件被消费掉了，其他父元素的onTouchEvent方法都不会被调用。
 如果没有人消耗事件，则最终当前Activity会消耗掉。则下次的MOVE、UP事件都不会再传下去了。
 
-
 ### 内存泄漏有哪些？怎么排查[参考：Android内存泄漏检测和定位](https://www.jianshu.com/p/1972a6d1f0fc)
-
 
 ### android的handler机制[参考：Android Handler异步通信：深入详解Handler机制源码](https://blog.csdn.net/carson_ho/article/details/80388560)
 
-
 ### android的anr机制[参考：Android ANR机制的原理以及问题分析（一）](https://blog.csdn.net/wcsbhwy/article/details/108704392)
-
 
 ### android冷启动优化[参考：Android性能优化之冷启动优化](https://blog.csdn.net/dfskhgalshgkajghljgh/article/details/100084219)
 
-
 ### android弱网优化[参考：Android 网络性能优化（4）弱网优化](https://blog.csdn.net/rikkatheworld/article/details/109050268)
 
-
 ### android长图片加载怎么实现[参考：Android中如何加载大图片和长图片](https://blog.csdn.net/haoxuhong/article/details/80879982)
-
 
 ### 一个app发布一个版本后，发现变卡了，你如何复现？如何得知某个地方变卡，如何得知用户在某行代码变卡
 [参考：Android性能优化-检测App卡顿](https://www.jianshu.com/p/9e8f88eac490?utm_campaign=maleskine&utm_content=note&utm_medium=seo_notes&utm_source=recommendation)
 [参考：Android卡顿检测及优化](https://blog.csdn.net/u013309870/article/details/106801022)
 
-
 ### android 动画机制有哪些？[参考：Android动画机制及其使用](https://blog.csdn.net/qq_15128547/article/details/56496625)
 
-
 ### lottie的原理[参考：Android 之 Lottie 实现炫酷动画背后的原理](https://blog.csdn.net/singwhatiwanna/article/details/90687150)
-
 
 ### 直播中的动画要怎么做？要做成动态的，比如礼物是可以配置的？
 [参考：直播App中Android酷炫礼物动画实现方案（上篇）](https://blog.csdn.net/urDFmQCUL2/article/details/78349700)
@@ -1764,46 +1516,37 @@ onTouchEvent 返回true时，表示事件被消费掉了。一旦事件被消费
 
 3.final类–不能被继承，final类中的方法默认为final
 
-1、static变量
-按照是否静态的对类成员变量进行分类可分两种：一种是被static修饰的变量，叫静态变量或类变量；另一种是没有被static修饰的变量，叫实例变量。两者的区别是：
+1、static变量：按照是否静态的对类成员变量进行分类可分两种：一种是被static修饰的变量，叫静态变量或类变量；另一种是没有被static修饰的变量，叫实例变量。两者的区别是：
 对于静态变量在内存中只有一个拷贝（节省内存），JVM只为静态分配一次内存，在加载类的过程中完成静态变量的内存分配，可用类名直接访问（方便），当然也可以通过对象来访问（但是这是不推荐的）。
 对于实例变量，没创建一个实例，就会为实例变量分配一次内存，实例变量可以在内存中有多个拷贝，互不影响（灵活）。
 
-2、静态方法
-静态方法可以直接通过类名调用，任何的实例也都可以调用，因此静态方法中不能用this和super关键字，不能直接访问所属类的实
+2、静态方法：静态方法可以直接通过类名调用，任何的实例也都可以调用，因此静态方法中不能用this和super关键字，不能直接访问所属类的实
 例变量和实例方法(就是不带static的成员变量和成员成员方法)，只能访问所属类的静态成员变量和成员方法。因为实例成员与特
 定的对象关联！这个需要去理解，想明白其中的道理，不是记忆！！！
 因为static方法独立于任何实例，因此static方法必须被实现，而不能是抽象的abstract。
 
-3、static代码块
-static代码块也叫静态代码块，是在类中独立于类成员的static语句块，可以有多个，位置可以随便放，它不在任何的方法体内，
+3、static代码块：static代码块也叫静态代码块，是在类中独立于类成员的static语句块，可以有多个，位置可以随便放，它不在任何的方法体内，
 JVM加载类时会执行这些静态的代码块，如果static代码块有多个，JVM将按照它们在类中出现的先后顺序依次执行它们，每个代码块只会被执行一次。
 
-4、类加载
-JVM在第一次使用一个类时，会到classpath所指定的路径里去找这个类所对应的字节码文件，并读进JVM保存起来，这个过程称之为类加载。
+4、类加载：JVM在第一次使用一个类时，会到classpath所指定的路径里去找这个类所对应的字节码文件，并读进JVM保存起来，这个过程称之为类加载。
 可见，无论是变量，方法，还是代码块，只要用static修饰，就是在类被加载时就已经"准备好了",也就是可以被使用或者已经被执行。
 都可以脱离对象而执行。反之，如果没有static，则必须通过对象来访问。
 
-注意
-声明为static的变量实质上就是全局变量。当声明一个对象时，并不产生static变量的拷贝，而是该类所有的实例变量共用同一个static变量，
+注意：声明为static的变量实质上就是全局变量。当声明一个对象时，并不产生static变量的拷贝，而是该类所有的实例变量共用同一个static变量，
 例如：声明一个static的变量count作为new一个类实例的计数。
 
-声明为static的方法有以下几条限制：
-
-它们仅能调用其他的static 方法。
+声明为static的方法有以下几条限制：它们仅能调用其他的static 方法。
 
 它们只能访问static数据。
 
 它们不能以任何方式引用this 或super。
 
-static方法与覆盖
-静态方法只能被隐藏，不能被覆盖，隐藏表明还存在，还会起作用–子类隐藏父类的静态方法，仍会执行父类的静态方法.
+static方法与覆盖：静态方法只能被隐藏，不能被覆盖，隐藏表明还存在，还会起作用–子类隐藏父类的静态方法，仍会执行父类的静态方法.
 
 synchronized 是java语言关键字，当它用来修饰一个方法或者一个代码块的时候，能够保证在同一时刻最多只有一个线程执行该段代码。
 synchronized 关键字，它包括两种用法：synchronized 方法和 synchronized 块。
 
-可以修饰哪些内容
-一、 修饰一个代码块，被修饰的代码块称为同步语句块，其作用的范围是大括号{}括起来的代码，作用的对象是调用这个代码块的对象；
+可以修饰哪些内容：一、 修饰一个代码块，被修饰的代码块称为同步语句块，其作用的范围是大括号{}括起来的代码，作用的对象是调用这个代码块的对象；
 
 二、修饰一个方法，被修饰的方法称为同步方法，其作用的范围是整个方法，作用的对象是调用这个方法的对象；
 
@@ -1811,28 +1554,33 @@ synchronized 关键字，它包括两种用法：synchronized 方法和 synchron
 
 四、修饰一个类，其作用的范围是synchronized后面括号括起来的部分，作用的对象是这个类的所有对象。
 
-synchonized(this)和synchonized(object)区别
-其实并没有很大的区别，synchonized(object)本身就包含synchonized(this)这种情况，使用的场景都是对一个代码块进行加锁，
+synchonized(this)和synchonized(object)区别：其实并没有很大的区别，synchonized(object)本身就包含synchonized(this)这种情况，使用的场景都是对一个代码块进行加锁，
 效率比直接在方法名上加synchonized高一些（下面分析），唯一的区别就是对象的不同。
 
 ### Java 中深拷贝与浅拷贝的区别？[参考：Java深入理解深拷贝和浅拷贝区别](https://blog.csdn.net/riemann_/article/details/87217229)
 注：深拷贝和浅拷贝都是对象拷贝
 
-浅拷贝
-
-被复制对象的所有变量都含有与原来的对象相同的值，而所有的对其他对象的引用仍然指向原来的对象。即对象的浅拷贝会对“主”对象进行拷贝
+浅拷贝：被复制对象的所有变量都含有与原来的对象相同的值，而所有的对其他对象的引用仍然指向原来的对象。即对象的浅拷贝会对“主”对象进行拷贝
 ，但不会复制主对象里面的对象。”里面的对象“会在原来的对象和它的副本之间共享。
 
 简而言之，浅拷贝仅仅复制所考虑的对象，而不复制它所引用的对象。
 
-深拷贝
-
-深拷贝是一个整个独立的对象拷贝，深拷贝会拷贝所有的属性,并拷贝属性指向的动态分配的内存。当对象和它所引用的对象一起拷贝时即发生深拷贝。
+深拷贝：深拷贝是一个整个独立的对象拷贝，深拷贝会拷贝所有的属性,并拷贝属性指向的动态分配的内存。当对象和它所引用的对象一起拷贝时即发生深拷贝。
 深拷贝相比于浅拷贝速度较慢并且花销较大。
 
 简而言之，深拷贝把要复制的对象所引用的对象都复制了一遍。
 
 ### 谈谈List,Set,Map的区别？
+List：1.可以允许重复的对象。
+
+2.可以插入多个null元素。
+
+3.是一个有序容器，保持了每个元素的插入顺序，输出的顺序就是插入的顺序。
+
+4.常用的实现类有 ArrayList、LinkedList 和 Vector。ArrayList 最为流行，它提供了使用索引的随意访问，而 LinkedList 则对于经常需要从 List 中添加或删除元素的场合更为合适。
+
+
+
 activity启动模式
 handler
 异步同步
