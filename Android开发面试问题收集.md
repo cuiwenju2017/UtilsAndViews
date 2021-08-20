@@ -30,7 +30,9 @@ subList 就已经废掉了，不能用了，不能用的意思就是你在 subLi
 2.Looper 中的 loop()方法, 他的作用就是从消息队列MessageQueue 中不断地取消息, 然后将事件分发出去。
 
 ### 动画的原理[参考：Android三种动画实现原理及使用](https://blog.csdn.net/weixin_39001306/article/details/80614286)
-Android动画目前分为三种：1.Frame Animation 帧动画，通过顺序播放一系列图像从而产生动画效果，。图片过多时容易造成OOM（Out Of Memory内存用完）异常。
+Android动画目前分为三种：
+
+1.Frame Animation 帧动画，通过顺序播放一系列图像从而产生动画效果，。图片过多时容易造成OOM（Out Of Memory内存用完）异常。
 
 2.Tween Animation 补间动画（又叫view动画），是通过对场景里的对象不断做图像变换（透明度、缩放、平移、旋转）
 从而产生动画效果，是一种渐进式动画，并且View动画支持自定义。
@@ -39,6 +41,7 @@ Android动画目前分为三种：1.Frame Animation 帧动画，通过顺序播�
 个动 画，通过动态的改变对象的属性从而达到动画效果。
 
 补间动画和属性动画的区别:
+
 补间动画只是改变了View的显示效果而已，并不会真正的改变View的属性。而属性动画可以改变View的显示效果和属性。
 举个例子：例如屏幕左上角有一个Button按钮，使用补间动画将其移动到右下角，此刻你去点击右下角的Button，它是绝
 对不会响应点击事件的，因此其作用区域依然还在左上角。只不过是补间动画将其绘制在右下角而已，而属性动画则不会。
@@ -46,7 +49,9 @@ Android动画目前分为三种：1.Frame Animation 帧动画，通过顺序播�
 ### View的事件分发机制？[参考：一文读懂Android View事件分发机制](https://www.jianshu.com/p/238d1b753e64)
 
 ### View刷新机制
-View绘制分三个步骤:顺序是：onMeasure，onLayout，onDraw。调用invalidate方法只会执行onDraw方法；调用requestLayout方法只会执行
+View绘制分三个步骤:
+
+顺序是：onMeasure，onLayout，onDraw。调用invalidate方法只会执行onDraw方法；调用requestLayout方法只会执行
 onMeasure方法和onLayout方法，并不会执行onDraw方法。所以当我们进行View更新时，若仅View的显示内容发生改变且
 新显示内容不影响View的大小、位置，则只需调用invalidate方法；若View宽高、位置发生改变且显示内容不变，只需调
 用requestLayout方法；若两者均发生改变，则需调用两者，按照View的绘制流程，推荐先调用requestLayout方法再调用
@@ -89,7 +94,9 @@ Fragment与Activity关联主要有两种方式，一种是通过在Activity的�
 另一种是在java代码中动态的添加与删除Fragment。
 
 ### 请描述Android中线程与线程，进程与进程之间如何通信
-线程间通信：1)主线程中创建子线程，如果为内部类或匿名内部类（new Thread(){}.start()）方式启动子线程，则可在子线程内部直
+线程间通信：
+
+1)主线程中创建子线程，如果为内部类或匿名内部类（new Thread(){}.start()）方式启动子线程，则可在子线程内部直
 接调用主线程的成员变量、final修饰的局部变量；
 
 2)若外部类（继承Thread接口的子线程类），可设置setter方法，主线程调用该方法通过参数传值。
@@ -97,7 +104,9 @@ Fragment与Activity关联主要有两种方式，一种是通过在Activity的�
 3)子线程中向主线程通信，可通过主线程的handler发送信息或Runnable代码对象，或调用activity.runOnUiThread(){}
 方式运行Runnable代码对象。
 
-进程间通信：1）隐式意图intent跨进程启动Activity，通过intent传递数据，通常以Uri形式；
+进程间通信：
+
+1）隐式意图intent跨进程启动Activity，通过intent传递数据，通常以Uri形式；
 
 2）ContentProvider内容提供者，提供其它进程调用增删改查数据的入口；
 
@@ -106,21 +115,29 @@ Fragment与Activity关联主要有两种方式，一种是通过在Activity的�
 4）通过AIDL连接其它进程的Service服务
 
 ### 内存溢出和内存泄漏有什么区别？何时会产生内存泄漏？内存优化有哪些方法？
- 一、原理：内存溢出（Out of memory）:系统会给每个APP分配内存也就是Heap size值，当APP所需要的内存大于了系统分配的内存，
+ 一、原理：
+ 
+ 内存溢出（Out of memory）:系统会给每个APP分配内存也就是Heap size值，当APP所需要的内存大于了系统分配的内存，
 就会造成内存溢出；通俗点就是10L桶只能装10L水，但是你却用来装11L的水，那就有1L的水就会溢出。
 
 内存泄漏（Memory leak）:当一个对象不在使用了，本应该被垃圾回收器（JVM）回收，但是这个对象由于被其他正在使用
 的对象所持有，造成无法被回收的结果，通俗点就是系统把一定的内存值A借给程序，但是系统却收不回完整的A值，那就是
 内存泄漏。
 
-二、两者的关系：内存泄漏是造成内存溢出（OOM）的主要原因，因为系统分配给每个程序的内存也就是Heap size的值都是有限的，当内存
+二、两者的关系：
+
+内存泄漏是造成内存溢出（OOM）的主要原因，因为系统分配给每个程序的内存也就是Heap size的值都是有限的，当内存
 泄漏到一定值的时候，最终会发生程序所需要的内存值加上泄漏值大于了系统所分配的内存额度，就是触发内存溢出。
 
-三、危害：内存溢出：会触发Java.lang.OutOfMemoryError，造成程序崩溃
+三、危害：
+
+内存溢出：会触发Java.lang.OutOfMemoryError，造成程序崩溃
 
 内存泄漏：过多的内存泄漏会造成OOM的发送，同样也会造成相关UI的卡顿现象
 
-四、造成的原因以及处理：A、大量的图片、音频、视频处理，当在内存比较低的系统上也容易造成内存溢出建议使用第三方，或者JNI来进行处理
+四、造成的原因以及处理：
+
+A、大量的图片、音频、视频处理，当在内存比较低的系统上也容易造成内存溢出建议使用第三方，或者JNI来进行处理
 
 B、Bitmap对象的不正确处理（内存溢出）不要在主线程中处理图片使用Bitmap对象要用recycle释放高效的处理大图
 
@@ -259,7 +276,9 @@ finally
 4、Integer的默认值是null，int的默认值是0
 
 ### 同步和异步有何异同，在什么情况下分别使用他们？
-Java中交互方式分为同步和异步两种：同步交互：指发送一个请求,需要等待返回,然后才能够发送下一个请求，有个等待过程；
+Java中交互方式分为同步和异步两种：
+
+同步交互：指发送一个请求,需要等待返回,然后才能够发送下一个请求，有个等待过程；
 
 异步交互：指发送一个请求,不需要等待返回,随时可以再发送下一个请求，即不需要等待。 
 
@@ -282,13 +301,17 @@ Java中交互方式分为同步和异步两种：同步交互：指发送一个�
 何内容，说明字符流用的是缓冲区，并且可以使用flush方法强制进行刷新缓冲区，这时才能在不close的情况下输出内容
 
 ### error和exception有什么区别？
-Exception：1．可以是可被控制(checked) 或不可控制的(unchecked)。
+Exception：
+
+1．可以是可被控制(checked) 或不可控制的(unchecked)。
 
 2．表示一个由程序员导致的错误。
 
 3．应该在应用程序级被处理。
 
-Error：1．总是不可控制的(unchecked)。
+Error：
+
+1．总是不可控制的(unchecked)。
 
 2．经常用来用于表示系统错误或低层资源的错误。
 
@@ -696,9 +719,11 @@ View频繁的触发measure、layout，导致measure、layout累计耗时过多�
 
 ### Parcelable与Serializable[参考：序列化Serializable和Parcelable的理解和区别](https://www.jianshu.com/p/a60b609ec7e7)
 Serializable（Java自带）：
+
 Serializable是序列化的意思，表示将一个对象转换成可存储或可传输的状态。序列化后的对象可以在网络上进行传输，也可以存储到本地。
 
 Parcelable（android 专用）：
+
 除了Serializable之外，使用Parcelable也可以实现相同的效果，
 不过不同于将对象进行序列化，Parcelable方式的实现原理是将一个完整的对象进行分解，
 而分解后的每一部分都是Intent所支持的数据类型，这样也就实现传递对象的功能了。
@@ -721,10 +746,14 @@ ReentrantLock可以灵活地实现多路通知
 ### postInvalidate和Invalidate的区别[参考：简单讲下postInvalidate和Invalidate的区别](https://blog.csdn.net/codeyanbao/article/details/82694281)
 
 ### anr分类及原理[参考：安卓ANR问题1_ANR问题类型及产生原理](https://www.jianshu.com/p/ddfc4678067d)
-ANR问题类型及产生原理：ANR(Application Not Responding):即应用无响应. 在日常使用安卓手机的过程中, 对最anr最直接的印象就是手机弹框
+ANR问题类型及产生原理：
+
+ANR(Application Not Responding):即应用无响应. 在日常使用安卓手机的过程中, 对最anr最直接的印象就是手机弹框
 显示应用未响应. 选择继续等待或者关闭.如果应用程序的主线程在规定的时间内, 没有完成特定操作和事件, 就会发生ANR.
 
-四种ANR类型：KeyDispatchTimeout : input事件在5S内没有处理完成发生ANR
+四种ANR类型：
+
+KeyDispatchTimeout : input事件在5S内没有处理完成发生ANR
 
 ServiceTimeout : bind,create,start,unbind等操作,前台Service在20s内,后台Service在200s内没有处理完成发生ANR
 
@@ -752,19 +781,31 @@ Binder被占满导致主线程无法和SystemServer通信
 不多，所以目前使用的也是越来越多。webp格式一般用于网络加载图片，图片体积相对于png或者jpg都是很有优势的。GIF
 一般是作为动画展示的，但是由于图片太大，所以一般不建议使用，可以使用Lottie动画库代替。
 
-SVG图片：矢量图，由视觉设计出SVG图片，使用Androidstudio导入，最后是xml文件，可以适配各种分辨率的屏幕。先定义好要画的
+SVG图片：
+
+矢量图，由视觉设计出SVG图片，使用Androidstudio导入，最后是xml文件，可以适配各种分辨率的屏幕。先定义好要画的
 图形，等待显示的时候，才会将图形画出来。这种方式体积很小，相对于png图片，可以减少50%，但是不适合复杂的图形。
 
-PNG图片：无损压缩，支持RGB三色和Alpha透明度设置，android基本使用都是这种方式，但是因为体积较大，所以每次apk包大的时
+PNG图片：
+
+无损压缩，支持RGB三色和Alpha透明度设置，android基本使用都是这种方式，但是因为体积较大，所以每次apk包大的时
 候都会将图片进行一遍压缩，https://tinypng.com/网站可以对png图片进行压缩。
 
-WEBP图片：google开发的压缩格式，体积相对于png图片减少25%，同时也支持透明度的设置，一般用于网络图片格式。
+WEBP图片：
 
-JPEG图片：有损压缩，不支持透明背景，不适用与android系统的logo图片，适用于大图。
+google开发的压缩格式，体积相对于png图片减少25%，同时也支持透明度的设置，一般用于网络图片格式。
 
-GIF图片：无损压缩，主要是展示动画，可以设置透明背景色。可以使用Glide和Fresco两个库进行加载，Picasso不支持加载动态图片。
+JPEG图片：
 
-BMP图片：bitmap，没有进行任何压缩，所以图片占空间很大，一般很少使用。
+有损压缩，不支持透明背景，不适用与android系统的logo图片，适用于大图。
+
+GIF图片：
+
+无损压缩，主要是展示动画，可以设置透明背景色。可以使用Glide和Fresco两个库进行加载，Picasso不支持加载动态图片。
+
+BMP图片：
+
+bitmap，没有进行任何压缩，所以图片占空间很大，一般很少使用。
 
 ### 一张图片占用的内存大小[参考：Android中一张图片占用的内存大小是如何计算的](https://www.cnblogs.com/dasusu/p/9789389.html)
 
@@ -864,21 +905,31 @@ public enum EasySingleton{
 ### kotlin协程的四个dispatcher及区别[参考：Kotlin协程核心库分析-1 Dispatchers](https://blog.csdn.net/qfanmingyiq/article/details/105184822)
 
 ### window，decorview，ViewRootImpl的关系,面试官 想让你回答如何window和windowManager如何联系的。viewRootImpl是联系window和decorview的纽带
-Activity：不负责控制视图，只是控制生命周期和处理事件，真正控制视图的是Window,Activity中含有一个Window，Window才是真
+Activity：
+
+不负责控制视图，只是控制生命周期和处理事件，真正控制视图的是Window,Activity中含有一个Window，Window才是真
 正代表一个窗口
 
-Window：视图的承载器，内部持有DecorView,而DecorView是View的根布局，Window是一个抽象类，真正的实现类是PhoneWindow，
+Window：
+
+视图的承载器，内部持有DecorView,而DecorView是View的根布局，Window是一个抽象类，真正的实现类是PhoneWindow，
 PhoneWindow有个内部类DecorView,通过其来加载R.layout.activity_main。Window通过WindowManager将DecorView加
 载其中，并将DecorView交给ViewRoot，进行视图的绘制及其他交互
 
-DecorView：是FrameLayout的子类，是android的根视图，相当于顶级View，一般来说内部包含竖直方向LinearLayout,在linearlayout
+DecorView：
+
+是FrameLayout的子类，是android的根视图，相当于顶级View，一般来说内部包含竖直方向LinearLayout,在linearlayout
 中含有三部分，上面是ViewStub,延迟加载的视图，中间是标题栏，下面是内容栏，就是我们熟悉的android.R.id.content
 
-ViewRoot：所有View的绘制及事件分发交互都是通过它来进行的，有个真正的实现类ViewRootImpl,它是链接WindowManagerService
+ViewRoot：
+
+所有View的绘制及事件分发交互都是通过它来进行的，有个真正的实现类ViewRootImpl,它是链接WindowManagerService
 和DecorView的纽带，View的测量，布局，绘制都是通过它来实现的，所以我们常见的事件分发真正的过程是
 
 ### 进程间的通信方式[参考：Android进程间通信 - 几种方式的对比总结](https://blog.csdn.net/hzw2017/article/details/81275438)
-常用有如下几种：Bundle （四大组件间）
+常用有如下几种：
+
+Bundle （四大组件间）
 
 文件共享：可参考Android进程通信 - 序列化Serialzable与Parcelable中的示例
 
@@ -1137,7 +1188,9 @@ Thread 是程序执行的最小单元，它是分配CPU的基本单位。可以�
 
 Service是Android的四大组件之一，被用来执行长时间的后台任务。默认情况下Service是运行在主线程中的。
 
-二者的使用上的区别：1.在Android中，Thread只是一个用来执行后台任务的工具类，它可以在Activity中被创建，也可以在Service中被创建。
+二者的使用上的区别：
+
+1.在Android中，Thread只是一个用来执行后台任务的工具类，它可以在Activity中被创建，也可以在Service中被创建。
 
 2.Service组件主要有两个作用：后台运行和跨进程访问。service可以在android系统后台独立运行，线程是不可以。
 
@@ -1287,7 +1340,6 @@ c. 方便在不同的Activity，甚至不同的应用之间传递数据。　　
 每个ContentProvider都会对外提供一个公共的URI（包装成Uri对象），如果应用程序有数据需要共享时，就需要使用ContentProvider
 为这些数据定义一个URI，然后其他的应用程序就通过Content Provider传入这个URI来对数据进行操作。
 
-
 ### SharedPreference和MMKV的区别[参考：MMKV组件实现原理以及和SharedPreferences的比较（一）](https://blog.csdn.net/qq_39424143/article/details/95103783)
 MMKV是基于mmap内存映射关系的key-value组件，底层序列化/反序列化使用protobuf实现。性能高，稳定性强。
 
@@ -1337,7 +1389,9 @@ commit和apply虽然都是原子性操作，但是原子的操作不同，commit
 ### 有关Bitmap导致OOM的原因？如何优化？
 因为Android系统对内存有一个限制，如果超出该限制，就会出现OOM。为了避免这个问题，需要在加载资源时尽量考虑如何节约内存，尽快释放资源等等。
 
-Android系统版本对图片加载，回收的影响：1，在Android 2.3以及之后，采用的是并发回收机制，避免在回收内存时的卡顿现象。
+Android系统版本对图片加载，回收的影响：
+
+1，在Android 2.3以及之后，采用的是并发回收机制，避免在回收内存时的卡顿现象。
 
 2，在Android 2.3.3(API Level 10)以及之前，Bitmap的backing pixel 数据存储在native memory, 与Bitmap本身是
 分开的，Bitmap本身存储在dalvik heap 中。导致其pixel数据不能判断是否还需要使用，不能及时释放，容易引起OOM错误。
@@ -1562,18 +1616,24 @@ synchonized(this)和synchonized(object)区别：其实并没有很大的区别�
 ### Java 中深拷贝与浅拷贝的区别？[参考：Java深入理解深拷贝和浅拷贝区别](https://blog.csdn.net/riemann_/article/details/87217229)
 注：深拷贝和浅拷贝都是对象拷贝
 
-浅拷贝：被复制对象的所有变量都含有与原来的对象相同的值，而所有的对其他对象的引用仍然指向原来的对象。即对象的浅拷贝会对“主”对象进行拷贝
+浅拷贝：
+
+被复制对象的所有变量都含有与原来的对象相同的值，而所有的对其他对象的引用仍然指向原来的对象。即对象的浅拷贝会对“主”对象进行拷贝
 ，但不会复制主对象里面的对象。”里面的对象“会在原来的对象和它的副本之间共享。
 
 简而言之，浅拷贝仅仅复制所考虑的对象，而不复制它所引用的对象。
 
-深拷贝：深拷贝是一个整个独立的对象拷贝，深拷贝会拷贝所有的属性,并拷贝属性指向的动态分配的内存。当对象和它所引用的对象一起拷贝时即发生深拷贝。
+深拷贝：
+
+深拷贝是一个整个独立的对象拷贝，深拷贝会拷贝所有的属性,并拷贝属性指向的动态分配的内存。当对象和它所引用的对象一起拷贝时即发生深拷贝。
 深拷贝相比于浅拷贝速度较慢并且花销较大。
 
 简而言之，深拷贝把要复制的对象所引用的对象都复制了一遍。
 
 ### 谈谈List,Set,Map的区别？
-List：1.可以允许重复的对象。
+List：
+
+1.可以允许重复的对象。
 
 2.可以插入多个null元素。
 
