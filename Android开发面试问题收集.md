@@ -1630,7 +1630,7 @@ synchonized(this)和synchonized(object)区别：其实并没有很大的区别�
 
 简而言之，深拷贝把要复制的对象所引用的对象都复制了一遍。
 
-### 谈谈List,Set,Map的区别？
+### 谈谈List,Set,Map的区别？[参考：java中list，set，map集合的区别，及面试要点](https://blog.csdn.net/qq_30225725/article/details/88020157)
 List：
 
 1.可以允许重复的对象。
@@ -1641,16 +1641,81 @@ List：
 
 4.常用的实现类有 ArrayList、LinkedList 和 Vector。ArrayList 最为流行，它提供了使用索引的随意访问，而 LinkedList 则对于经常需要从 List 中添加或删除元素的场合更为合适。
 
+Set：
 
+1.不允许重复对象
 
-activity启动模式
-handler
-异步同步
-Java中个类型占几个字节
-boolen占几个字节 
-Android动画分类以及插值器
-activity直接动画怎么实现
-转场，过渡，跳转等
+2. 无序容器，你无法保证每个元素的存储顺序，TreeSet通过 Comparator 或者 Comparable 维护了一个排序顺序。
+
+3. 只允许一个 null 元素
+
+4.Set 接口最流行的几个实现类是 HashSet、LinkedHashSet 以及 TreeSet。最流行的是基于 HashMap 实现的 HashSet；
+TreeSet 还实现了 SortedSet 接口，因此 TreeSet 是一个根据其 compare() 和 compareTo() 的定义进行排序的有序容器。而且可以重复
+
+Map:
+
+1.Map不是collection的子接口或者实现类。Map是一个接口。
+
+2.Map 的 每个 Entry 都持有两个对象，也就是一个键一个值，Map 可能会持有相同的值对象但键对象必须是唯一的。
+
+3. TreeMap 也通过 Comparator 或者 Comparable 维护了一个排序顺序。
+
+4. Map 里你可以拥有随意个 null 值但最多只能有一个 null 键。
+
+5.Map 接口最流行的几个实现类是 HashMap、LinkedHashMap、Hashtable 和 TreeMap。（HashMap、TreeMap最常用）
+
+### activity启动模式[参考：细谈Activity四种启动模式](https://blog.csdn.net/zy_jibai/article/details/80587083)
+1.默认启动模式standard：该模式可以被设定，不在manifest设定时候，Activity的默认模式就是standard。在该模式下，
+启动的Activity会依照启动顺序被依次压入Task中
+
+2.栈顶复用模式singleTop：在该模式下，如果栈顶Activity为我们要新建的Activity（目标Activity），那么就不会重复创建新的Activity。
+    
+3.栈内复用模式singleTask：与singleTop模式相似，只不过singleTop模式是只是针对栈顶的元素，而singleTask模式下，
+如果task栈内存在目标Activity实例，则：
+将task内的对应Activity实例之上的所有Activity弹出栈。
+将对应Activity置于栈顶，获得焦点。
+
+4.全局唯一模式singleInstance：在该模式下，我们会为目标Activity分配一个新的affinity，并创建一个新的Task栈，将目标
+Activity放入新的Task，并让目标Activity获得焦点。新的Task有且只有这一个Activity实例。如果已经创建过目标Activity实例，
+则不会创建新的Task，而是将以前创建过的Activity唤醒（对应Task设为Foreground状态）
+
+### 异步同步[参考：Java 异步同步](https://blog.csdn.net/weixin_38019699/article/details/104888402)
+异步：多个线程同时对共享资源进行操作，在操作数据时，互相之间不需要等待。提高执行效率，降低了资源的安全性。
+
+同步：多个线程在操作共享资源时，同一时刻只能有一个线程在操作相当于独占资源，另外的线程必须等待。牺牲了程序的执行效率，提高了资源的安全性。
+
+### Java中各类型占几个字节[参考：JAVA中的几种基本数据类型是什么，各自占用多少字节](https://www.cnblogs.com/banma/p/12787268.html)
+byte=1字节=8bit
+
+short=2字节
+
+int=4字节
+
+long=8字节
+
+float=4字节
+
+double=8字节
+
+char=2字节
+
+名词解析：
+
+bit : 位，计算机存储数据的最小单元，二进制数中的一个位数。
+
+byte : 字节，计算机存储数据的基本单位，一个字节由8位二进制数组成。通常一个汉字占两个字节。
+
+### boolen占几个字节 
+[参考：Oracle官网](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html)
+[参考：Java中boolean类型占几个字节，你知道吗？](https://blog.csdn.net/amoscn/article/details/97377833)
+boolean数据类型只有两个可能的值：true和false。将此数据类型用于跟踪真/假条件的简单标志。这种数据类型代表一位信息，但它的“大小”并不是精确定义的。
+
+boolean类型被编译为int类型，等于是说JVM里占用字节和int完全一样，int是4个字节，于是boolean也是4字节
+
+boolean数组在Oracle的JVM中，编码为byte数组，每个boolean元素占用8位=1字节
+
+### activity转场，过渡，跳转等动画怎么实现
+
 activity生命周期
 Java 中使用多线程的方式有哪些
 谈一谈java线程常见的几种锁？
