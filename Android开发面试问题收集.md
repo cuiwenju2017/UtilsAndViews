@@ -2083,25 +2083,277 @@ boolean类型被编译为int类型，等于是说JVM里占用字节和int完全�
 boolean数组在Oracle的JVM中，编码为byte数组，每个boolean元素占用8位=1字节
 
 
-### activity转场，过渡，跳转等动画怎么实现
+### activity生命周期
+[参考：基础总结篇之一：Activity生命周期](https://blog.csdn.net/liuhe688/article/details/6733407)
 
-activity生命周期
-Java 中使用多线程的方式有哪些
-谈一谈java线程常见的几种锁？
-简述JVM中类的加载机制与加载过程
-谈一谈Activity，View，Window三者的关系？
-什么是冒泡排序？如何优化？
-anr定位分析处理
-死锁产生场景
-临时变量存储位置(堆栈相关知识)
-静态变量是否会被销毁
-view分发机制
+[参考：Activity生命周期的实践](https://blog.csdn.net/juer2017/article/details/86481665?spm=1001.2014.3001.5502)
 
-用什么Map可以保证线程安全，为什么？ConcurrentHashMap为什么能保证线程安全？1.7和1.8原理有什么差异。
+1.启动Activity：系统会先调用onCreate方法，然后调用onStart方法，最后调用onResume，Activity进入运行状态。
 
-有多少种单例模式，枚举算不算单例，单例模式中不用volatile会导致什么问题？volatile特性是什么？为什么android中不推荐使用枚举。
+2.当前Activity被其他Activity覆盖其上或被锁屏：系统会调用onPause方法，暂停当前Activity的执行。
 
-Glide中怎么实现图片的加载进度条，Glide的缓存是怎么设计的？为什么要用弱引用。
+3.当前Activity由被覆盖状态回到前台或解锁屏：系统会调用onResume方法，再次进入运行状态。
+
+4.当前Activity转到新的Activity界面或按Home键回到主屏，自身退居后台：系统会先调用onPause方法，然后调用onStop方法，进入停滞状态。
+
+5.用户后退回到此Activity：系统会先调用onRestart方法，然后调用onStart方法，最后调用onResume方法，再次进入运行状态。
+
+6.当前Activity处于被覆盖状态或者后台不可见状态，即第2步和第4步，系统内存不足，杀死当前Activity，而后用户退回当前Activity：再次调用onCreate方法、onStart方法、onResume方法，进入运行状态。
+
+7.用户退出当前Activity：系统先调用onPause方法，然后调用onStop方法，最后调用onDestory方法，结束当前Activity。
+
+
+### Java 中使用多线程的方式有哪些
+[参考：JAVA多线程实现的三种方式](https://blog.csdn.net/aboy123/article/details/38307539)
+
+JAVA多线程实现方式主要有三种：继承Thread类、实现Runnable接口、使用ExecutorService、Callable、Future实现有返回结果的多线程。其中前两种方式线程执行完后都没有返回值，只有最后一种是带返回值的。
+
+### 谈一谈java线程常见的几种锁？
+[参考：浅谈多线程编程中常用的几种锁](https://blog.csdn.net/weixin_41507324/article/details/90814891)
+
+一、synchronized 线程同步锁：
+
+synchronized是java中的一个关键字，也就是说是java语言内置的特性。
+
+如果一个代码块被synchronized 修饰了，当一个线程获取了对应的锁（同一把锁，synchronized中的参数相同就是同一把锁），
+并执行该代码块时，其他线程便只能一直等待，等待获取锁的线程释放锁，而这里获取锁的线程释放锁只会有两种情况： 
+
+1.获取锁的线程执行完了该代码块，然后线程释放对锁的占有。
+
+2.线程执行发生异常，此时JVM会让线程自动释放锁。
+
+二、Lock锁
+
+Lock和 synchronized的区别：
+
+1）、Lock不是java语言内置的， synchronized是java语言的关键字，因此是内置特性。Lock是一个类，通过这个类可以实现同步访问。
+
+2）、Lock和 synchronized一个非常大的不同就是， synchronized不需要用户去手动释放锁，当 synchronized方法或者
+ synchronized代码块执行完毕后或者在发生异常时候，系统会自动让线程释放对锁的占用；而lock必须要用户去手动释放锁，
+ 就有可能导致出现死锁现象，因此使用Lock时需要在finally块中释放锁。（使用Lock一定要在try{}catch{}块中进行，在finally
+ 去释放锁unlock,否则在发生异常的时候，会造成死锁）。
+
+3）、Lock可以让等待的线程相应中断，而synchronized却不行，使用synchronized时，等待的线程会一直等待下去，不能都响应中断；
+
+4）、Lock可以知道有没有成功获取锁，而synchronized却无法办到。
+
+5）、Lock可以提高多个线程进行读操作的效率。
+
+在性能上来说，如果竞争资源不激烈，两者的性能是差不多，而当竞争资源非常激烈时（即有大量的线程同时竞争），此时Lock的性能
+要远远优于synchronized。所以说，在具体使用时要根据适当情况选择。
+
+
+### 简述JVM中类的加载机制与加载过程
+[参考：JVM类加载机制详解（一）JVM类加载过程](https://blog.csdn.net/zhangliangzi/article/details/51319033)
+
+首先，在代码编译后，就会生成JVM（Java虚拟机）能够识别的二进制字节流文件（*.class）。而JVM把Class文件中的类描述数
+据从文件加载到内存，并对数据进行校验、转换解析、初始化，使这些数据最终成为可以被JVM直接使用的Java类型，这个说来简单
+但实际复杂的过程叫做JVM的类加载机制。
+
+
+### 谈一谈Activity，View，Window三者的关系？
+[参考：一篇文章看明白 Activity 与 Window 与 View 之间的关系](https://blog.csdn.net/freekiteyu/article/details/79408969)
+
+Window 是 Android 中窗口的宏观定义，主要是管理 View 的创建，以及与 ViewRootImpl 的交互，将 Activity 与 View 解耦。
+
+Activity 与 PhoneWindow 与 DecorView 之间什么关系？
+
+一个 Activity 对应一个 Window 也就是 PhoneWindow，一个 PhoneWindow 持有一个 DecorView 的实例，DecorView 本身是一个 FrameLayout。
+
+
+### 什么是冒泡排序？如何优化？
+[参考：java代码之冒泡排序及其优化](https://blog.csdn.net/qq_42079455/article/details/88229883)
+
+1、交换排序的基本思想：两两比较待排序记录的关键字，如果发现两个记录的次序相反则进行交换，知道所有记录都没有反序为止。
+
+2、常见的交换排序：冒泡排序、快速排序
+3、冒泡排序的基本思想：冒泡排序属于比较简单的排序，以非递减为例，依次遍历数组，发现a[i]>a[i+1}的情况，swap(a[i],a[i+1])，
+直到没有逆序的数据，完成排序，可以用两个for循环嵌套实现，外层控制遍历次数，内层用来实现交换，也可以用一个boolean类
+型变量来控制是否有交换发生，如果没有交换，表明已经正序，可以直接输出。
+
+冒泡排序核心代码:
+```
+public static int[] bubbleSort1(int[] a) {
+		int i, j;
+		for (i = 0; i < a.length; i++) {// 表示n次排序过程。
+			for (j = 1; j < a.length - i; j++) {
+				if (a[j - 1] > a[j]) {// 前面的数字大于后面的数字就交换
+					// 交换a[j-1]和a[j]
+					int temp;
+					temp = a[j - 1];
+					a[j - 1] = a[j];
+					a[j] = temp;
+				}
+			}
+		}
+		return a;
+	}
+```
+
+优化：这里设置一个标志flag，如果这一趟发生了交换，则为true，否则为false。明显如果有一趟没有发生交换，说明排序已经完成。
+```
+public static int[] bubbleSort2(int[] a) {
+		int j, k = a.length;
+		boolean flag = true;// 发生了交换就为true, 没发生就为false，第一次判断时必须标志位true。
+		while (flag) {
+			flag = false;// 每次开始排序前，都设置flag为未排序过
+			for (j = 1; j < k; j++) {
+				if (a[j - 1] > a[j]) {// 前面的数字大于后面的数字就交换
+					// 交换a[j-1]和a[j]
+					int temp;
+					temp = a[j - 1];
+					a[j - 1] = a[j];
+					a[j] = temp;
+
+					// 表示交换过数据;
+					flag = true;
+				}
+			}
+			k--;// 减小一次排序的尾边界
+		} // end while
+		return a;
+	}
+```
+
+再进一步做优化：
+```
+public static int[] bubbleSort3(int[] a) {
+		int j, k;
+		int flag = a.length;// flag来记录最后交换的位置，也就是排序的尾边界
+
+		while (flag > 0) {// 排序未结束标志
+			k = flag; // k 来记录遍历的尾边界
+			flag = 0;
+
+			for (j = 1; j < k; j++) {
+				if (a[j - 1] > a[j]) {// 前面的数字大于后面的数字就交换
+					// 交换a[j-1]和a[j]
+					int temp;
+					temp = a[j - 1];
+					a[j - 1] = a[j];
+					a[j] = temp;
+
+					// 表示交换过数据;
+					flag = j;// 记录最新的尾边界.
+				}
+			}
+		}
+		return a;
+	}
+```
+
+
+### anr定位分析处理
+[参考：ANR产生的原因及其定位分析](https://blog.csdn.net/a820703048/article/details/74907259)
+
+
+### 死锁产生场景
+[参考：死锁的成因、场景以及死锁的避免](https://blog.csdn.net/java_zyq/article/details/89640211)
+
+锁顺序死锁：线程A和线程B都继续执行，此时线程A需要o1锁才能继续往下执行。此时线程B需要o2锁才能继续往下执行。
+但是：线程A的o1锁并没有释放，线程B的o2锁也没有释放。
+所以他们都只能等待，而这种等待是无期限的-->永久等待-->死锁
+
+动态锁顺序死锁：经典场景引入：银行转账问题：线程 A 从 X 账户向 Y 账户转账，线程 B 从账户 Y 向账户 X 转账，那么就会发生死锁。
+
+协作对象之间发生死锁
+
+避免死锁可以概括成三种方法：
+
+1、固定加锁的顺序(针对锁顺序死锁)
+
+2、开放调用(针对对象之间协作造成的死锁)
+
+3、使用定时锁-->tryLock()
+如果等待获取锁时间超时，则抛出异常而不是一直等待！
+
+
+### 临时变量存储位置(堆栈相关知识)
+[参考：内存分配及变量存储位置（堆、栈、方法区常量池、方法区静态区）](https://www.cnblogs.com/protected/p/6419217.html)
+
+程序运行时，有六个地方都可以保存数据：
+
+1、 寄存器：这是最快的保存区域，因为它位于和其他所有保存方式不同的地方：处理器内部。然而，寄存器的数量十分有限，所以
+寄存器是根据需要由编译器分配。我们对此没有直接的控制权，也不可能在自己的程序里找到寄存器存在的任何踪迹。
+
+2、 堆栈：存放基本类型的数据和对象的引用，但对象本身不存放在栈中，而是存放在堆中（new 出来的对象）。驻留于常规RAM（随机访问存储器）
+区域。但可通过它的“堆栈指针”获得处理的直接支持。堆栈指针若向下移，会创建新的内存；若向上移，则会释放那些内存。这是一
+种特别快、特别有效的数据保存方式，仅次于寄存器。创建程序时，java编译器必须准确地知道堆栈内保存的所有数据的“长度”以
+及“存在时间”。这是由于它必须生成相应的代码，以便向上和向下移动指针。这一限制无疑影响了程序的灵活性，所以尽管有些java
+数据要保存在堆栈里——特别是对象句柄，但java对象并不放到其中。
+
+3、 堆：存放用new产生的数据。一种常规用途的内存池（也在RAM区域），其中保存了java对象。和堆栈不同：“内存堆”或“堆”最
+吸引人的地方在于编译器不必知道要从堆里分配多少存储空间，也不必知道存储的数据要在堆里停留多长的时间。因此，用堆保存数
+据时会得到更大的灵活性。要求创建一个对象时，只需用new命令编制相碰的代码即可。执行这些代码时，会在堆里自动进行数据的
+保存。当然，为达到这种灵活性，必然会付出一定的代价：在堆里分配存储空间时会花掉更长的时间
+
+4、 静态域：存放在对象中用static定义的静态成员。这儿的“静态”是指“位于固定位置”。程序运行期间，静态存储的数据将随时
+等候调用。可用static关键字指出一个对象的特定元素是静态的。但java对象本身永远都不会置入静态存储空间。
+
+5、 常量池：存放常量。常数值通常直接置于程序代码内部。这样做是安全的。因为它们永远都不会改变，有的常数需要严格地保护，
+所以可考虑将它们置入只读存储器（ROM）。
+
+6、 非RAM存储：硬盘等永久存储空间。若数据完全独立于一个程序之外，则程序不运行时仍可存在，并在程序的控制范围之外。
+其中两个最主要的例子便是“流式对象”和“固定对象”。对于流式对象，对象会变成字节流，通常会发给另一台机器，而对于固定对象，
+对象保存在磁盘中。即使程序中止运行，它们仍可保持自己的状态不变。对于这些类型的数据存储，一个特别有用的技艺就是它们能
+存在于其他媒体中，一旦需要，甚至能将它们恢复成普通的、基于RAM的对象。
+
+
+### 静态变量是否会被销毁
+[参考：静态变量什么时候会被回收](https://blog.csdn.net/yogkin/article/details/53404855)
+
+静态变量是在类被load的时候分配内存的，并且存在于方法区。当类被卸载的时候，静态变量被销毁。
+
+
+### view分发机制
+[参考：一文读懂Android View事件分发机制](https://www.jianshu.com/p/238d1b753e64)
+
+
+### 用什么Map可以保证线程安全，为什么？ConcurrentHashMap为什么能保证线程安全？1.7和1.8原理有什么差异。
+[参考：线程安全的Map——ConcurrentHashMap如何保证线程安全？](https://blog.csdn.net/Hushboom/article/details/107340190)
+
+我们知道，HashMap是线程不安全的，在ConcurrentHashMap出现之前，JDK用HashTable来实现线程安全，但HashTable是将整
+个哈希表锁住，采用sychronized同步方法，所以性能很低；
+
+JDK1.7中 Segment是ReentrantLock的子类，ConcurrentHashMap将数据分别放到多个Segment中，默认16个，每一个Segment
+中又包含了多个HashEntry列表数组
+
+不同Segement之间是异步，这样对一个段的修改只会对该段加锁，不会影响到其他段的操作；
+Segement初始化为16之后不可再扩容；结构:16Segment+哈希表；
+
+JDK1.8 ConcurrentHashMap锁进一步细化，去除segment，结构类似于HashMap.哈希表+红黑树，锁当前桶的头结点，锁的个数
+进一步提升(锁个数会随着哈希表扩容而增加)，支持的并发线程数进一步提升；
+使用CAS+synchronized来保证线程安全 ；
+
+ConcurrentHashMap在jdk1.8中取消segments字段，直接采用transient volatile Node<K,V>[] table保存数据，采用table
+数组元素（链表的首个元素或者红黑色的根节点）作为锁，从而实现了对每一行数据进行加锁，减少并发冲突的概率；
+
+
+### 有多少种单例模式，枚举算不算单例，单例模式中不用volatile会导致什么问题？volatile特性是什么？为什么android中不推荐使用枚举。
+[参考：你知道有多少种方式实现单例模式？](https://blog.csdn.net/Rain_9155/article/details/103318029)
+
+[参考：Android中是否推荐使用枚举Enum](https://www.shuzhiduo.com/A/E35p4BAK5v/)
+
+1、饿汉方式
+
+2、静态内部类方式
+
+3、懒汉模式（线程安全）
+
+4、Double Check Lock（DCL）双重检查锁定
+
+5、枚举模式	
+
+6、容器方式 
+
+针对DCL的错误，有两种解决办法，第一种办法是使用Volatile关键字，因为Volatile会禁止指令重排序，保证对象实例化过程按1、2、3步骤进行；第二种办法是再加一个局部变量做一层缓冲
+
+Android官网不建议使用enums，占用内存多
+
+
+### Glide中怎么实现图片的加载进度条，Glide的缓存是怎么设计的？为什么要用弱引用。
+
+
 
 implementation 和 api的区别是什么？
 
