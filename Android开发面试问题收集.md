@@ -1,7 +1,9 @@
 [GitHub持续更新：（声明：本答案为个人收集与总结并非标准答案，仅供参考，如有错误还望指出，谢谢！如有重复可能是常问问题）](https://github.com/cuiwenju2017/UtilsAndViews/blob/master/Android%E5%BC%80%E5%8F%91%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E6%94%B6%E9%9B%86.md)
 
 ### ArrayList的使用，ArrayList使用过程中有没有遇到过坑。
+
 [参考：读了这一篇，让你少踩 ArrayList 的那些坑](https://www.cnblogs.com/fengzheng/p/12986513.html)
+
 Arrays.asList不能add:
 
 此ArrayList非彼ArrayList，这是一个内部类，但是类名也叫 ArrayList.Arrays.asList方法创建出来的 ArrayList
@@ -1208,6 +1210,7 @@ Service是Android的四大组件之一，被用来执行长时间的后台任务
 
 ### IntentService是什么 & 原理 & 使用场景 & 和Service的区别。
 [参考：Android面试一天一题（1Day）IntentService作用是什么](https://blog.csdn.net/zxccxzzxz/article/details/52377191)
+
 [参考：IntentService和Service区别](https://www.jianshu.com/p/5a32226d2ce0)
 
 ### 创建一个独立进程的Service应该怎样做？[参考：Android 通过Service 单独进程模仿离线推送](https://blog.csdn.net/yan8024/article/details/48790339)
