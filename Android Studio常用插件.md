@@ -15,3 +15,5 @@ Android Parcelable code generator：Android Parcelable代码生成器，Bean类�
 CodeGlance：minimap,代码小地图
 
 Translation：中英文翻译插件
+
+Java decompiler：它允许您在调试过程中显示所有 Java 源代码，即使您没有全部。它基于著名的工具 JD-GUI。

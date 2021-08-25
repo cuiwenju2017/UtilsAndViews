@@ -2352,32 +2352,111 @@ Android官网不建议使用enums，占用内存多
 
 
 ### Glide中怎么实现图片的加载进度条，Glide的缓存是怎么设计的？为什么要用弱引用。
+[参考：Android图片加载框架最全解析（七），实现带进度的Glide图片加载功能](https://blog.csdn.net/guolin_blog/article/details/78357251)
+
+[参考：Glide 缓存机制解析(为啥使用弱引用)](https://blog.csdn.net/u011418943/article/details/107026881)
+
+我们知道，glide 是用弱引用缓存当前的活跃资源的；为啥不直接从 LruCache 取呢？原因猜测如下：
+
+这样可以保护当前使用的资源不会被 LruCache 算法回收
+
+使用弱引用，即可以缓存正在使用的强引用资源，又不阻碍系统需要回收的无引用资源。
 
 
+### implementation 和 api的区别是什么？
+[参考：implementation和api的区别](https://blog.csdn.net/geyuecang/article/details/105270669)
 
-implementation 和 api的区别是什么？
+implementation：
 
-事件分发的流程，以及怎么解决滑动冲突？
+Gradle 会将依赖项添加到编译类路径，并将依赖项打包到构建输出。不过，当您的模块配置 implementation 依赖项时，会让 
+Gradle 了解您不希望该模块在编译时将该依赖项泄露给其他模块。也就是说，其他模块只有在运行时才能使用该依赖项。
+使用此依赖项配置代替 api 或 compile（已弃用）可以显著缩短构建时间，因为这样可以减少构建系统需要重新编译的模块数。
+例如，如果 implementation 依赖项更改了其 API，Gradle 只会重新编译该依赖项以及直接依赖于它的模块。大多数应用和测试模块都应使用此配置。
 
-事件是怎么产生的？mFirstTarget 为什么是一个链表？
+api：
 
-自定义View需要经历哪几个过程？
+Gradle 会将依赖项添加到编译类路径和构建输出。当一个模块包含 api 依赖项时，会让 Gradle 了解该模块要以传递方式将该
+依赖项导出到其他模块，以便这些模块在运行时和编译时都可以使用该依赖项。
+此配置的行为类似于 compile（现已弃用），但使用它时应格外小心，只能对您需要以传递方式导出到其他上游消费者的依赖项使
+用它。 这是因为，如果 api 依赖项更改了其外部 API，Gradle 会在编译时重新编译所有有权访问该依赖项的模块。 因此，拥
+有大量的 api 依赖项会显著增加构建时间。除非要将依赖项的 API 公开给单独的模块，否则库模块应改用 implementation 依赖项。
 
-A 跳转到 B页面，两个页面的生命周期怎么走？什么情况下A的stop()不会执行。
 
-Activity 的4中启动模式分别是什么，有什么不同。
+### 事件分发的流程，以及怎么解决滑动冲突？
+[参考：Android事件分发机制及滑动冲突解决方案](https://www.jianshu.com/p/d82f426ba8f7)
 
-okhttp中有几个队列？分别干什么用的？怎么取消一个请求？
 
-Rxjava中map和flatMap有什么区别，都用过什么操作符。
+### 自定义View需要经历哪几个过程？
+[参考：自定义View基础之View的绘制流程](https://www.jianshu.com/p/783b5dde1f41)
 
-如果Rxjava组合发送任务，中间任务出现异常，其他任务该怎么处理。
+View的绘制流程是从ViewRoot的performTraversals开始的，它经过measure，layout，draw三个过程最终将View绘制出来。
 
-哪个场景会发生内存泄露，内存泄露怎么检测，怎么解决。以及leak cannery内部原理是什么？为什么新版本的不需要在Application中注册了。
 
-手机适配问题怎么处理，都有什么方案。
+### A 跳转到 B页面，两个页面的生命周期怎么走？什么情况下A的stop()不会执行。
+[参考：android从A页面跳转到B页面生命周期方法执行顺序](https://blog.csdn.net/qq_15744297/article/details/79606167)
 
-Android9 10 11 都更新了什么新特性，新版本中无法获取IMEI怎么处理。
+[参考：Activity A 调到B 两者的生命周期(二)](https://blog.csdn.net/u010904027/article/details/52470281)
+
+从A页面跳转到B页面首先执行A页面的onPause方法，然后是B页面的onCreate方法、onStart方法、onResume方法，此时B页面可见了并且有了焦点，此时A页面的onStop方法执行。
+ 
+如果B页面没有完全覆盖A页面（是弹窗的情况下）则A的onStop不会执行。
+
+
+### Rxjava中map和flatMap有什么区别，都用过什么操作符。
+[参考：Rxjava操作符之辩解map和flatmap的区别，以及应用场景](https://www.jianshu.com/p/c820afafd94b)
+
+[参考：RxJava操作符大全](https://blog.csdn.net/maplejaw_/article/details/52396175)
+
+共同点：
+
+都是依赖FuncX(入参，返回值)进行转换（将一个类型依据程序逻辑转换成另一种类型，根据入参和返回值）
+
+都能在转换后直接被subscribe
+
+区别：
+
+map返回的是结果集，flatmap返回的是包含结果集的Observable（返回结果不同）
+
+map被订阅时每传递一个事件执行一次onNext方法，flatmap多用于多对多，一对多，再被转化为多个时，一般利用from/just进行
+一一分发，被订阅时将所有数据传递完毕汇总到一个Observable然后一一执行onNext方法（执行顺序不同）>>>>(如单纯用于一对
+一转换则和map相同)
+
+map只能单一转换，单一只的是只能一对一进行转换，指一个对象可以转化为另一个对象但是不能转换成对象数组（map返回结果集
+不能直接使用from/just再次进行事件分发，一旦转换成对象数组的话，再处理集合/数组的结果时需要利用for一一遍历取出，而
+使用RxJava就是为了剔除这样的嵌套结构，使得整体的逻辑性更强。）
+
+flatmap既可以单一转换也可以一对多/多对多转换，flatmap要求返回Observable，因此可以再内部进行from/just的再次事件
+分发，一一取出单一对象（转换对象的能力不同）
+
+
+### 哪个场景会发生内存泄露，内存泄露怎么检测，怎么解决。以及leak cannery内部原理是什么？为什么新版本的不需要在Application中注册了。
+[参考：7种内存泄露场景和13种解决方案！](https://blog.csdn.net/sufu1065/article/details/116178604)
+
+[参考：Android内存泄漏检测和定位](https://www.jianshu.com/p/1972a6d1f0fc)
+
+[参考：LeakCanary原理解析，理解起来超简单！](https://blog.csdn.net/braintt/article/details/99685243)
+
+[参考：LeakCanary 2 源码解析（一）为什么2.0不再需要在Application中手动初始化？](https://www.jianshu.com/p/dd89270c16b4)
+
+
+### 手机适配问题怎么处理，都有什么方案。
+比率rate=像素密度/160dpi
+
+像素密度=根号下（像素宽的平方+像素高的平方）/手机尺寸（例如：手机宽1080px,高1920px,尺寸6.0英寸；像素密度=√1080²+1920²/6=367）
+
+dp=px/比率rate
+
+[参考：Android UI 设计规范—— px 转 dp](https://blog.csdn.net/pjingying/article/details/80045140)
+
+[参考：Android手机的像素密度（dpi）计算](https://blog.csdn.net/dayexiaofan/article/details/84335288)
+
+[参考：Android 屏幕适配：最全面的解决方案](https://www.jianshu.com/p/ec5a1a30694b)
+
+[参考：骚年你的屏幕适配方式该升级了!-今日头条适配方案](https://www.jianshu.com/p/55e0fca23b4f)
+
+
+### Android9 10 11 都更新了什么新特性，新版本中无法获取IMEI怎么处理。
+
 
 数据序列化有那俩种方式，Serialization和Parcelable区别，如果持久化需要用哪一个？
 
