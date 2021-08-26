@@ -2456,31 +2456,238 @@ dp=px/比率rate
 
 
 ### Android9 10 11 都更新了什么新特性，新版本中无法获取IMEI怎么处理。
+[参考：Android 9.0 最完整的新特性列表](https://blog.csdn.net/feelinghappy/article/details/95996093)
+
+[参考：Android 10正式版发布，看看都有哪些新特性](https://blog.csdn.net/xiangzhihong8/article/details/100534958)
+
+[参考：android11新特性_Android 11来了，主要有这些新变化](https://blog.csdn.net/weixin_39926739/article/details/113043662)
+
+android9人们常用新特性“暗黑模式”
+
+android10热门新特性：支持折叠屏，支持5G网络，隐私安全，分区储存等。
+
+android11新特性：消息通知界面，优化折叠设备支持，快速访问智能家居，控制敏感权限，优化5G体验，录像时关闭通知音，位置信息访问权限，强制应用调用内置相机，系统无缝更新等。
 
 
-数据序列化有那俩种方式，Serialization和Parcelable区别，如果持久化需要用哪一个？
+### 数据序列化有那俩种方式，Serialization和Parcelable区别，如果持久化需要用哪一个？
+[参考：Android中两种序列化方式的比较Serializable和Parcelable](https://blog.csdn.net/wangchunlei123/article/details/51345130)
 
-组件化怎么分层，各个组件之间怎么通信。
+Serializable接口是Java提供的一个序列化接口，它是一个空接口，为对象提供标准的序列化和反序列化操作。使用Serializable
+来实现的对象的序列化相当简单，只需要在类的生命中指定一个类似相面的标识即可自动实现默认的序列化过程。
 
-怎防止程序崩溃，如果已经到了Thread.UncaughtExceptionHandler是否可以让程序继续运行。
+Parcelable接口是Android SDK提供的一种专门用于Android应用中对象的序列化和反序列化的方式，相比于Seriablizable具
+有更好的性能。实现Parcelable接口的对象就可以实现序列化并可以通过Intent和Binder传递。
 
-Handler Looper mesaageQueue message 之间的关系。
+Serializable所属JAVA API，序列化和反序列化过程需要大量的I/O操作，开销大，效率低，序列化到本地或者通过网络传输。
 
-子线程一定不能更新ui么？什么时候可以？什么时候不可以。检测逻辑是在什么阶段初始化的。
+Parcelable所属Android SDK API，序列化和反序列化过程不需要大量的I/O操作，开销小，效率很高，内存序列化。
 
-ANR发生的原理是什么， 怎么排查。
 
-程序怎么保活。
+### Handler Looper mesaageQueue message 之间的关系。
+[参考：Message,Handler,MessageQueue,Looper之间的关系](https://blog.csdn.net/lovedren/article/details/51701477)
 
-说下路由ARoute的实现原理，怎么处理页面过多内存占用过大问题。
+在主线程创建之后会创建一个Looper对象，创建Looper对象的时候会去创建一个MessageQueue，而Looper是一个轮询器，会不停
+的轮询MessageQueue中的消息，在获取到消息之后就会把这个消息交给相应的handler来进行处理，在主线程中创建一个handler
+对象，这个handler对象把一个Message放到消息队列中，然后获取到消息进行处理。
 
-线程池都什么时候用，怎么创建，构造函数中的参数分别代表什么意思？
 
-进程优先级。
+### 子线程一定不能更新ui么？什么时候可以？什么时候不可以。检测逻辑是在什么阶段初始化的。
+子线程可以在ViewRootImpl还没有被创建之前更新UI；
 
-反向输出字符串。
+访问UI是没有加对象锁的，在子线程环境下更新UI，会造成不可预期的风险；
 
-两个有序链表合并。
+
+### ANR发生的原理是什么， 怎么排查。
+[参考：ANR产生的原因及其定位分析](https://blog.csdn.net/a820703048/article/details/74907259)
+
+[参考：Android如何分析排查ANR](https://blog.csdn.net/xzytl60937234/article/details/82493470)
+
+
+### 程序怎么保活。
+[参考：android程序保活（2020）]()
+
+1：开启系统电池白名单。
+
+2：引导用户在设置里，将app加入后台运行白名单。
+
+加了这两种方法后，经过测试，也只能维持一个小时，在别的app里，看到还加入了一项措施，开启前台服务。
+试了下加入前台服务后，基本上能一直存活了。
+
+3：加入前台服务。
+
+
+### 说下路由ARoute的实现原理，怎么处理页面过多内存占用过大问题。
+[参考：ARouter原理剖析及手动实现](https://www.jianshu.com/p/857aea5b54a8)
+
+[ARouter源码](https://github.com/alibaba/ARouter)
+
+
+### 线程池都什么时候用，怎么创建，构造函数中的参数分别代表什么意思？
+[参考：线程池的原理及实现](https://blog.csdn.net/hsuxu/article/details/8985931)
+
+
+### 进程优先级。
+[参考：Android进阶之进程优先级及提高优先级的方法（进程保活）](https://blog.csdn.net/chenliguan/article/details/54603611)
+
+进程的五个常用等级
+
+1、 前台进程：杀死前台进程需要用户交互，因为前台进程的优先级是最高的
+
+（1）进程持有一个正在与用户交互的Activity。
+
+（2）进程持有一个Service，这个Service处于这几种状态：
+
+（3）进程持有一个BroadcastReceiver，这个BroadcastReceiver正在执行它的 onReceive() 方法。
+
+2、 可见进程
+
+如果一个进程不含有任何前台的组件，但仍可被用户在屏幕上所见。可见的进程也是很重要的，一般不会被销毁，除非是为了保证所
+有前台进程的运行而不得不杀死可见进程。
+
+当满足如下任一条件时，进程被认为是可见的：
+
+（1）进程持有一个Activity，这个Activity不在前台，但是仍然被用户可见（处于onPause()调用后又没有调用onStop()的状态，
+比如：前台的activity打开了一个对话框，这样activity就会在其后可见）；
+
+（2）进程持有一个Service，这个Service和一个可见的（或者前台的）Activity绑定。
+
+3、 服务进程
+
+一个进程中运行着一个service，这个service是通过startService()开启的，比如后台播放音乐，后台下载数据等。
+
+4、 后台进程
+通常会有很多个后台进程存在，它们会被保存在一个LRU (least recently used)列表中，这样就可以确保用户最近使用的activity
+最后被销毁，即最先销毁时间最远的activity。
+
+（1）进程持有一个用户不可见的Activity（activity的onStop()被调用，当此Activity退出到桌面），就认为进程是一个后台进程。
+后台进程不直接影响用户体验，系统会为了优先级高的进程而任意杀死后台进程。
+
+5、 空进程:Empty process
+
+一个进程当中已经没有数据在运行了，但是内存当中还为这个应用驻留了一个进程空间。保存这种进程的唯一理由是为了缓存的需要，
+为了加快下次要启动这个进程中的组件时的启动时间。**系统为了平衡进程缓存和底层内核缓存的资源，经常会杀死空进程。
+
+（1）一个进程不包含任何活跃的应用组件，则认为是空进程（android设计的，为了第二次启动更快，采取的一个权衡）
+
+
+### 反向输出字符串。
+[参考：android 反转字符串](https://blog.csdn.net/bzlj2912009596/article/details/78849189?utm_source=blogkpcl11)
+
+[参考：深入浅出经典面试题之——反转字符串](https://www.cnblogs.com/JohnTsai/p/5606719.html)
+
+使用StringBuffer或StringBuilder进行反转：
+```
+String str = "dasgfdsfsd";
+StringBuffer buf = new StringBuffer(str);
+buf = buf.reverse(); 
+System.out.println(buf.toString());
+```
+
+使用TextUtils进行字符串的反转:
+```
+//获取字符串的倒序
+Log.d(TAG, TextUtils.getReverse("Hello", 0, "Hello".length()).toString());
+```
+
+使用数组：最常规的解法，也是我们在面试的时候最容易想到的一种方法。
+
+具体思路是:
+
+* 将字符串转换为char数组
+
+* 遍历循环给char数组赋值
+```
+public static String strReverseWithArray2(String string){
+        if(string==null||string.length()==0)return string;
+        int length = string.length();
+        char [] array = string.toCharArray();
+        for(int i = 0;i<length/2;i++){
+            array[i] = string.charAt(length-1-i);
+            array[length-1-i] = string.charAt(i);
+        }
+        return new String(array);
+}
+```
+
+使用栈:我们都知道，栈有"后进先出(LIFO)"的特点。这一特点刚好用于反转字符串。
+
+具体思路是:
+
+将字符串转换为char数组
+
+将char数组中的字符依次压入栈中
+
+将栈中的字符依次弹出赋值给char数组
+```
+public static String strReverseWithStack(String string){
+        if(string==null||string.length()==0)return string;
+        Stack<Character> stringStack = new Stack<>();
+        char [] array = string.toCharArray();
+        for(Character c:array){
+            stringStack.push(c);
+        }
+        int length = string.length();
+        for(int i= 0;i<length;i++){
+            array[i] = stringStack.pop();
+        }
+        return new String(array);
+}
+```
+
+逆序遍历:仔细观察会发现，反转字符串实际上是逆序输出字符串中的字符。
+
+具体思路是:
+
+逆序遍历字符串中的字符，并将它依次添加到StringBuilder中
+```
+public static String strReverseWithReverseLoop(String string){
+        if(string==null||string.length()==0)return string;
+        StringBuilder sb = new StringBuilder();
+        for(int i = string.length()-1;i>=0;i--){
+            sb.append(string.charAt(i));
+        }
+        return sb.toString();
+}
+```
+
+使用位运算:计算机的数据流本质上都是0，1二进制数据。字符串也是一样。而二进制数据的处理往往是通过位运算来实现的。位操
+作有:与，或，非，异或。对位运算有过了解的应该知道，使用异或操作能实现交换两个变量的值而不引入第三个变量。
+```
+public static String strReverseWithXor(String string){
+        if(string==null||string.length()==0)return string;
+        char [] array =string.toCharArray();
+        int length = string.length()-1;
+        for(int i =0;i<length;i++,length--){
+            array[i]^=array[length];
+            array[length]^=array[i];
+            array[i]^=array[length];
+        }
+        return new String(array);
+}
+```
+
+使用递归:当我们反转字符串的时候，脑海里想的就是从首尾两端依次交换直到到达中间位置。当我们在反转某个字符时，剩下的字
+符串也是一个反转字符串的过程。这样，我们就能用递归的方法来实现反转字符串的目的。
+
+具体思路是:
+
+找出递归结束的临界条件
+
+对针对于临界条件的不同的值做出不同的处理
+```
+public static String strReverseWithRecursive(String string){
+        if(string==null||string.length()==0)return string;
+        int length = string.length();
+        if(length==1){
+            return string;
+        }else{
+            return  strReverseWithRecursive(string.substring(1))+string.charAt(0);
+        }
+}
+```
+
+
+### 两个有序链表合并。
 
 字符串移除多余空格，且技术单词首字符大写。
 
@@ -2609,7 +2816,7 @@ mvp mvvm都在什么场景下使用。
 
 有语音应用开发经验优先考虑
 
-如果对kotlin、RXjava,Flutter有使用和掌握的优先
+如果对kotlin,Flutter有使用和掌握的优先
 
 有地图、LBS产品经验加分，熟悉C++语言加分
 
