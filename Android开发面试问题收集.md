@@ -2688,10 +2688,96 @@ public static String strReverseWithRecursive(String string){
 
 
 ### 两个有序链表合并。
+[参考：java实现两个有序单链表合并](https://blog.csdn.net/o9109003234/article/details/84245783)
 
-字符串移除多余空格，且技术单词首字符大写。
 
-二叉树中和为某一值的路径。
+### 字符串移除多余空格，且技术单词首字符大写。
+[参考：JAVA字符串去除多余空格](https://blog.csdn.net/q707929772/article/details/103314290)
+
+[参考：java判断String是否为汉字](https://blog.csdn.net/changjiale110/article/details/78915969)
+
+每个单词第一个字母大写：
+```
+public static String toUpperFirstCode(String str) {
+        String[] strs = str.split(" ");
+        StringBuilder sb = new StringBuilder();
+        for (String strTmp : strs) {
+            char[] ch = strTmp.toCharArray();
+            if (ch[0] >= 'a' && ch[0] <= 'z') {
+                ch[0] = (char) (ch[0] - 32);
+            }
+            String strT = new String(ch);
+            sb.append(strT).append(" ");
+        }
+        return sb.toString().trim();
+}
+```
+
+去掉字符串多余的空格:
+```
+public static String fun1(String s) {
+        //获取两个空格的索引
+        int index = s.indexOf("  ");
+        while (index != -1) {
+            //字符串拼接
+            s = s.substring(0, index).concat(s.substring(index + 1));
+            index = s.indexOf("  ");
+        }
+        return s;
+}
+```
+
+去掉字符串多余的空格:
+```
+public static String fun2(String s) {
+        return s.replaceAll("\\s+", " ");
+}
+```
+
+去掉字符串的数字:
+```
+public static String fun3(String s) {
+        return s.replaceAll("\\d", "");
+}
+```
+
+去掉所有空格:
+```
+public static String fun4(String s) {
+        return s.replace(" ", "");
+        //return s.replaceAll("\\s+", "");
+}
+```
+
+判断是否存在汉字:
+```
+public static boolean checkcountname(String countname) {
+        Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
+        Matcher m = p.matcher(countname);
+        if (m.find()) {
+            return true;
+        }
+        return false;
+}
+```
+
+判断整个字符串都由汉字组成:
+```
+public static boolean checkname(String name) {
+        int n = 0;
+        for (int i = 0; i < name.length(); i++) {
+            n = (int) name.charAt(i);
+            if (!(19968 <= n && n < 40869)) {
+                return false;
+            }
+        }
+        return true;
+}
+```
+
+
+### 二叉树中和为某一值的路径。
+
 
 本地广播和正常广播的区别。
 
