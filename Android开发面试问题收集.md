@@ -2776,116 +2776,331 @@ public static boolean checkname(String name) {
 ```
 
 
-### 二叉树中和为某一值的路径。
+### 本地广播和正常广播的区别。
+[参考：本地广播与全局广播的区别：](https://blog.csdn.net/zjxwon/article/details/106840912)
+
+1注册方式不同
+
+2安全性不同（一个内，一个外）
+
+（1）本地广播无法通过静态注册来接收，相比起系统全局广播更加高效
+
+（2）在广播中启动activity的话，需要为intent加入FLAG_ACTIVITY_NEW_TASK的标记，不然会报错，因为需要一个栈来存放新打开的activity。
+
+（3）广播中弹出AlertDialog的话，需要设置对话框的类型为:TYPE_SYSTEM_ALERT不然是无法弹出的。
 
 
-本地广播和正常广播的区别。
+### Activity启动流程，Launcher启动流程。
+[参考：Android的Activity启动流程分析](https://blog.csdn.net/u012267215/article/details/91406211)
 
-二进制低位转高位。
+[参考：Android源码解析之（十）-->Launcher启动流程](https://blog.csdn.net/qq_23547831/article/details/51112031)
 
-字符串数组判重。
 
-二叉树 判断是否为搜索二叉树。
+### thread wait sleep join 有什么区别，主要考察wait sleep相关区别。
+[参考：Thread 类中的：sleep()，join()，wait()，yield()区别详解](https://blog.csdn.net/weixin_43863007/article/details/88850821)
 
-Activity启动流程，Launcher启动流程。
+1. sleep()：
 
-1.thread wait sleep join 有什么区别，主要考察wait sleep相关区别。
+在指定时间内让当前执行的线程暂停执行一段时间，让其他线程有机会继续执行，但不会释放对象锁，也就是说如果有synchronized
+同步快，其他线程仍然不能访问共享数据，不推荐使用，sleep() 使当前线程进入阻塞状态，在指定时间不会执行。
 
-2.mvvp 和mvp的区别，细节里怎么实现的双向绑定。
+2. wait()：
 
-3.打渠道包 怎么写入渠道数据（app签名在哪）这里涉及V1,V2,V3签名差异。
+对象的方法，会释放对象锁
 
-4.rgb565和rgb888有什么区别，主要考察数据存储位。
+wait()和notify()、notifyAll()，这三个方法用于协调多个线程对共享数据的存取，所以必须在synchronized语句块内使用也
+就是说，调用wait()，notify()和notifyAll()的任务在调用这些方法前必须拥有对象锁
 
-5.自定义view，实现一个自定义View，且支持按下放大，松开缩小动画。
+wait()和notify()、notifyAll()它们都是Object类的方法，而不是Thread类的方法。
 
-post get区别，三次握手，jvm的架构，各种viewgroup分别测量几次
+当调用某一对象的wait() 方法后，会使当前线程暂停执行，并将当前线程放入对象等待池中，直到调用 notify() 方法后，将从
+对象等待池中移出任意一个线程并放入锁标志等待池中，只有锁标志等待池中的线程可以获得锁标志，他们随时准备争夺锁的拥有权，
+当调用了某个对象的notifyAll() 方法，会将对象等待池中的所有线程都移动到该对象的锁标志等待池
 
-Glide存储方式，每一个Activity缓存图片是否分开缓存，算法相关考察了按层遍历二叉树，并输出每层的最后一个节点，并且进行了4 -5 种变化，每种变化实现方式。
+wait()：调用该方法使持有该对象的线程把该对象的控制权交出去，然后处于等待状态
 
-如果想统一项目的线程池，包括三方引入包的线程池，怎么处理。
+notify()：调用该方法就会通知某个正在等待这个对象的控制权的线程可以继续运行
 
-如果想监控某一线程的耗时超过300毫秒的任务需要怎么操作。
+notifyAll()：调用该方法就会通知所有等待这个对象控制权的线程继续运行
 
-如果项目出现未捕获的异常，怎么预操作可以防止Crash。
+3. yield()：
+Thread类的静态方法，不会释放对象锁，不抛异常
 
-如果设计一个App的启动框架，需要考虑什么问题，怎么处理同步异步的加载任务调度。
+yield() 方法和sleep() 方法类似，也不会释放对象锁，它是Thread类的静态方法，区别在于，它没有参数，即yield() 方法只
+是使当前线程让步，重新回到就绪状态，所以执行yield的线程，有可能在进入到就绪状态后马上又被执行，另外yield方法只能使
+同优先级或者高优先级的线程得到执行机会，这也和sleep方法不同
 
-glide 加载原理，怎么感知加载和暂停。
+4. join()：
 
-okhttp加载原理，怎么控制同步和异步任务。
+Thread 类的对象实例的方法
 
-mvp mvvm都在什么场景下使用。
+Thread t1 = new Thread()；
 
-一个int数组怎么判断是搜索二叉树的后续遍历。
+t1.join()；
 
-1.Activity启动模式
+join() 方法会使当前线程等待调用join()方法的线程结束后才能继续执行
 
-2.Activity的启动过程
 
-3.进程通讯
+### mvvm 和mvp的区别，细节里怎么实现的双向绑定。
+[参考：MVVM模式介绍以及和MVP对比](https://www.jianshu.com/p/aa8df08a68a3)
 
-4.Android Binder之应用层总结与分析
+1，MVVM和MVP都可以实现UI和业务逻辑处理的解耦，但MVP需要定义大量UI和Model的接口供Presenter调用，修改起来比较麻烦；
+MVVM在面对修改时，一般情况下ViewModel不需要做太多的改动。
 
-5.进程保活方法
+2，MVVM中，UI和数据的交互是自动的，并不需要Presenter转发
 
-6.从源码了解handler looper ,messageQueue思路
+3，MVVM有大量的功能是通过xml自动生成的代码实现的，出现问题时不利于调试
 
-7.handler如何实现延时发消息postdelay()
+4，使用dataBinding会导致大量的内存消耗：
 
-8.Android中为什么主线程不会因为Looper.loop()里的死循环卡死？
+（1）会产生多余的数组，存放view对象
 
-9.RxJava原理及如何封装使用
+（2）针对每一个控件都会产生一个回调对象
 
-10.okhttp源码分析
 
-11.retrofit源码分析
+### 打渠道包 怎么写入渠道数据（app签名在哪）这里涉及V1,V2,V3签名差异。
+[参考：Android多渠道打包方式](https://www.jianshu.com/p/552c8f5ce203)
 
-12.LeakCanary核心原理源码浅析
 
-13.LruCache 使用及原理
+### rgb565和rgb888有什么区别，主要考察数据存储位。
+[参考：RGB565 与RGB888的区别](https://blog.csdn.net/ctthuangcheng/article/details/8551559)
 
-14.ARouter原理
 
-15.注解框架实现原理
+### post get区别，三次握手，jvm的架构，各种viewgroup分别测量几次
+[参考：POST和GET区别 -- 面试重点之一](https://blog.csdn.net/chenjuan1993/article/details/81282370)
 
-16.Android 如何编写基于编译时注解的项目
+[参考：安卓网络知识总结(二)--三次握手和四次挥手](https://blog.csdn.net/sakurakider/article/details/80410387)
 
-17.RxJava2+Retrofit2+OkHttp3的基础、封装和项目中的使用
+[参考：View的三次measure,两次layout和一次draw](https://blog.csdn.net/u012422440/article/details/52972825)
 
-18.Rxjava2.0+Retrofit+Okhttp(封装使用)+MVP框架搭建
+表单提交中get和post方式的区别有5点:
 
-19.Android 插件化和热修复知识梳理
+1.get是从服务器上获取数据，post是向服务器传送数据。
 
-20.Android开发中比较常见的内存泄漏问题及解决办法
+2.get是把参数数据队列加到提交表单的ACTION属性所指的URL中，值和表单内各个字段一一对应，在URL中可以看到。post是通过
+HTTPpost机制，将表单内各个字段与其内容放置在HTML HEADER内一起传送到ACTION属性所指的URL地址。用户看不到这个过程。
 
-21.如何检测和定位Android内存泄漏
+3.对于get方式，服务器端用Request.QueryString获取变量的值，对于post方式，服务器端用Request.Form获取提交的数据。
 
-22.图片占据的内存算法
+4.get传送的数据量较小，不能大于2KB。post传送的数据量较大，一般被默认为不受限制。但理论上，IIS4中最大量为80KB，IIS5中为100KB。
 
-23.为什么图片需要用软引用，MVP模式中的view接口用弱引用
+5.get安全性非常低，post安全性较高。
 
-24.基于DataBinding与LiveData的MVVM实践
+HTTP请求：get与post方法的区别:
 
-25.App稳定性优化
+区别1
 
-26.App启动速度优化
+HTTP 定义了与服务器交互的不同方法，最基本的方法是 get 和 post。
 
-27.App内存优化
+事实上 get 适用于多数请求，而保留 post仅用于更新站点。根据 HTTP 规范，get 用于信息获取，而且应该是安全的和幂等的。
+所谓安全的意味着该操作用于获取信息而非修改信息。换句话说，get 请求一般不应产生副作用。幂等的意味着对同一 URL的多个
+请求应该返回同样的结果。在FORM提交的时候，如果不指定Method，则默认为get请求，Form中提交的数据将会附加在url之后，
+以?分开与url分开。字母数字字符原样发送，但空格转换为“+“号，其它符号转换为%XX,其中XX为该符号以16进制表示的ASCII（或ISOLatin-1）
+值。get请求请提交的数据放置在HTTP请求协议头中，而post提交的数据则放在实体数据中；服务器没有返回用户表单中提交参数
+所对应的结果，但是表单内各个字段与其内容被放置在HTML HEADER内一起传送到ACTION属性所指的URL地址，用户在地址栏看不到。
 
-28.App绘制优化
+通过get方法提交数据，可能会带来安全性的问题。比如一个登陆页面。当通过get方法提交数据时，用户名和密码将出现在URL上。如果：
 
-29.App瘦身
+１、 登陆页面可以被浏览器缓存；
 
-30.网络优化
+２、 其他人可以访问客户的这台机器。那么，别人即可以从浏览器的历史记录中，读取到此客户的账号和密码。所以，在某些情况下，get方法会带来严重的安全性问题。
 
-31.App电量优化
+区别2
 
-32.安卓的安全优化
+get：是以实体的方式得到由请求URI所指定资源的信息，如果请求URI只是一个数据产生过程，那么最终要在响应实体中返回的是处理过程的结果所指向的资源，而不是处理过程的描述。
 
-33.为什么WebView加载会慢呢？
+post：用来向目的服务器发出请求，要求它接受被附在请求后的实体，并把它当作请求队列中请求URI所指定资源的附加新子项，post被设计成用统一的方法实现下列功能：
 
-34.如何优化自定义View
+1：对现有资源的解释
+
+2：向电子公告栏、新闻组、邮件列表或类似讨论组发信息。
+
+3：提交数据块
+
+4：通过附加操作来扩展数据库
+
+
+### 如果项目出现未捕获的异常，怎么预操作可以防止Crash。
+[参考：未捕获的异常导致crash](https://blog.csdn.net/guohesheng/article/details/53044944?locationNum=2&fps=1)
+
+实现UncaughtExceptionHandler这个接口，并重写uncaughtException这个方法
+
+
+### okhttp加载原理，怎么控制同步和异步任务。
+[参考：Okhttp之同步和异步请求简单分析](https://blog.csdn.net/chunqiuwei/article/details/77103692)
+
+
+### mvp mvvm都在什么场景下使用。
+[参考：MVC、MVP、MVVM三种区别及适用场合](https://blog.csdn.net/Rnger/article/details/82150373)
+
+
+### 一个int数组怎么判断是搜索二叉树的后续遍历。
+[参考：判断一个数组是否是某个二叉树搜索树的后序遍历](https://blog.csdn.net/liu625286477/article/details/51121314)
+
+
+### Activity的启动过程
+[参考：Activity的启动流程分析与总结](https://blog.csdn.net/my_csdnboke/article/details/106173074)
+
+
+### 进程通讯
+[参考：Android进程间通信 - 几种方式的对比总结](https://blog.csdn.net/hzw2017/article/details/81275438)
+
+虽然Android是基于Linux，但并不能继承Linux中的进程通信的方式，Android有着自己进程间通信方式。常用有如下几种：
+
+Bundle （四大组件间）
+
+文件共享
+
+AIDL （基于Binder）
+
+Messenger（基于Binder）
+
+ContentProvider（基于Binder）
+
+Socket（网络）
+
+
+### Android Binder之应用层总结与分析
+[参考：Android Binder之应用层总结与分析](https://blog.csdn.net/qian520ao/article/details/78089877)
+
+
+### 从源码了解handler looper ,messageQueue思路
+[参考：从源码了解handler looper ,messageQueue思路](https://blog.csdn.net/amogin/article/details/78665207)
+
+
+### handler如何实现延时发消息postdelay()
+[参考：Handler是如何实现延时消息的？](https://www.jianshu.com/p/68083d432b3f)
+
+
+### Android中为什么主线程不会因为Looper.loop()里的死循环卡死？
+[参考：Android中为什么主线程不会因为Looper.loop()里的死循环阻塞？](https://www.jianshu.com/p/72c44d567640)
+
+
+### RxJava原理及如何封装使用
+[参考：Carson带你学RxJava：图文解析带你快速了解RxJava原理](https://www.jianshu.com/p/d52ef3ad7460)
+
+[参考：RxJava：封装和使用](https://www.jianshu.com/p/19fcb01b0159?utm_campaign=maleskine)
+
+
+### okhttp源码分析
+[参考：Okhttp3源码分析](https://www.jianshu.com/p/b0353ed71151)
+
+
+### retrofit源码分析
+[参考：Retrofit 源码解析](https://segmentfault.com/a/1190000006767113)
+
+
+### LeakCanary核心原理源码浅析
+[参考：LeakCanary核心原理源码浅析](https://blog.csdn.net/Cloud_Huan/article/details/53081120)
+
+
+### LruCache 使用及原理
+[参考：LruCache原理和用法与LinkedHashMap](https://blog.csdn.net/qq_25806863/article/details/77548468?locationNum=10&fps=1)
+
+
+### ARouter原理
+[参考：ARouter原理剖析及手动实现](https://www.jianshu.com/p/857aea5b54a8)
+
+
+### 注解框架实现原理
+[参考：Android面试题-注解框架实现原理](https://blog.csdn.net/mwq384807683/article/details/70795881)
+
+
+### Android 如何编写基于编译时注解的项目
+[参考：Android 如何编写基于编译时注解的项目](https://blog.csdn.net/lmj623565791/article/details/51931859)
+
+
+### RxJava2+Retrofit2+OkHttp3的基础、封装和项目中的使用
+[参考：RxJava2+Retrofit2+OkHttp3的基础、封装和项目中的使用](https://blog.csdn.net/qq_27981847/article/details/82588649)
+
+
+### Rxjava2.0+Retrofit+Okhttp(封装使用)+MVP框架搭建
+[参考：Rxjava2.0+Retrofit+Okhttp(封装使用)+MVP框架搭建](https://www.jianshu.com/p/9e599b8d1e7f?utm_campaign=maleskine&utm_content=note&utm_medium=seo_notes&utm_source=recommendation)
+
+
+### Android 插件化和热修复知识梳理
+[参考：Android插件化和热修复知识](https://blog.csdn.net/itluochen/article/details/99869019)
+
+插件化顾名思义，更多是想把需要实现的模块或功能当做一个独立的提取出来，减少宿主的规模，当需要使用到相应的功能时再去加载相应的模块。
+
+热修复则往往是从修复bug的角度出发，强调的是在不需要二次安装应用的前提下修复已知的bug。
+
+
+### Android开发中比较常见的内存泄漏问题及解决办法
+[参考：Android——内存篇：Android中5种最常见的内存泄漏问题以及解决办法](https://blog.csdn.net/qq_35373333/article/details/74909811)
+
+为什么会出现内存泄漏：
+
+Android程序开发中，如果一个对象已经不需要被使用了，本该被回收时，而这时另一个对象还在持有对该对象的引用，这样就会导致无法被GC回收，就会出现内存泄漏的情况。
+
+内存泄漏时Android程序中出现OOM问题的主要原因之一。所以我们在编写代码时，一定要细心处理好这一类的问题。
+
+Android开发中最常见的5个内存泄漏问题：
+
+一：单例设计模式造成的内存泄漏：
+
+单例设计模式我就不多说了，这个是最基本的设计模式，相信大家都会使用，但是时候我们在使用单例设计模式时没有注意到其中的细节，就会造成内存泄漏。
+
+单例设计模式的静态特性会使他的生命周期和应用程序的生命周期一样长，这就说明了如果一个对象不在使用了，而这时单例对象还在持有该对象的引用，这时GC就会无法回收该对象，造成了内存泄露的情况。
+
+二、非静态内部类创建的静态实例造成的内存泄漏
+
+有时候因为需求我们会去频繁的启动一个Activity，这时为了避免频繁的创建相同的数据源
+
+三、Handler造成的内存泄漏
+
+四、线程造成的内存泄漏
+
+五、资源未关闭造成的内存泄漏
+
+
+### 如何检测和定位Android内存泄漏
+[参考：Android内存泄漏检测和定位](https://www.jianshu.com/p/1972a6d1f0fc)
+
+
+### 图片占据的内存算法
+[参考：图片占用内存计算方法](https://blog.csdn.net/cbbbc/article/details/46501669)
+
+
+### 为什么图片需要用软引用，MVP模式中的view接口用弱引用
+[参考：Android开发之图片处理专题（一）：利用软引用构建图片高速缓存](https://blog.csdn.net/victorfreedom/article/details/43308921)
+
+[参考：MVP模式中的小技巧：软引用与弱引用](https://blog.csdn.net/qq_33487412/article/details/78243933)
+
+
+### 基于DataBinding与LiveData的MVVM实践
+[参考：Mvvm: ViewModel+LiveData+DataBinding+Retrofit+Room总结与实践](https://blog.csdn.net/xiaobaaidaba123/article/details/88667506)
+
+
+### App稳定性优化
+
+
+### App启动速度优化
+
+
+### App内存优化
+
+
+### App绘制优化
+
+
+### App瘦身
+
+
+### 网络优化
+
+
+### App电量优化
+
+
+### 安卓的安全优化
+
+
+### 为什么WebView加载会慢呢？
+
+
+### 如何优化自定义View
+
 
 ### 加分项：
 熟悉linux操作系统基本命令优先
