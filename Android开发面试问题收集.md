@@ -3073,33 +3073,74 @@ Android开发中最常见的5个内存泄漏问题：
 
 
 ### App稳定性优化
+[参考：Android App 性能优化之稳定性](https://blog.csdn.net/u011183394/article/details/106821115)
 
 
 ### App启动速度优化
+[参考：Android App优化之提升你的App启动速度之实例挑战](https://www.jianshu.com/p/4f10c9a10ac9)
 
 
 ### App内存优化
+[参考：Android-APP内存优化](https://blog.csdn.net/xjh_shin/article/details/79842728)
 
 
 ### App绘制优化
+[参考：APP性能优化之过度绘制【项目实践】](https://blog.csdn.net/guozhaohui628/article/details/78390759)
+
+蓝色 过度绘制一次（说明这块像素区域绘制了两次）
+
+绿色 过度绘制两次
+
+粉色 过度绘制三次
+
+红色 过度绘制四次
 
 
 ### App瘦身
+[参考：Android中5种app瘦身方式](https://blog.csdn.net/luckyleaf666/article/details/60572736)
+
+第一种：配置build.gradle文件，开启minifyEnabled，作用是启用混淆压缩模式，会过滤掉整个项目中未使用到的jar和class
+文件，对代码进行混淆，从而减少dex文件大小。但是，并不能减少图片资源。
+
+第二种：配置build.gradle文件，开启shrinkResources，作用是将res目录下未使用到的图片文件进行特殊处理，其具体做法是
+将未使用到的图片全部变成1x1像素的小图，从而减少res目录的大小。弥补minifyEnabled中的不足。
+
+第三种：配置build.gradle文件，指定resConfigs，作用是指定打包时编译的语言包类型，未指定的其他语言包，将不会打包到
+apk文件中，从而减少apk体积的大小。一般我们只支持中文和英文。
+
+第四种：采用三方工具（如tinypng）来进一步压缩项目中的所有png图片，从而进一步减小apk体积。首先，打开tinypng网站，
+将项目中的png图片拖拽网页中，自动进行压缩；然后，下载所有经过压缩的图片，替换项目中对应的png图片；总结：该种方式能
+够极大的减小图片的体积，基本上能减小50%左右，效果非常显著，强烈建议掌握。
+
+第五种：采用webp格式的图片替换png和jpg格式的图片
 
 
 ### 网络优化
+[参考：App优化（六）网络优化](https://blog.csdn.net/LvLuffy/article/details/103616798)
 
 
 ### App电量优化
-
-
-### 安卓的安全优化
+[参考：安卓App耗电量优化的一些经验总结](https://blog.csdn.net/vic6329063/article/details/81105044)
 
 
 ### 为什么WebView加载会慢呢？
+[参考：android:webview加载网页速度很慢的的究极解决方案](https://blog.csdn.net/square_l/article/details/17681885)
+
+由于JS脚本的处理。
 
 
 ### 如何优化自定义View
+[参考：Android 性能优化&lt;七>自定义view绘制优化](https://blog.csdn.net/WHB20081815/article/details/74474736)
+
+[参考：性能优化](https://blog.csdn.net/whb20081815/category_8763105.html)
+
+<一>降低刷新频率
+
+<二>使用硬件加速
+
+<三>初始化时创建对象；不要在onDraw方法内创建绘制对象，一般都在构造函数里面初始化对象；
+
+<四>状态的存储与恢复：如果内存不足，而恰好我们的Activity置于后台，不幸被重启，或者用户旋转屏幕造成Activity重启，我们的View应该也能尽可能的去保存自己的属性。
 
 
 ### 加分项：
