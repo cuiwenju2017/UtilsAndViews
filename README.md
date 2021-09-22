@@ -3,20 +3,11 @@
 玩安卓：
 http://wanandroid.com/
 
-六码移动开发：
-http://www.6maa.com/
-
 干货集中营：
 http://gank.io/
 
 安卓开源项目合集：
 http://p.codekk.com/
-
-天翼云安卓例子大全：
-http://www.javaapk.com/demo/
-
-JavaApk-安卓应用游戏APP源码下载's SiteMap ：
-http://www.javaapk.com/sitemap.html
 
 PHP中文网：
 http://www.php.cn/xiazai/
