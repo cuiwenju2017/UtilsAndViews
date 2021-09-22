@@ -1,7 +1,31 @@
-## 网址&工具收集
+### 网址&工具收集
 
 玩安卓：
 http://wanandroid.com/
+
+六码移动开发：
+http://www.6maa.com/
+
+干货集中营：
+http://gank.io/
+
+安卓开源项目合集：
+http://p.codekk.com/
+
+天翼云安卓例子大全：
+http://www.javaapk.com/demo/
+
+JavaApk-安卓应用游戏APP源码下载's SiteMap ：
+http://www.javaapk.com/sitemap.html
+
+PHP中文网：
+http://www.php.cn/xiazai/
+
+代码排版：
+http://md.aclickall.com/
+
+135排版：
+https://www.135editor.com/
 
 360加固保下载(加固、多渠道打包、签名):
 https://jiagu.360.cn/#/global/download
@@ -27,32 +51,8 @@ https://www.betaqr.com/
 json动画生成：
 https://lottiefiles.com/
 
-六码移动开发：
-http://www.6maa.com/
-
-干货集中营：
-http://gank.io/
-
-代码排版：
-http://md.aclickall.com/
-
-135排版：
-https://www.135editor.com/
-
 草料二维码生成：
 https://cli.im/
-
-安卓开源项目合集：
-http://p.codekk.com/
-
-天翼云安卓例子大全：
-http://www.javaapk.com/demo/
-
-JavaApk-安卓应用游戏APP源码下载's SiteMap ：
-http://www.javaapk.com/sitemap.html
-
-PHP中文网：
-http://www.php.cn/xiazai/
 
 谷粒学院在线学习：
 http://www.gulixueyuan.com/
