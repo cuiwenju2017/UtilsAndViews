@@ -7,11 +7,6 @@ http://www.wanandroid.com/openapis
 https://www.wanandroid.com/blog/show/2
 
 
-干货集中营提供的：
-
-http://gank.io/api
-
-
 GitHub上的：
 
 https://github.com/fangzesheng/free-api
