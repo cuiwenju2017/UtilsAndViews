@@ -7,9 +7,7 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 /**
- * @author : devel
- * @date : 2020/2/19 11:38
- * @desc :
+ * 检查网络连接工具
  */
 public class ShellUtils {
     private static final String LINE_SEP = System.getProperty("line.separator");
@@ -176,7 +174,7 @@ public class ShellUtils {
      * The result of command.
      */
     public static class CommandResult {
-        public int    result;
+        public int result;
         public String successMsg;
         public String errorMsg;
 

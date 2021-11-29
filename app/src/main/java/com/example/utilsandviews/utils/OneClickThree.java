@@ -1,5 +1,13 @@
 package com.example.utilsandviews.utils;
 
+/**
+ * 防止重复点击
+ * if (!OneClickThree.isFastClick()) {
+ * ToastUtil.s("点击了我");
+ * } else {
+ * ToastUtil.s("请不要连续操作");
+ * }
+ */
 public class OneClickThree {
 
     // 两次点击间隔不能少于n秒 true:点击间隔小于n秒 false:点击间隔大于n秒
