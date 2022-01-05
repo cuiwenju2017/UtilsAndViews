@@ -6,8 +6,8 @@ http://wanandroid.com/
 安卓开源项目合集：
 http://p.codekk.com/
 
-PHP中文网：
-http://www.php.cn/xiazai/
+网易公开课：
+https://open.163.com/
 
 代码排版：
 http://md.aclickall.com/
@@ -20,9 +20,6 @@ https://jiagu.360.cn/#/global/download
 
 Bugly应用更新异常上报：
 https://bugly.qq.com/v2/index
-
-极光推送：
-https://www.jiguang.cn/accounts/platform
 
 阿里移动推送和热更新：
 https://www.aliyun.com/?spm=a2c4g.11186623.amxosvpfn.2.b6f452e7E3l97p
@@ -42,32 +39,8 @@ https://lottiefiles.com/
 草料二维码生成：
 https://cli.im/
 
-谷粒学院在线学习：
-http://www.gulixueyuan.com/
-
-免直播课：
-www.atguigu.com/online.shtml
-
-全套免费视频教程：
-www.atguigu.com/download.shtml
-
 开发工具、技术文档、jar包资料：
 www.atguigu.com/opensource.shtml
-
-自学尚硅谷视频，拿1万+月薪？看网友评价：
-www.atguigu.com/videoevaluation.shtml
-
-20天横扫Java基础（课堂实录）:
-https://pan.baidu.com/s/1htTzZRQ
-
-尚硅谷Java基础实战——Bank项目:
-http://pan.baidu.com/share/link?shareid=3690978764&uk=573533038
-
-尚硅谷_ORACLE、SQL、PLSQL 视频教程:
-https://pan.baidu.com/s/1ghb9ENL
-
-尚硅谷JDBC视频教程:
-https://pan.baidu.com/s/1c3XBTk8
 
 Java8新特性:
 http://pan.baidu.com/s/1cgWOH4
@@ -82,222 +55,59 @@ http://pan.baidu.com/s/1c2N1ADy
 链接: https://pan.baidu.com/s/1ge85H4Z 
 密码: 9e1k
 
-尚硅谷_JavaScript DOM编程视频教程:
-https://pan.baidu.com/s/1dzPYA6
-
-尚硅谷jQuery 视频教程:
-https://pan.baidu.com/s/1jJkaWya
-
-尚硅谷Ajax视频教程:
-https://pan.baidu.com/s/1skDOKZ7
-
-尚硅谷JavaWeb视频基础（涵盖JavaWEB 企业级开发所需的Servlet、JSP、MVC 设计模式、EL 表达式、JavaBean、国际化、Cookie和HttpSession、JavaMail等全部核心技术。）:
-https://pan.baidu.com/s/1kU6Ley7
-
-尚硅谷JavaWEB 项目实战（图书商城）:
-https://pan.baidu.com/s/1jIoAMKe
-
-JavaEE阶段
-
-尚硅谷Struts2视频教程：
-https://pan.baidu.com/s/1jI6xxkE
-
-尚硅谷Hibernate 4视频教程：
-https://pan.baidu.com/s/1bqpEEej
-
-尚硅谷Spring 4视频教程：
-https://pan.baidu.com/s/1cRudcy
-
-尚硅谷SSH整合&综合案例视频：
-https://pan.baidu.com/s/1dFbTMxV
-
-尚硅谷SVN视频教程：
-https://pan.baidu.com/s/1kWZz9vp
-
-尚硅谷SpringMVC视频教程：
-https://pan.baidu.com/s/1gfoaUw7
-
-尚硅谷JPA视频教程：
-https://pan.baidu.com/s/1hsqGMOW
-
-尚硅谷SpringData视频：
-https://pan.baidu.com/s/1c38938W
-
-尚硅谷SSSP整合&分页视频：
-https://pan.baidu.com/s/1miEVgr2
-
-尚硅谷Redis视频：
-http://pan.baidu.com/s/1pLKsBOJ
-
-十一、  尚硅谷Maven视频：
-https://pan.baidu.com/s/1dHfbx8d
-
-十二、  尚硅谷Shiro视频：
-https://pan.baidu.com/s/1oAj2QEI
-
-十三、  尚硅谷MySQL高级视频：
- https://pan.baidu.com/s/1i7ircH3
-
-尚硅谷MyBatis 视频：
-https://pan.baidu.com/s/1snbVg77
-
-尚硅谷SSM高级视频：
-https://pan.baidu.com/s/1bqejJMf
-
 尚硅谷MySQL基础视频178集(最新)：
 https://pan.baidu.com/s/1dG7Rxgl
 密码: qw7x
-
-Android核心技术
-
-一、Android核心基础_15天精讲精练：
-https://pan.baidu.com/s/1b86u2E
-
-二、Android自定义控件视频：
-https://pan.baidu.com/s/1hrOVZd6
-
-三、Android—JNI视频：
-http://pan.baidu.com/s/1kVqBCmr
-
-四、Android与H5互调：
-https://pan.baidu.com/s/1miHaDbM
-
-五、Android常用第三方框架源码分析：
-http://pan.baidu.com/s/1o789Vjc
-
-六、尚硅谷Android视频《多渠道打包》：
-http://pan.baidu.com/s/1dEVpQyX
 
 Android项目实战
 
 一、Android项目实战—手机影音：
 http://pan.baidu.com/s/1i5wLMbN
 
-二、最新Android项目—硅谷新闻：
-https://pan.baidu.com/s/1nvASXvF
-
-三、最新Android项目实战—硅谷社交：
-https://pan.baidu.com/s/1dFyXZxR
-
-四、最新Android项目—硅谷商城[新]：
-http://pan.baidu.com/s/1o8MyptC
-
-五、最新Android项目—硅谷P2P金融：
-https://pan.baidu.com/s/1nv7f02d
-
 Android前沿技术
 
-一、Android_软件框架搭建：
-https://pan.baidu.com/s/1hsFIYig
-
-二、Android_OKHttp使用方法：
+Android_OKHttp使用方法：
 https://pan.baidu.com/s/1c5McVW
 
-三、Android_JSON解析：
+Android_JSON解析：
 http://pan.baidu.com/s/1c23eePE
 
-四、Android_xUtils3：
-https://pan.baidu.com/s/1nvGsExF
-
-五、Android_Afinal：
-http://pan.baidu.com/s/1c7lXH8
-
-六、Android_Volley：
+Android_Volley：
 http://pan.baidu.com/s/1jIkBalg
 
-七、Android_ButterKnife：
+Android_ButterKnife：
 http://pan.baidu.com/s/1pKOgh9x
 
-八、Android_EventBus：
+Android_EventBus：
 http://pan.baidu.com/s/1qXYTyA4
 
-九、Android_ImageLoader：
+Android_ImageLoader：
 http://pan.baidu.com/s/1o7DsPmy
 
-十、Android_Picasso：
+Android_Picasso：
 http://pan.baidu.com/s/1c1JITo8
 
-十一、Android_Glide：
-http://pan.baidu.com/s/1hswlhu0
-
-十二、Android_Fresco：
-http://pan.baidu.com/s/1qXHtwdA
-
-十三、Android_RecyclerView：
-http://pan.baidu.com/s/1kVjTLJ5
-
-十四、Android_Pulltorefresh：
-http://pan.baidu.com/s/1c20xVm4
-
-十五、 Android_UniversalVideoView：
-http://pan.baidu.com/s/1mhEK9EK
-
-十六、 Android_JieCaoVideoPlayer：
+Android_JieCaoVideoPlayer：
 https://pan.baidu.com/s/1geZZ1Ov
 
-十七、 Android_Banner：
+Android_Banner：
 https://pan.baidu.com/s/1nv2jpDB
 
-十八、CountdownView秒杀：
+CountdownView秒杀：
 https://pan.baidu.com/s/1nvAWFMT
 
-十九、OpenDanmaku弹幕：
+OpenDanmaku弹幕：
 https://pan.baidu.com/s/1eS2x2Hc
 
-二十、TabLayout&ViewPager ：
+TabLayout&ViewPager ：
 https://pan.baidu.com/s/1mhCKJag#list/path=%2F
 
 【全套H5前端教程--打包下载地址】
 
-一、HTML & CSS 核心教程：（103集实战教学，从入门到精通）：
-http://pan.baidu.com/s/1pLwKZN1
-
-二、尚硅谷JavaScript视频（140集实战教学，从入门到精通）：
+尚硅谷JavaScript视频（140集实战教学，从入门到精通）：
 https://pan.baidu.com/s/1gfh9q8r
 
-尚硅谷JavaScript高级视频：
-https://pan.baidu.com/s/1cLhs0u
-
-尚硅谷jQuery视频：
-https://pan.baidu.com/s/1i5Gjxlj
-
-最新尚硅谷NodeJS 视频：
-链接: https://pan.baidu.com/s/1cnr0Cm
-密码: sqku
-
-最新尚硅谷MongoDB 视频：
-链接: https://pan.baidu.com/s/1mirGFyw
-密码: nwe1
-
-最新尚硅谷Zepto 视频：
-链接: https://pan.baidu.com/s/1o7PSymu
-密码: e86p
-
-最新尚硅谷AngularJS 视频：
-链接: https://pan.baidu.com/s/1o85jOVK
-密码: 7vi2
-
-最新尚硅谷ES5_6_7 视频：
-链接: https://pan.baidu.com/s/1i4Z5VNZ
-密码: 3fuy
-
-最新尚硅谷JS模块化 视频：
-链接: https://pan.baidu.com/s/1skO0tJZ
-密码: tekn
-
 最新尚硅谷自动化构建工具 视频：
-
-webpack：
-链接: https://pan.baidu.com/s/1kUG5cLT 
-密码: ru45
-
-Gulp ：    
-链接: https://pan.baidu.com/s/1hsMqZkS 
-密码: nprj
-
-Grunt：
-链接: https://pan.baidu.com/s/1bGhxL0 
-密码: m7kq
 
 最新尚硅谷React视频：
 链接: https://pan.baidu.com/s/1o8FZotO
@@ -455,9 +265,6 @@ https://pan.baidu.com/s/1slv5Yrz
 Java开发工具：
 http://www.atguigu.com/opensource.shtml
 
-Jar:
-https://pan.baidu.com/s/1jIKMHcM
-
 Android：
 
 Android内部讲课文档：
@@ -473,12 +280,6 @@ Android框架包清单：
 https://pan.baidu.com/s/1skLEly9
 
 前端H5：
-
-开发工具：
-https://pan.baidu.com/s/1jH8vplG
-
-技术文档：
-https://pan.baidu.com/s/1mhZv3q4
 
 框架包： 
 https://pan.baidu.com/s/1nvBThmp
@@ -662,9 +463,6 @@ http://blog.51cto.com/ticktick
 《ywl5320的专栏》：
 https://blog.csdn.net/ywl5320
 
-csdn官网：
-http://www.csdn.net/
-
 使用淘宝镜像cnpm安装Vue.js：
 https://blog.csdn.net/Small_Lee/article/details/68062223
 
@@ -680,36 +478,11 @@ https://github.com/hdodenhof/CircleImageView
 简历模板：
 http://pan.baidu.com/s/1i4OCZfn
 
-慕课网视频  链接：
-http://pan.baidu.com/s/1eSerKjg 
-密码：fv2c
-
-PS相关的一些视频、资料、教程，应该有重复的，看着没重复的保存吧：
-http://pan.baidu.com/s/1hrWMnL6 密码：3nm6
-
 Maven仓库网:
 https://mvnrepository.com/
 
-阿里云maven骨架：
-http://maven.aliyun.com/nexus/content/groups/public/org/apache/maven/archetypes/
-
 JavaWeb学习总结：
 http://www.cnblogs.com/xdp-gacl/tag/JavaWeb%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/default.html?page=1
-
-JSON API免费接口：
-https://www.bejson.com/knownjson/webInterface/
-
-腾讯bugly：
-https://bugly.qq.com/docs/
-
-github官网：
-https://github.com/
-
-GitHub下载地址：
-https://git-for-windows.github.io/
-
-vip视频解析：
-http://tv.99585.gq/
 
 mybatis-3：
 http://www.mybatis.org/mybatis-3/zh/index.html
@@ -726,15 +499,6 @@ https://modao.cc/workspace/apps
 在线性甘特图工具：
 http://www.geeseteam.com/
 
-进入我的甘特图：
-https://app.geeseteam.com/
-
-安卓开发UI设计网站：
-http://www.apkui.com/tags-17.html
-
-网易公开课：
-https://open.163.com/
-
 掘金：
 https://juejin.im/timeline
 
@@ -746,18 +510,3 @@ https://juejin.im/entry/5943a9b6ac502e006c794425
 
 2017 上半年最酷，最受欢迎的 10 个 Android 库   ：
 https://juejin.im/entry/59407e37128fe1006a08c603
-
-极分享  ：
-http://www.finalshares.com/?tid=923&page=
-
-ImportNew  :
-http://www.importnew.com/cat/android
-
-作者：stormzhang链接：
-https://www.zhihu.com/question/26417244/answer/32708157
-
-快速搭建自己的服务器端功能：
-https://www.bmob.cn/
-
-腾讯Bugly提供app升级服务：
-https://bugly.qq.com/docs/introduction/app-upgrade-introduction/?v=20170627170213
