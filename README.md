@@ -3,9 +3,6 @@
 玩安卓：
 http://wanandroid.com/
 
-干货集中营：
-http://gank.io/
-
 安卓开源项目合集：
 http://p.codekk.com/
 
