@@ -13,8 +13,10 @@ public class MobilePhone {
          * 电信号段: 133,149,153,170,173,177,180,181,189
          * @param str
          * @return 待检测的字符串
+         *"[1]"代表下一位为数字可以是几，"[0-9]"代表可以为0-9中的一个，"[5,7,9]"表示可以是5,7,9中的任意一位,
+         *[^4]表示除4以外的任何一个,\\d{9}"代表后面是可以是0～9的数字，有9位。
          */
-        String telRegex = "^((13[0-9])|(14[5,7,9])|(15[^4])|(18[0-9])|(17[0,1,3,5,6,7,8]))\\d{8}$";// "[1]"代表下一位为数字可以是几，"[0-9]"代表可以为0-9中的一个，"[5,7,9]"表示可以是5,7,9中的任意一位,[^4]表示除4以外的任何一个,\\d{9}"代表后面是可以是0～9的数字，有9位。
+        String telRegex = "^((13[0-9])|(14[5,7,9])|(15[^4])|(17[0,1,3,5,6,7,8])|(18[0-9])|(19[0-9]))\\d{8}$";
         if (TextUtils.isEmpty(mobileNums))
             return false;
         else
@@ -23,7 +25,7 @@ public class MobilePhone {
 
     //8位数字加字母(包含大写)验证码验证
     public static boolean isCode(String codeNum) {
-        String codeV = "^[A-Za-z0-9]{8,8}+$";
+        String codeV = "^[A-Za-z0-9]{8}+$";
         if (TextUtils.isEmpty(codeNum))
             return false;
         else
@@ -41,6 +43,22 @@ public class MobilePhone {
     //6-18位数字加字母(不包含大写)密码验证
     public static boolean isPassWord(String passWord) {
         String passWordV = "^[a-z0-9_-]{6,18}$";
+        if (TextUtils.isEmpty(passWord))
+            return false;
+        else return passWord.matches(passWordV);
+    }
+
+    //8-16位数字、字母、特殊符号组合正则验证
+    public static boolean isPassWordZuhe(String passWord) {
+        String passWordV = "^(?=(.*[A-Za-z]))(?=(.*\\d))(?=(.*[ !\"#$%&'()*+,-./<=>?@\\[\\]^_`{|}~:;·\\\\£€¥]))^.{8,16}$";
+        if (TextUtils.isEmpty(passWord))
+            return false;
+        else return passWord.matches(passWordV);
+    }
+
+    //8-16位数字、大小写字母、特殊符号组合正则验证
+    public static boolean isPassWordZuheDaxiaoxie(String passWord) {
+        String passWordV = "^(?![A-Za-z0-9]+$)(?![a-z0-9\\W]+$)(?![A-Za-z\\W]+$)(?![A-Z0-9\\W]+$)[a-zA-Z0-9\\W]{8,16}$";
         if (TextUtils.isEmpty(passWord))
             return false;
         else return passWord.matches(passWordV);
